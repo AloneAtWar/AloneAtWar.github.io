@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Hello,Hexo! - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="本文章将会记录了一些关于Hexo和Nexmoe主题的使用操作和文章编写的语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello,Hexo!">
+<meta property="og:url" content="http://csder666.github.io/2021/09/10/Hello,Hexo/index.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="本文章将会记录了一些关于Hexo和Nexmoe主题的使用操作和文章编写的语法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1580814517&di=2630beac440e5dab0e44c7286a3b2b61&src=http://imgsrc.baidu.com/forum/w=580/sign=12c730c4ff03738dde4a0c2a831ab073/9497794f9258d1091818e6d6d858ccbf6d814d1b.jpg">
+<meta property="article:published_time" content="2021-09-10T08:30:13.000Z">
+<meta property="article:modified_time" content="2021-09-10T10:10:31.915Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1580814517&di=2630beac440e5dab0e44c7286a3b2b61&src=http://imgsrc.baidu.com/forum/w=580/sign=12c730c4ff03738dde4a0c2a831ab073/9497794f9258d1091818e6d6d858ccbf6d814d1b.jpg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1631268646699">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1631268646699">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>2</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="Hello,Hexo!" class="lazyload">
+              <h1>Hello,Hexo!</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月10日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 8 分钟</a>
+</div>
+
+      
+
+      <p>本文章将会记录了一些关于Hexo和Nexmoe主题的使用操作和文章编写的语法</p>
+<span id="more"></span>
+
+
+
+<p>参考与推荐资料：  </p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1d741147k2?from=search&seid=6649141026251171761&spm_id_from=333.337.0.0">Markdown保姆级教程之基础篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/13282871/channel/detail?cid=194338&ctype=0">卷二兔: 使用Hexo博客搭建个人博客手摸手教学 </a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">鱼先生:超详细Hexo+Github Page搭建技术博客教程【持续更新】</a></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.nexmoe.com/">Nexmoe官方文档</a>  </p>
+<h1 id="Hexo使用操作"><a href="#Hexo使用操作" class="headerlink" title="Hexo使用操作"></a>Hexo使用操作</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br><span class="line"><span class="comment">#挂载本地服务器进行预览 可用 hexo s简写</span></span><br><span class="line">hexo generate</span><br><span class="line"><span class="comment">#生成hexo文章 (将.md按照主题渲染成.html 生成的文件默认会放在 Blog/publish 文件夹下) 可用 hexo g简写</span></span><br><span class="line">hexo clean</span><br><span class="line"><span class="comment">#清空hexo之前生成数据 (删除Blog/publish文件夹)</span></span><br><span class="line">hexo deploy</span><br><span class="line"><span class="comment">#根据_config.yaml 文件的deploy规则进行部署</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="发表文章"><a href="#发表文章" class="headerlink" title="发表文章"></a>发表文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br><span class="line"><span class="comment">#将或在Blog/source/_posts 文件夹下 新建 一个&lt;title&gt;.md文件 </span></span><br><span class="line">hexo new page &lt;title&gt;</span><br><span class="line"><span class="comment">#将会在Blog/source/&lt;title&gt;文件夹下 新建 一个index.md文件（可以在_config.yml的menu菜单中进行设置对应的&lt;title&gt;路径）</span></span><br><span class="line">hexo new draft &lt;title&gt;</span><br><span class="line"><span class="comment">#将会在Blog/source/draft文件夹下生成&lt;title&gt;.md文件（如果文件夹不存在会创建） 可用于打草稿 暂时不发布</span></span><br><span class="line">hexo s --draft</span><br><span class="line"><span class="comment">#将草稿里的文件进行预览</span></span><br><span class="line">hexo publish title</span><br><span class="line"><span class="comment">#将会在Blog/source/draft的&lt;title&gt;.md 放置到_post文件夹下 用于草稿的发布</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="文章编码"><a href="#文章编码" class="headerlink" title="文章编码"></a>文章编码</h1><h2 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h2><p>更具体的可以查看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/front-matter">Hexo相关文档</a>  </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> &#123;&#123; <span class="string">title</span> &#125;&#125;</span><br><span class="line"><span class="attr">date:</span> &#123;&#123; <span class="string">date</span> &#125;&#125;</span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在每个.md文件开头都需要有 — 分隔的区域，用于指定个别文件变量</p>
+<p>只列出了几个比较常用的Front-matter  </p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">参数</td>
+<td align="left">描述</td>
+<td align="left">默认值</td>
+</tr>
+<tr>
+<td align="left"><code>layout</code></td>
+<td align="left">布局</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
+</tr>
+<tr>
+<td align="left"><code>title</code></td>
+<td align="left">标题</td>
+<td align="left">文章的文件名</td>
+</tr>
+<tr>
+<td align="left"><code>date</code></td>
+<td align="left">建立日期</td>
+<td align="left">文件建立日期</td>
+</tr>
+<tr>
+<td align="left"><code>updated</code></td>
+<td align="left">更新日期</td>
+<td align="left">文件更新日期</td>
+</tr>
+<tr>
+<td align="left"><code>comments</code></td>
+<td align="left">开启文章的评论功能</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left"><code>tags</code></td>
+<td align="left">标签（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>categories</code></td>
+<td align="left">分类（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>对于Nexmoe主题特有  </p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>cover</code></td>
+<td align="left">封面，需为图片目录或链接</td>
+<td align="left">config.background.path</td>
+</tr>
+<tr>
+<td align="left"><code>coverWidth</code></td>
+<td align="left">封面宽度</td>
+<td align="left">1600</td>
+</tr>
+<tr>
+<td align="left"><code>coverHeight</code></td>
+<td align="left">封面宽度</td>
+<td align="left">900</td>
+</tr>
+<tr>
+<td align="left"><code>reprint</code></td>
+<td align="left">是否为转载</td>
+<td align="left">false</td>
+</tr>
+</tbody></table>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>如果你需要为文章添加多个分类，可以尝试以下 list 中的方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- [Diary, PlayStation]</span><br><span class="line">- [Diary, Games]</span><br><span class="line">- [Life]</span><br></pre></td></tr></table></figure>
+
+<p>此时这篇文章同时包括三个分类： <code>PlayStation</code> 和 <code>Games</code> 分别都是父分类 <code>Diary</code> 的子分类，同时 <code>Life</code> 是一个没有子分类的分类。  </p>
+<h2 id="标签插件"><a href="#标签插件" class="headerlink" title="标签插件"></a>标签插件</h2><p>更具体的可以查看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/tag-plugins">Hexo相关文档</a>  </p>
+<h3 id="文章摘要和阶段"><a href="#文章摘要和阶段" class="headerlink" title="文章摘要和阶段"></a>文章摘要和阶段</h3><p>在文章中使用 <code>&lt;!-- more --&gt;</code>，那么 <code>&lt;!-- more --&gt;</code> 之前的文字将会被视为摘要。首页中将只出现这部分文字，同时这部分文字也会出现在正文之中。  </p>
+<h3 id="引用资源"><a href="#引用资源" class="headerlink" title="引用资源"></a>引用资源</h3><p>引用文章的资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_path filename %&#125;</span><br><span class="line">&#123;% asset_img [class names] slug [width] [height] [title text [alt text]] %&#125;</span><br><span class="line">&#123;% asset_link filename [title] [escape] %&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="引用文章"><a href="#引用文章" class="headerlink" title="引用文章"></a>引用文章</h3><p>引用其他文章的链接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_path filename %&#125;</span><br><span class="line">&#123;% post_link filename [title] [escape] %&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h3><p>插入 <code>source/downloads/code</code> 文件夹内的代码文件。<code>source/downloads/code</code> 不是固定的，取决于你在配置文件中 <code>code_dir</code> 的配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code [title] [lang:language] [from:line] [to:line] path/to/file %&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h3><p>在文章中插入链接，并自动给外部链接添加 <code>target=&quot;_blank&quot;</code> 属性。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% link text url [external] [title] %&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>在文章中插入代码。</p>
+<p><strong>别名：</strong> code</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;</span><br><span class="line">code snippet</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Specify additional options in <code>option:value</code> format, e.g. <code>line_number:false first_line:5</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+<th align="left">默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>line_number</code></td>
+<td align="left">显示行号</td>
+<td align="left"><code>true</code></td>
+</tr>
+<tr>
+<td align="left"><code>highlight</code></td>
+<td align="left">高亮</td>
+<td align="left"><code>true</code></td>
+</tr>
+<tr>
+<td align="left"><code>first_line</code></td>
+<td align="left">指定第一行编号</td>
+<td align="left"><code>1</code></td>
+</tr>
+<tr>
+<td align="left"><code>mark</code></td>
+<td align="left">特别突出某一行</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>wrap</code></td>
+<td align="left">将代码放在<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table"><code>&lt;table&gt;</code></a></td>
+<td align="left"><code>true</code></td>
+</tr>
+</tbody></table>
+<h3 id="引用块"><a href="#引用块" class="headerlink" title="引用块"></a>引用块</h3><p>在文章中插入引言，可包含作者、来源和标题。</p>
+<p><strong>别号：</strong> quote</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endblockquote %&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Markdown语法"><a href="#Markdown语法" class="headerlink" title="Markdown语法"></a>Markdown语法</h2><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 标题名字（井号的个数代表标题的级数）</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="一级标题使用1个"><a href="#一级标题使用1个" class="headerlink" title="一级标题使用1个#"></a>一级标题使用1个#</h1><h2 id="二级标题使用2个"><a href="#二级标题使用2个" class="headerlink" title="二级标题使用2个#"></a>二级标题使用2个#</h2><h3 id="三级标题使用3个"><a href="#三级标题使用3个" class="headerlink" title="三级标题使用3个#"></a>三级标题使用3个#</h3><h4 id="四级标题使4用个"><a href="#四级标题使4用个" class="headerlink" title="四级标题使4用个#"></a>四级标题使4用个#</h4><h5 id="五级标题使用5个"><a href="#五级标题使用5个" class="headerlink" title="五级标题使用5个#"></a>五级标题使用5个#</h5><h6 id="六级标题使用6个"><a href="#六级标题使用6个" class="headerlink" title="六级标题使用6个#"></a>六级标题使用6个#</h6><p>####### 最多支持六级标题#</p>
+<p>补充：typora 也可以用 ctrl+数字 快捷键 来调整大小</p>
+<h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这就是 ~~删除线~~ (使用波浪号)</span><br></pre></td></tr></table></figure>
+
+<p>这就是 <del>删除线</del> (使用波浪号)</p>
+<h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是用来 <span class="emphasis">*斜体*</span> 的 <span class="emphasis">_文本_</span></span><br></pre></td></tr></table></figure>
+
+<p>这是用来 <em>斜体</em> 的 <em>文本</em></p>
+<h3 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是用来 <span class="strong">**加粗**</span> 的 <span class="strong">__文本__</span></span><br></pre></td></tr></table></figure>
+
+<p>这是用来 <strong>加粗</strong> 的 <strong>文本</strong></p>
+<h3 id="斜体-加粗"><a href="#斜体-加粗" class="headerlink" title="斜体+加粗"></a>斜体+加粗</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是用来 <span class="strong">**<span class="emphasis">*斜体+加粗<span class="strong">**<span class="emphasis">* 的 <span class="strong">__<span class="emphasis">_文本<span class="strong">__<span class="emphasis">_</span></span></span></span></span></span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>这是用来 <em><strong>斜体+加粗</strong></em> 的 <em><strong>文本</strong></em></p>
+<h3 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h3><p>下划线是HTML语法</p>
+<p><code>下划线</code> <u>下划线(快捷键<code>command</code>+<code>u</code>，视频中所有的快捷键都是针对Mac系统，其他系统可自行查找)</u></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//补充 使用左侧&quot;&lt;u&gt;&quot;右侧“&lt;/u&gt;”进行包围</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>使用 <code>|</code> 来分隔不同的单元格，使用 <code>-</code> 来分隔表头和其他行：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name | price</span><br><span class="line">--- | ---</span><br><span class="line">fried chicken | 19</span><br><span class="line">cola|5</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为了使 Markdown 更清晰，<code>|</code> 和 <code>-</code> 两侧需要至少有一个空格（最左侧和最右侧的 <code>|</code> 外就不需要了）。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fried chicken</td>
+<td>19</td>
+</tr>
+<tr>
+<td>cola</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>为了美观，可以使用空格对齐不同行的单元格，并在左右两侧都使用 <code>|</code> 来标记单元格边界，在表头下方的分隔线标记中加入 <code>:</code>，即可标记下方单元格内容的对齐方式：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|    name       | price |</span><br><span class="line">| :------------ | :---: |</span><br><span class="line">| fried chicken | 19    |</span><br><span class="line">| cola          |  32   |</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="center">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fried chicken</td>
+<td align="center">19</td>
+</tr>
+<tr>
+<td align="left">cola</td>
+<td align="center">32</td>
+</tr>
+</tbody></table>
+<p><strong>补充：也可通过快捷键 Ctrl+T快速生成</strong></p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;“后悔创业”</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>“后悔创业”</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;也可以在引用中</span><br><span class="line">&gt;&gt;使用嵌套的引用</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>也可以在引用中</p>
+<blockquote>
+<p>使用嵌套的引用</p>
+</blockquote>
+</blockquote>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><h4 id="无序列表–符号-空格"><a href="#无序列表–符号-空格" class="headerlink" title="无序列表–符号 空格"></a>无序列表–符号 空格</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*</span> 可以使用 <span class="code">`*`</span> 作为标记</span><br><span class="line"><span class="bullet">+</span> 也可以使用 <span class="code">`+`</span></span><br><span class="line"><span class="bullet">-</span> 或者 <span class="code">`-`</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>可以使用 <code>*</code> 作为标记</li>
+</ul>
+<ul>
+<li>也可以使用 <code>+</code></li>
+</ul>
+<ul>
+<li>或者 <code>-</code></li>
+</ul>
+<h4 id="有序列表–数字-空格"><a href="#有序列表–数字-空格" class="headerlink" title="有序列表–数字 . 空格"></a>有序列表–数字 <code>.</code> 空格</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 有序列表以数字和 <span class="code">`.`</span> 开始；</span><br><span class="line"><span class="bullet">3.</span> 数字的序列并不会影响生成的列表序列；</span><br><span class="line"><span class="bullet">4.</span> 但仍然推荐按照自然顺序（1.2.3...）编写。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>有序列表以数字和 <code>.</code> 开始；</p>
+</li>
+<li><p>数字的序列并不会影响生成的列表序列；</p>
+</li>
+<li><p>但仍然推荐按照自然顺序（1.2.3…）编写。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以使用：数字\. 来取消显示为列表（用反斜杠进行转义）</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="代码块-1"><a href="#代码块-1" class="headerlink" title="代码块"></a>代码块</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```语言名称</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">也可以通过 <span class="code">``，插入行内代码（`</span> 是 <span class="code">`Tab`</span> 键上边、数字 <span class="code">`1`</span> 键左侧的那个按键）：</span><br><span class="line"></span><br><span class="line">例如 <span class="code">`Markdown`</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Markdown</code></p>
+<h4 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h4><p>代码块中的文本（包括 Markdown 语法）都会显示为原始内容</p>
+<h4 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h4><p>可以在一行中使用三个或更多的 <code>*</code>、<code>-</code> 或 <code>_</code> 来添加分隔线（``）：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"><span class="strong">**<span class="emphasis">*</span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="section">------</span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="section"><span class="strong">__<span class="emphasis">_</span></span></span></span></span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<hr>
+<h3 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h3><h4 id="外部跳转–超链接"><a href="#外部跳转–超链接" class="headerlink" title="外部跳转–超链接"></a>外部跳转–超链接</h4><p>格式为 <code>[link text](link)</code>。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">帮助文档</span>](<span class="link">https://support.typora.io/Links/#faq</span>)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://support.typora.io/Links/#faq">帮助文档</a></p>
+<h4 id="内部跳转–本文件内跳（Typora支持）"><a href="#内部跳转–本文件内跳（Typora支持）" class="headerlink" title="内部跳转–本文件内跳（Typora支持）"></a>内部跳转–本文件内跳（Typora支持）</h4><p>格式为 <code>[link text](#要去的目的地--标题）</code>。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">我想跳转</span>](<span class="link">#饼图（Pie）</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Open Links in Typora</p>
+<p>You can use <code>command+click</code> (macOS), or <code>ctrl+click</code> (Linux/Windows) on links in Typora to jump to target headings, or open them in Typora, or open in related apps.</p>
+</blockquote>
+<p><a href="#%E9%A5%BC%E5%9B%BE%EF%BC%88Pie%EF%BC%89">我想跳转</a></p>
+<h4 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h4><p>使用 <code>&lt;&gt;</code> 包括的 URL 或邮箱地址会被自动转换为超链接：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">&lt;https://www.baidu.com&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;123@email.com&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com</a></p>
+<p><a href="mailto:123@email.com">123@email.com</a></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">自己起的图片名字</span>](<span class="link">图片地址或者图片本地存储的路径</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="网上的图片"><a href="#网上的图片" class="headerlink" title="网上的图片"></a>网上的图片</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">friedChicken</span>](<span class="link">https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1580814517&amp;di=2630beac440e5dab0e44c7286a3b2b61&amp;src=http://imgsrc.baidu.com/forum/w=580/sign=12c730c4ff03738dde4a0c2a831ab073/9497794f9258d1091818e6d6d858ccbf6d814d1b.jpg</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1580814517&di=2630beac440e5dab0e44c7286a3b2b61&src=http://imgsrc.baidu.com/forum/w=580/sign=12c730c4ff03738dde4a0c2a831ab073/9497794f9258d1091818e6d6d858ccbf6d814d1b.jpg" alt="炸鸡" class="lazyload"></p>
+<h4 id="本地图片"><a href="#本地图片" class="headerlink" title="本地图片"></a>本地图片</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">friedChicken</span>](<span class="link">friedChicken.jpg</span>)</span><br><span class="line">在同一个文件夹里（用相对路径）</span><br><span class="line">或者直接拷贝</span><br></pre></td></tr></table></figure>
+
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/2021/09/10/Hello,Hexo/" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;2021&#x2F;09&#x2F;10&#x2F;Hello,Hexo&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;2021&#x2F;09&#x2F;10&#x2F;Hello,Hexo&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1631268646701"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
