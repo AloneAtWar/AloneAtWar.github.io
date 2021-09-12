@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Go语言圣经学习笔记--第四章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Go语言圣经学习笔记–第四章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第四章 复合数据类型4.1数组比较简单，掌握的比较好 就不记了 练习 4.1： 编写一个函数，计算两个SHA256哈希码中不同bit的数目。（参考2.6.2节的PopCount函数。) 123456func exer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Go语言圣经学习笔记--第四章">
+<meta property="og:url" content="http://csder666.github.io/gopl/chapter4.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="Go语言圣经学习笔记–第四章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第四章 复合数据类型4.1数组比较简单，掌握的比较好 就不记了 练习 4.1： 编写一个函数，计算两个SHA256哈希码中不同bit的数目。（参考2.6.2节的PopCount函数。) 123456func exer">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-12T12:25:01.000Z">
+<meta property="article:modified_time" content="2021-09-12T12:40:24.687Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1631450739661">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1631450739661">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>2</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="Go语言圣经学习笔记--第四章" class="lazyload">
+              <h1>Go语言圣经学习笔记--第四章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 19 分钟</a>
+</div>
+
+      
+
+      <h1 id="Go语言圣经学习笔记–第四章"><a href="#Go语言圣经学习笔记–第四章" class="headerlink" title="Go语言圣经学习笔记–第四章"></a>Go语言圣经学习笔记–第四章</h1><p>本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——<a target="_blank" rel="noopener" href="https://docs.hacknode.org/gopl-zh">网页</a></p>
+<!--                  more           -->
+
+
+
+<h2 id="第四章-复合数据类型"><a href="#第四章-复合数据类型" class="headerlink" title="第四章 复合数据类型"></a>第四章 复合数据类型</h2><h3 id="4-1数组"><a href="#4-1数组" class="headerlink" title="4.1数组"></a>4.1数组</h3><p>比较简单，掌握的比较好 就不记了</p>
+<p><strong>练习 4.1：</strong> 编写一个函数，计算两个SHA256哈希码中不同bit的数目。（参考2.6.2节的PopCount函数。)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_1(sha256_1,sha256_2 [32]byte)(sum int)&#123;</span><br><span class="line">   for i := 0; i &lt; 32; i++ &#123;</span><br><span class="line">      sum+=bits.OnesCount8(sha256_1[i]^sha256_2[i])</span><br><span class="line">   &#125;</span><br><span class="line">   return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.2：</strong> 编写一个程序，默认情况下打印标准输入的SHA256编码，并支持通过命令行flag定制，输出SHA384或SHA512哈希算法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_2()&#123;</span><br><span class="line">   args := os.Args[1:]</span><br><span class="line">   sc := bufio.NewScanner(os.Stdin)</span><br><span class="line">   sc.Scan()</span><br><span class="line">   text := sc.Text()</span><br><span class="line">   toSha:=256</span><br><span class="line">   for _, v := range args &#123;</span><br><span class="line">      if strings.EqualFold(v,&quot;SHA384&quot;)&#123;</span><br><span class="line">         toSha=384</span><br><span class="line">         break</span><br><span class="line">      &#125;</span><br><span class="line">      if strings.EqualFold(v,&quot;SHA512&quot;)&#123;</span><br><span class="line">         toSha=512</span><br><span class="line">         break</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   PrintSha(text,toSha)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func PrintSha(text string, Sha int) &#123;</span><br><span class="line">	var a interface&#123;&#125;</span><br><span class="line">	if Sha==256&#123;</span><br><span class="line">		a=sha256.Sum256([]byte(text))</span><br><span class="line">	&#125;else if Sha==384&#123;</span><br><span class="line">		a=sha512.Sum384([]byte(text))</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		a=sha512.Sum512([]byte(text))</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;%x&quot;,a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-2-Slice"><a href="#4-2-Slice" class="headerlink" title="4.2 Slice"></a>4.2 Slice</h3><p><strong>练习 4.3：</strong> 重写reverse函数，使用数组指针代替slice。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_3(ints []int)&#123;</span><br><span class="line">   left,right:=0,len(ints)-1</span><br><span class="line">   for left&lt;=right&#123;</span><br><span class="line">      ints[left],ints[right]=ints[right],ints[left]</span><br><span class="line">      left++</span><br><span class="line">      right--</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.4：</strong> 编写一个rotate函数，通过一次循环完成旋转。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_4(ints []int)&#123;</span><br><span class="line">   temp:=ints[len(ints)-1]</span><br><span class="line">   for i := len(ints)-2; i&gt;=0; i-- &#123;</span><br><span class="line">      ints[i+1]=ints[i]</span><br><span class="line">   &#125;</span><br><span class="line">   ints[0]=temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.5：</strong> 写一个函数在原地完成消除[]string中相邻重复的字符串的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_5(strings []string)[]string&#123;</span><br><span class="line">   m := make(map[string]bool)</span><br><span class="line">   i,j:=0,0</span><br><span class="line">   for ; j &lt; len(strings); j++ &#123;</span><br><span class="line">      str := strings[j]</span><br><span class="line">      _,ok := m[str]</span><br><span class="line">      if !ok&#123;</span><br><span class="line">         m[str]=true</span><br><span class="line">         strings[i]=strings[j]</span><br><span class="line">         i++</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return strings[:i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.6：</strong> 编写一个函数，原地将一个UTF-8编码的[]byte类型的slice中相邻的空格（参考unicode.IsSpace）替换成一个空格返回</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_6(bytes []byte)&#123;</span><br><span class="line">   num:=len(bytes)</span><br><span class="line">   last:=false</span><br><span class="line">   for i := 0; i &lt; num; i++ &#123;</span><br><span class="line">      if unicode.IsSpace(rune(bytes[i]))&#123;</span><br><span class="line">         if last==true&#123;</span><br><span class="line">            r:=i+1</span><br><span class="line">            //删除的范围是[i,r)</span><br><span class="line">            for ; r &lt; num &amp;&amp; unicode.IsSpace(rune(bytes[r])) ; r++ &#123;&#125;</span><br><span class="line">            //把[r,...)的内容复制到[i,...)</span><br><span class="line">            copy(bytes[i:],bytes[r:])</span><br><span class="line">            bytes=bytes[:len(bytes)-(r-i)]</span><br><span class="line">            num=len(bytes)</span><br><span class="line">            i--</span><br><span class="line">            last=false</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">            last=true</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">         last=false</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.7：</strong> 修改reverse函数用于原地反转UTF-8编码的[]byte。是否可以不用分配额外的内存？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_7(s []byte)&#123;</span><br><span class="line">   for i, j := 0, len(s)-1; i &lt; j; i, j = i+1, j-1 &#123;</span><br><span class="line">      s[i], s[j] = s[j], s[i]</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-Map"><a href="#4-3-Map" class="headerlink" title="4.3 Map"></a>4.3 Map</h3><p>  引用数据类型，map类型可以写为map[K]V，其中K和V分别对应key和value。对Key的类型要求是一定要能够用“==”进行比较。（比方说使用浮点数作为key类型是个不好的想法）</p>
+<h4 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h4><p>创建：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ages := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;</span><br><span class="line">    <span class="string">&quot;alice&quot;</span>:   <span class="number">31</span>,</span><br><span class="line">    <span class="string">&quot;charlie&quot;</span>: <span class="number">34</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如map[string]int&#123;&#125;可以创建一个空的map</span></span><br><span class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>=<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;&#125;<span class="comment">//简写 m:=map[string]int&#123;&#125;</span></span><br><span class="line"><span class="comment">//易错点 var m map[string]int 单纯这样 无法创建 map 因为Map是引用数据类型 此时m为nil 这样容易出现空指针异常</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">delete</span>(ages, <span class="string">&quot;alice&quot;</span>) <span class="comment">// remove element ages[&quot;alice&quot;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>增 &amp;&amp; 改 &amp;&amp; 查：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//若ages[&quot;alice&quot;]存在则进行修改 不存在则增加</span></span><br><span class="line">ages[<span class="string">&quot;alice&quot;</span>] = <span class="number">31</span></span><br><span class="line">ages[<span class="string">&quot;charlie&quot;</span>] = <span class="number">34</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果ages[&quot;bob&quot;]不存在 会返回对应的零值 </span></span><br><span class="line">ages[<span class="string">&quot;bob&quot;</span>] = ages[<span class="string">&quot;bob&quot;</span>] + <span class="number">1</span> <span class="comment">// happy birthday!</span></span><br><span class="line"><span class="comment">//简写</span></span><br><span class="line">ages[<span class="string">&quot;bob&quot;</span>] += <span class="number">1</span></span><br><span class="line">ages[<span class="string">&quot;bob&quot;</span>]++</span><br><span class="line"><span class="comment">//也可用两个变量来接受 一个接收 返回value 一个接受 是否查找成功</span></span><br><span class="line">value,ok:=ages[<span class="string">&quot;bob&quot;</span>] </span><br></pre></td></tr></table></figure>
+
+<p>注：map中的元素并不是一个变量，因此我们不能对map的元素进行取址操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ = &amp;ages[<span class="string">&quot;bob&quot;</span>] <span class="comment">// compile error: cannot take address of map element</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>练习 4.8：</strong> 修改charcount程序，使用unicode.IsLetter等相关的函数，统计字母、数字等Unicode中不同的字符类别。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_8(str string)&#123;</span><br><span class="line">   letter,digital,other:=0,0,0</span><br><span class="line">   for i := 0; i &lt; len(str); i++ &#123;</span><br><span class="line">      index := rune(str[i])</span><br><span class="line">      if unicode.IsLetter(index)&#123;</span><br><span class="line">         letter++</span><br><span class="line">      &#125;else if unicode.IsNumber(index)&#123;</span><br><span class="line">         digital++</span><br><span class="line">      &#125;else &#123;other++&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   //....看你想怎么处理</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>练习 4.9：</strong> 编写一个程序wordfreq程序，报告输入文本中每个单词出现的频率。在第一次调用Scan前先调用input.Split(bufio.ScanWords)函数，这样可以按单词而不是按行输入。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exercise4_9</span><span class="params">(str <span class="keyword">string</span>)</span><span class="title">map</span>[<span class="title">string</span>]<span class="title">int</span></span>&#123;</span><br><span class="line">   input:= bufio.NewScanner(strings.NewReader(str))</span><br><span class="line">   input.Split(bufio.ScanWords)</span><br><span class="line">   m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">   <span class="keyword">for</span> input.Scan()&#123;</span><br><span class="line">      m[input.Text()]++  </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//...看你想要怎么处理？</span></span><br><span class="line">   <span class="keyword">return</span> m</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="4-4-结构体"><a href="#4-4-结构体" class="headerlink" title="4.4. 结构体"></a>4.4. 结构体</h3><p>结构体是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体。所有的这些信息都需要绑定到一个实体中，可以作为一个整体单元被复制，作为函数的参数或返回值，或者是被存储到数组中，等等。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> structName <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID            <span class="keyword">int</span></span><br><span class="line">    Name, Address <span class="keyword">string</span></span><br><span class="line">   <span class="comment">//... 等等等属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Go语言中，没有-&gt;操作符，只有.操作符。对于结构体的操作，Go语言会自动判断.号左边的是结构体指针还是结构体，做出正确的操作（区别C和GO）</p>
+<p>在Go的函数中如果传递结构体变量，默认只有值传递，而不是引用型传递，所以如果要对某个结构体进行修改操作，传参要为结构体指针（区别C和GO和JAVA）</p>
+<h4 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h4><p>创建：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newStruct structName <span class="comment">//区别于map 此操作是OK的</span></span><br><span class="line">newStruct := <span class="built_in">new</span>(structName) <span class="comment">//生成的是指针</span></span><br><span class="line">newStruct := structName&#123;</span><br><span class="line">		<span class="comment">//设置属性</span></span><br><span class="line">&#125;</span><br><span class="line">newStructP := &amp;structName&#123; <span class="comment">//生成的是指针</span></span><br><span class="line">		<span class="comment">//设置属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>比较：</p>
+<p>如果结构体的全部成员都是可以比较的，那么结构体也是可以比较的，那样的话两个结构体将可以使用==或!=运算符进行比较。</p>
+<p>可比较的结构体类型和其他可比较的类型一样，可以用于map的key类型。</p>
+<h5 id="常用特性"><a href="#常用特性" class="headerlink" title="常用特性"></a>常用特性</h5><p>匿名成员：</p>
+<p>Go语言有一个特性让我们只声明一个成员对应的数据类型而不指名成员的名字；这类成员就叫匿名成员。匿名成员的数据类型必须是命名的类型或指向一个命名的类型的指针。下面的代码中，Circle和Wheel各自都有一个匿名成员。我们可以说Point类型被嵌入到了Circle结构体，同时Circle类型被嵌入到了Wheel结构体。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">    X, Y <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Circle <span class="keyword">struct</span> &#123;</span><br><span class="line">    Point</span><br><span class="line">    Radius <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Wheel <span class="keyword">struct</span> &#123;</span><br><span class="line">    Circle</span><br><span class="line">    Spokes <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得益于匿名嵌入的特性，我们可以直接访问叶子属性而不需要给出完整的路径：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w Wheel</span><br><span class="line">w.X = <span class="number">8</span>            <span class="comment">// equivalent to w.Circle.Point.X = 8</span></span><br><span class="line">w.Y = <span class="number">8</span>            <span class="comment">// equivalent to w.Circle.Point.Y = 8</span></span><br><span class="line">w.Radius = <span class="number">5</span>       <span class="comment">// equivalent to w.Circle.Radius = 5</span></span><br><span class="line">w.Spokes = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>在右边的注释中给出的显式形式访问这些叶子成员的语法依然有效，因此匿名成员并不是真的无法访问了。其中匿名成员Circle和Point都有自己的名字——就是命名的类型名字——但是这些名字在点操作符中是可选的。我们在访问子成员的时候可以忽略任何匿名成员部分。</p>
+<p>不幸的是，结构体字面值并没有简短表示匿名成员的语法， 因此下面的语句都不能编译通过：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w = Wheel&#123;<span class="number">8</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">20</span>&#125;                       <span class="comment">// compile error: unknown fields</span></span><br><span class="line">w = Wheel&#123;X: <span class="number">8</span>, Y: <span class="number">8</span>, Radius: <span class="number">5</span>, Spokes: <span class="number">20</span>&#125; <span class="comment">// compile error: unknown fields</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-5-JSON"><a href="#4-5-JSON" class="headerlink" title="4.5. JSON"></a>4.5. JSON</h4><p>  Go语言对于用于发送和接收结构化信息的标准格式的编码和解码都有良好的支持，由标准库中的encoding/json、encoding/xml、encoding/asn1等包提供支持（译注：Protocol Buffers的支持由 github.com/golang/protobuf 包提供），并且这类包都有着相似的API接口。</p>
+<p>  对于JSON的编码可使用json.Marshal()函数（注意 此方法返回值为[]byte类型 若需要直接输出需要转成string）</p>
+<p>  这种紧凑的表示形式虽然包含了全部的信息wa，但是很难阅读。为了生成便于阅读的格式，另一个json.MarshalIndent函数将产生整齐缩进的输出。该函数有两个额外的字符串参数用于表示每一行输出的前缀和每一个层级的缩进：</p>
+<p>  在编码时，默认使用Go语言结构体的成员名字作为JSON的对象（通过reflect反射技术，我们将在12.6节讨论）。只有导出的结构体成员才会被编码，这也就是我们为什么选择用大写字母开头的成员名称。</p>
+<p>​    在结构体定义的时候，可以设定json编码的规则 如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Year  int  `json:&quot;released&quot;`</span><br><span class="line">Color bool `json:&quot;color,omitempty&quot;`</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>练习 4.10：</strong> 修改issues程序，根据问题的时间进行分类，比如不到一个月的、不到一年的、超过一年。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">exercise4_10</span><span class="params">()</span></span>&#123;</span><br><span class="line">   result, err := github.SearchIssues(os.Args[<span class="number">1</span>:])</span><br><span class="line">   <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      log.Fatal(err)</span><br><span class="line">   &#125;</span><br><span class="line">   fmt.Printf(<span class="string">&quot;%d issues:\n&quot;</span>, result.TotalCount)</span><br><span class="line">   lessMonth := <span class="built_in">make</span>([]*github.Issue,result.TotalCount)</span><br><span class="line">   lessYear := <span class="built_in">make</span>([]*github.Issue,result.TotalCount)</span><br><span class="line">   moreYear:= <span class="built_in">make</span>([]*github.Issue,result.TotalCount)</span><br><span class="line">   monthBefore := time.Now().AddDate(<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>)</span><br><span class="line">   yearBefore := time.Now().AddDate(<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">for</span> _, item := <span class="keyword">range</span> result.Items &#123;</span><br><span class="line">      createdTime:= item.CreatedAt</span><br><span class="line">      <span class="keyword">if</span> monthBefore.Before(createdTime)&#123;</span><br><span class="line">         lessMonth=<span class="built_in">append</span>(lessMonth,item)</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span> yearBefore.Before(createdTime)&#123;</span><br><span class="line">         lessYear=<span class="built_in">append</span>(lessYear,item)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;moreYear=<span class="built_in">append</span>(moreYear,item)&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//...看你想怎么操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//记得要gomod导包 	&quot;gopl.io/ch4/github&quot;  </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.11：</strong> 编写一个工具，允许用户在命令行创建、读取、更新和关闭GitHub上的issue，当必要的时候自动打开用户默认的编辑器用于输入文本信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_11()&#123;</span><br><span class="line">   //写不出来.... 相关开源工具可以查看 https://github.com/cli/cli</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.12：</strong> 流行的web漫画服务xkcd也提供了JSON接口。例如，一个 <a target="_blank" rel="noopener" href="https://xkcd.com/571/info.0.json">https://xkcd.com/571/info.0.json</a> 请求将返回一个很多人喜爱的571编号的详细描述。下载每个链接（只下载一次）然后创建一个离线索引。编写一个xkcd工具，使用这些离线索引，打印和命令行输入的检索词相匹配的漫画的URL。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">type comic struct &#123;</span><br><span class="line">   //注意 真的需要变量名一定要大写啊.... 不然就转换不出来了</span><br><span class="line">   Month      string    `json:&quot;month,omitempty&quot;` //这里易错 看清楚Month和Day是string类型</span><br><span class="line">   Num         int    `json:&quot;num,omitempty&quot;`</span><br><span class="line">   Link       string `json:&quot;link,omitempty&quot;`</span><br><span class="line">   Year       string    `json:&quot;year,omitempty&quot;`</span><br><span class="line">   News       string `json:&quot;news,omitempty&quot;`</span><br><span class="line">   Safe_title string `json:&quot;safe_title,omitempty&quot;`</span><br><span class="line">   Transcript string `json:&quot;transcript,omitempty&quot;`</span><br><span class="line">   Alt string `json:&quot;alt,omitempty&quot;`</span><br><span class="line">   Img        string `json:&quot;img,omitempty&quot;`</span><br><span class="line">   Title      string `json:&quot;title,omitempty&quot;`</span><br><span class="line">   Day        string    `json:&quot;day,omitempty&quot;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (this *comic)String() string&#123;</span><br><span class="line">   toString, err := json.Marshal(this)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return &quot;&quot;</span><br><span class="line">   &#125;</span><br><span class="line">   return string(toString)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func exercise4_12()&#123;</span><br><span class="line">   m := make(map[int64]comic)</span><br><span class="line">   var num int64</span><br><span class="line">   for&#123;</span><br><span class="line">      fmt.Println(&quot;请输入要查找的漫画编号(退出请输入0)&quot;)</span><br><span class="line">      fmt.Scanf(&quot;%d&quot;,&amp;num)</span><br><span class="line">      if num==0 &#123;</span><br><span class="line">         break</span><br><span class="line">      &#125;</span><br><span class="line">      if result,ok:=m[num];ok&#123;</span><br><span class="line">         fmt.Println(&quot;--------离线索引--------&quot;)</span><br><span class="line">         fmt.Println(result)</span><br><span class="line">         continue</span><br><span class="line">      &#125;</span><br><span class="line">      response, err := http.Get(&quot;https://xkcd.com/&quot; + strconv.FormatInt(num, 10) + &quot;/info.0.json&quot;)</span><br><span class="line">      if err != nil &#123;</span><br><span class="line">         fmt.Println(&quot;未查询到该漫画&quot;)</span><br><span class="line">         continue</span><br><span class="line">      &#125;</span><br><span class="line">      var result comic</span><br><span class="line">      if err:=json.NewDecoder(response.Body).Decode(&amp;result);err!=nil&#123;</span><br><span class="line">         response.Body.Close()</span><br><span class="line">         fmt.Println(&quot;转换失败&quot;)</span><br><span class="line">         continue</span><br><span class="line">      &#125;</span><br><span class="line">      fmt.Println(result)</span><br><span class="line">      response.Body.Close()</span><br><span class="line">      m[num]=result</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.13：</strong> 使用开放电影数据库的JSON服务接口，允许你检索和下载 <a target="_blank" rel="noopener" href="https://omdbapi.com/">https://omdbapi.com/</a> 上电影的名字和对应的海报图像。编写一个poster工具，通过命令行输入的电影名字，下载对应的海报。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func exercise4_13()&#123;</span><br><span class="line">   //No API key provided 我就第一次可以访问这个API 之后就都是这个信息了 没有办法做了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="4-6文本和HTML模板"><a href="#4-6文本和HTML模板" class="headerlink" title="4.6文本和HTML模板"></a>4.6文本和HTML模板</h3><p>  text/template和html/template等模板包,它们提供了一个将变量值填充到一个文本或HTML格式的模板的机制。</p>
+<p>  模板通常在编译时就测试好了，如果模板解析失败将是一个致命的错误。template.Must辅助函数可以简化致命错误的处理：它接受一个模板和一个error类型的参数，检测error是否为nil（如果不是nil则发出panic异常），然后返回传入的模板。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	使用 对象template.New(&quot;templateName&quot;) 创建一个名字为templateName的模板 </span><br><span class="line"></span><br><span class="line">​    使用 对象template.FuncMap(&quot;funcName&quot;,func) 为生成模板内容可能用到的函数进行注入</span><br><span class="line"></span><br><span class="line">​     使用 对象template.Parse(ParseFormat) 函数设置模板格式 ( ParseFormat 为一个string类型 &#123;&#123;.属性&#125;&#125; 获取进行解析的对象的属性 ，使用 `|`操作符表示将前一个表达式的结果作为后一个函数的输入（比方说这里Age行里将CreatedAt 参数作为参数注入到daysAgo函数中(函数的具体行为通过某template.FuncMap(&quot;funcName&quot;,func) 进行注入)解析时将函数返回结果注入到）</span><br><span class="line"></span><br><span class="line">​	使用 对象template.Execute (io.Writer, interface&#123;&#125;)将后者对象按照模板解析 写入前者当中</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> templ = <span class="string">`&#123;&#123;.TotalCount&#125;&#125; issues:</span></span><br><span class="line"><span class="string">&#123;&#123;range .Items&#125;&#125;----------------------------------------</span></span><br><span class="line"><span class="string">Number: &#123;&#123;.Number&#125;&#125;</span></span><br><span class="line"><span class="string">User:   &#123;&#123;.User.Login&#125;&#125;</span></span><br><span class="line"><span class="string">Title:  &#123;&#123;.Title | printf &quot;%.64s&quot;&#125;&#125;</span></span><br><span class="line"><span class="string">Age:    &#123;&#123;.CreatedAt | daysAgo&#125;&#125; days</span></span><br><span class="line"><span class="string">&#123;&#123;end&#125;&#125;`</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>若想用这种方法生成网页，请注意系统的string类型会原模原样地输出，想要转移成标签成为网页结构的一部分需要使用template.HTML类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">const</span> templ = <span class="string">`&lt;p&gt;A: &#123;&#123;.A&#125;&#125;&lt;/p&gt;&lt;p&gt;B: &#123;&#123;.B&#125;&#125;&lt;/p&gt;`</span></span><br><span class="line">    t := template.Must(template.New(<span class="string">&quot;escape&quot;</span>).Parse(templ))</span><br><span class="line">    <span class="keyword">var</span> data <span class="keyword">struct</span> &#123;</span><br><span class="line">        A <span class="keyword">string</span>        <span class="comment">// untrusted plain text</span></span><br><span class="line">        B template.HTML <span class="comment">// trusted HTML</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.A = <span class="string">&quot;&lt;b&gt;Hello!&lt;/b&gt;&quot;</span></span><br><span class="line">    data.B = <span class="string">&quot;&lt;b&gt;Hello!&lt;/b&gt;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> err := t.Execute(os.Stdout, data); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//此时A会原模原样输出&lt;b&gt;Hello!&lt;/b&gt;</span></span><br><span class="line">    <span class="comment">//B会转义成 加粗</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 4.14：</strong> 创建一个web服务器，查询一次GitHub，然后生成BUG报告、里程碑和对应的用户信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//谁告诉BUG报告、里程碑和对应的用户信息在哪？？ github api也没找到啊 还是说是翻译问题</span><br><span class="line">func exercise4_14()&#123;</span><br><span class="line">   http.HandleFunc(&quot;/&quot;, func(writer http.ResponseWriter, request *http.Request) &#123;</span><br><span class="line">      strs:=[]string&#123;&quot;repo:golang/go&quot;,&quot;is:open&quot;,&quot;json&quot;,&quot;decode&quot;,&#125;</span><br><span class="line">      issues, err := github.SearchIssues(strs)</span><br><span class="line">      if err != nil &#123;</span><br><span class="line">         http.Error(writer,&quot;Github服务器访问失败&quot;,404)</span><br><span class="line">         return</span><br><span class="line">      &#125;</span><br><span class="line">      var issueList = template.Must(template.New(&quot;issuelist&quot;).Parse(`</span><br><span class="line">&lt;h1&gt;&#123;&#123;.TotalCount&#125;&#125; issues&lt;/h1&gt;</span><br><span class="line">&lt;table&gt;</span><br><span class="line">&lt;tr style=&#x27;text-align: left&#x27;&gt;</span><br><span class="line">  &lt;th&gt;#&lt;/th&gt;</span><br><span class="line">  &lt;th&gt;State&lt;/th&gt;</span><br><span class="line">  &lt;th&gt;User&lt;/th&gt;</span><br><span class="line">  &lt;th&gt;Title&lt;/th&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">&#123;&#123;range .Items&#125;&#125;</span><br><span class="line">&lt;tr&gt;</span><br><span class="line">  &lt;td&gt;&lt;a href=&#x27;&#123;&#123;.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.Number&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">  &lt;td&gt;&#123;&#123;.State&#125;&#125;&lt;/td&gt;</span><br><span class="line">  &lt;td&gt;&lt;a href=&#x27;&#123;&#123;.User.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.User.Login&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">  &lt;td&gt;&lt;a href=&#x27;&#123;&#123;.HTMLURL&#125;&#125;&#x27;&gt;&#123;&#123;.Title&#125;&#125;&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">`))</span><br><span class="line">      err = issueList.Execute(writer, issues)</span><br><span class="line">      if err != nil &#123;</span><br><span class="line">         http.Error(writer,&quot;返回数据错误&quot;,500)</span><br><span class="line">         return</span><br><span class="line">      &#125;</span><br><span class="line">      return</span><br><span class="line">   &#125;)</span><br><span class="line">   http.ListenAndServe(&quot;:8080&quot;,nil)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/gopl/chapter4.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter4.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter4.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1631450739662"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
