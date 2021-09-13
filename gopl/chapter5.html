@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Go语言圣经学习笔记--第五章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Go语言圣经学习笔记——第五章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页   第五章.函数5.1 函数声明和变量声明一样，先写函数名，后写函数返回值 123func name(parameter-list) (result-list) &amp;#123;    body&amp;#125;  5.2递归  g">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Go语言圣经学习笔记--第五章">
+<meta property="og:url" content="http://csder666.github.io/gopl/chapter5.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="Go语言圣经学习笔记——第五章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页   第五章.函数5.1 函数声明和变量声明一样，先写函数名，后写函数返回值 123func name(parameter-list) (result-list) &amp;#123;    body&amp;#125;  5.2递归  g">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-12T12:25:01.000Z">
+<meta property="article:modified_time" content="2021-09-13T11:19:26.838Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1631531972951">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1631531972951">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/Golang.png" data-sizes="auto" alt="Go语言圣经学习笔记--第五章" class="lazyload">
+              <h1>Go语言圣经学习笔记--第五章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 20 分钟</a>
+</div>
+
+      
+
+      <h1 id="Go语言圣经学习笔记——第五章"><a href="#Go语言圣经学习笔记——第五章" class="headerlink" title="Go语言圣经学习笔记——第五章"></a>Go语言圣经学习笔记——第五章</h1><p>本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——<a target="_blank" rel="noopener" href="https://docs.hacknode.org/gopl-zh">网页</a></p>
+<!--                  more           -->
+
+<h2 id="第五章-函数"><a href="#第五章-函数" class="headerlink" title="第五章.函数"></a>第五章.函数</h2><h3 id="5-1-函数声明"><a href="#5-1-函数声明" class="headerlink" title="5.1 函数声明"></a>5.1 函数声明</h3><p>和变量声明一样，先写函数名，后写函数返回值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">name</span><span class="params">(parameter-list)</span> <span class="params">(result-list)</span></span> &#123;</span><br><span class="line">    body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2递归"><a href="#5-2递归" class="headerlink" title="5.2递归"></a>5.2递归</h3><p>  golang.org/x/net/html ，解析HTML。golang.org/x/… 目录下存储了一些由Go团队设计、维护，对网络编程、国际化文件处理、移动平台、图像处理、加密解密、开发者工具提供支持的扩展包。未将这些扩展包加入到标准库原因有二，一是部分包仍在开发中，二是对大多数Go语言的开发者而言，扩展包提供的功能很少被使用。</p>
+<p>  golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes解析后，返回html.Node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）,commnets（注释）类型，在下面的例子中，我们 只关注&lt; name key=’value’ &gt;形式的结点。</p>
+<p><strong>练习 5.1：</strong> 修改findlinks代码中遍历n.FirstChild链表的部分，将循环调用visit，改成递归调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func exercise5_1(links []string,n *html.Node) []string &#123;</span><br><span class="line"></span><br><span class="line">   if n.Type == html.ElementNode &amp;&amp; n.Data == &quot;a&quot; &#123;</span><br><span class="line">      for _, a := range n.Attr &#123;</span><br><span class="line">         if a.Key == &quot;href&quot; &#123;</span><br><span class="line">            links= append(links, a.Val)</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   nextSibling := n.NextSibling</span><br><span class="line">   firstChild := n.FirstChild</span><br><span class="line">   if nextSibling!=nil&#123;</span><br><span class="line">      links=exercise5_1(links,nextSibling)</span><br><span class="line">   &#125;</span><br><span class="line">   if firstChild!=nil&#123;</span><br><span class="line">      links=exercise5_1(links,firstChild)</span><br><span class="line">   &#125;</span><br><span class="line">   return links</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.2：</strong> 编写函数，记录在HTML树中出现的同名元素的次数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func exercise5_2(n *html.Node)map[string]int&#123;</span><br><span class="line">   table := make(map[string]int)</span><br><span class="line">   _exercise5_2(table,n)</span><br><span class="line">   return table</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func _exercise5_2(table map[string]int, n *html.Node) &#123;</span><br><span class="line">   table[n.Data]++</span><br><span class="line">   nextSibling := n.NextSibling</span><br><span class="line">   firstChild := n.FirstChild</span><br><span class="line">   if nextSibling!=nil&#123;</span><br><span class="line">      _exercise5_2(table,nextSibling)</span><br><span class="line">   &#125;</span><br><span class="line">   if firstChild!=nil&#123;</span><br><span class="line">      _exercise5_2(table,firstChild)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.3：</strong> 编写函数输出所有text结点的内容。注意不要访问<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>元素,因为这些元素对浏览者是不可见的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//懒死个人</span><br><span class="line">func exercise5_3(texts []string, n *html.Node) []string &#123;</span><br><span class="line">   if n.Type == html.TextNode &#123;</span><br><span class="line">      texts = append(texts, n.Data)</span><br><span class="line">   &#125;</span><br><span class="line">   for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">      if c.Data == &quot;script&quot; || c.Data == &quot;style&quot; &#123;</span><br><span class="line">         continue</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      texts = exercise5_3(texts, c)</span><br><span class="line">   &#125;</span><br><span class="line">   return texts</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.4：</strong> 扩展visit函数，使其能够处理其他类型的结点，如images、scripts和style sheets。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var table map[string]string= func() map[string]string &#123;</span><br><span class="line">   table := make(map[string]string)</span><br><span class="line">   table[&quot;a&quot;]=&quot;href&quot;</span><br><span class="line">   table[&quot;link&quot;]=&quot;href&quot;</span><br><span class="line">   table[&quot;img&quot;]=&quot;src&quot;</span><br><span class="line">   table[&quot;script&quot;]=&quot;src&quot;</span><br><span class="line">   return table</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">func exercise5_4(n * html.Node)[]string&#123;</span><br><span class="line">   strings:=[]string&#123;&#125;</span><br><span class="line">   _exercise5_4(strings,n)</span><br><span class="line"></span><br><span class="line">   return strings</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func _exercise5_4(links []string, n *html.Node) []string &#123;</span><br><span class="line">   if find,ok:=table[n.Data];ok &amp;&amp;  n.Type == html.ElementNode  &#123;</span><br><span class="line">      for _, a := range n.Attr &#123;</span><br><span class="line">         if a.Key == find &#123;</span><br><span class="line">            links = append(links, a.Val)</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">      links = _exercise5_4(links, c)</span><br><span class="line">   &#125;</span><br><span class="line">   return links</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-3多返回值"><a href="#5-3多返回值" class="headerlink" title="5.3多返回值"></a>5.3多返回值</h3><p>go语言使用技巧 可以在给返回参数命名 在函数体里 相当于 参数已经声明 return 默认就返回 在函数声明声明的参数 （还是需要显式声明）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">funcName</span><span class="params">(url <span class="keyword">string</span>)</span> <span class="params">(words, words <span class="keyword">int</span>, err error)</span></span>&#123;</span><br><span class="line">    words=<span class="number">1</span><span class="comment">//注意words变量已经声明了 不是word:=1</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span>  <span class="comment">//后面可以不用加参数 默认返回 words  words err</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.5：</strong> 实现countWordsAndImages。（参考练习4.9如何分词）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//就是countWordsAndImages函数</span><br><span class="line">func exercise5_5(n *html.Node) (words, images int) &#123;</span><br><span class="line">   if n.Type==html.TextNode&#123;</span><br><span class="line">      str:=n.Data</span><br><span class="line">      str=strings.Trim(strings.TrimSpace(str),&quot;\r\n&quot;)</span><br><span class="line">      words+=len(str)</span><br><span class="line">   &#125;else if n.Type==html.ElementNode &amp;&amp; n.Data==&quot;img&quot;&#123;</span><br><span class="line">      images++</span><br><span class="line">   &#125;</span><br><span class="line">   for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">      if c.Data == &quot;script&quot; || c.Data == &quot;style&quot; &#123;</span><br><span class="line">         continue</span><br><span class="line">      &#125;</span><br><span class="line">      addText,addImages:=exercise5_5(c)</span><br><span class="line">      words+=addText</span><br><span class="line">      images+=addImages</span><br><span class="line">   &#125;</span><br><span class="line">   return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.6：</strong> 修改gopl.io/ch3/surface (§3.2) 中的corner函数，将返回值命名，并使用bare return。</p>
+<p>//不写了！！！！！！！！！！意义不大</p>
+<h3 id="5-4-错误"><a href="#5-4-错误" class="headerlink" title="5.4. 错误"></a>5.4. 错误</h3><p>文中讲到了五种错误处理方式</p>
+<p>1.向上抛出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resp, err := http.Get(url)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">doc, err := html.Parse(resp.Body)</span><br><span class="line">resp.Body.Close()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">&quot;parsing %s as HTML: %v&quot;</span>, url,err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.反复尝试</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WaitForServer attempts to contact the server of a URL.</span></span><br><span class="line"><span class="comment">// It tries for one minute using exponential back-off.</span></span><br><span class="line"><span class="comment">// It reports an error if all attempts fail.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WaitForServer</span><span class="params">(url <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">const</span> timeout = <span class="number">1</span> * time.Minute</span><br><span class="line">    deadline := time.Now().Add(timeout)</span><br><span class="line">    <span class="keyword">for</span> tries := <span class="number">0</span>; time.Now().Before(deadline); tries++ &#123;</span><br><span class="line">        _, err := http.Head(url)</span><br><span class="line">        <span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span> <span class="comment">// success</span></span><br><span class="line">        &#125;</span><br><span class="line">        log.Printf(<span class="string">&quot;server not responding (%s);retrying…&quot;</span>, err)</span><br><span class="line">        time.Sleep(time.Second &lt;&lt; <span class="keyword">uint</span>(tries)) <span class="comment">// exponential back-off</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;server %s failed to respond after %s&quot;</span>, url, timeout)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.输出错误信息并结束程序</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := WaitForServer(url); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Fprintf(os.Stderr, <span class="string">&quot;Site is down: %v\n&quot;</span>, err)</span><br><span class="line">    os.Exit(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := WaitForServer(url); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatalf(<span class="string">&quot;Site is down: %v\n&quot;</span>, err)</span><br><span class="line">    <span class="comment">//调用log.Fatalf可以更简洁的代码达到与上文相同的效果。log中的所有函数，都默认会在错误信息之前输出时间信息。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.出错误信息就足够了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := Ping(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Printf(<span class="string">&quot;ping failed: %v; networking disabled&quot;</span>,err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.我们可以直接忽略掉错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dir, err := ioutil.TempDir(<span class="string">&quot;&quot;</span>, <span class="string">&quot;scratch&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;failed to create temp dir: %v&quot;</span>,err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...use temp dir…</span></span><br><span class="line">os.RemoveAll(dir) <span class="comment">// ignore errors; $TMPDIR is cleaned periodically</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="5-5-函数值"><a href="#5-5-函数值" class="headerlink" title="5.5. 函数值"></a>5.5. 函数值</h1><p>在Go语言中函数是一等公民，可以作为一个变量，声明，函数传递….有利于代码复用</p>
+<p><strong>练习 5.7：</strong> 完善startElement和endElement函数，使其成为通用的HTML输出器。要求：输出注释结点，文本结点以及每个元素的属性（&lt; a href=’…’&gt;）。使用简略格式输出没有孩子结点的元素（即用<code>&lt;img/&gt;</code>代替<code>&lt;img&gt;&lt;/img&gt;</code>）。编写测试，验证程序输出的格式正确。（详见11章）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不知道缩进有没有点问题</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startElement</span><span class="params">(n *html.Node)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> n.Type == html.ElementNode &#123;</span><br><span class="line">      <span class="keyword">var</span> str <span class="keyword">string</span></span><br><span class="line">      str=fmt.Sprintf(<span class="string">&quot;%*s&lt;%s&quot;</span>, depth*<span class="number">2</span>, <span class="string">&quot;&quot;</span>, n.Data)</span><br><span class="line">      <span class="keyword">for</span> _, attribute := <span class="keyword">range</span> n.Attr &#123;</span><br><span class="line">         str+=<span class="string">&quot; &quot;</span>+attribute.Key+<span class="string">&quot;=&quot;</span>+attribute.Val</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> n.FirstChild!=<span class="literal">nil</span>&#123;</span><br><span class="line">         str += <span class="string">&quot;&gt;\n&quot;</span></span><br><span class="line">         depth++</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         str+=<span class="string">&quot;/&gt;\n&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">      fmt.Println(str)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">endElement</span><span class="params">(n *html.Node)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> n.Type == html.ElementNode &amp;&amp; n.FirstChild!=<span class="literal">nil</span> &#123;</span><br><span class="line">      depth--</span><br><span class="line">      fmt.Printf(<span class="string">&quot;%*s&lt;/%s&gt;\n&quot;</span>, depth*<span class="number">2</span>, <span class="string">&quot;&quot;</span>, n.Data)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.8：</strong> 修改pre和post函数，使其返回布尔类型的返回值。返回false时，中止forEachNoded的遍历。使用修改后的代码编写ElementByID函数，根据用户输入的id查找第一个拥有该id元素的HTML元素，查找成功后，停止遍历。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">func ElementByID(doc *html.Node, id string) *html.Node&#123;</span><br><span class="line">	var find *html.Node=nil</span><br><span class="line">	findFunc:=func(n *html.Node) bool&#123;</span><br><span class="line">		if n.Type==html.ElementNode&#123;</span><br><span class="line">			for _, attribute := range n.Attr &#123;</span><br><span class="line">				if attribute.Key==&quot;id&quot; &#123;</span><br><span class="line">					if attribute.Val==id &#123;</span><br><span class="line">						find = n</span><br><span class="line">						return true</span><br><span class="line">					&#125;else&#123;</span><br><span class="line">						return false</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return false</span><br><span class="line">	&#125;</span><br><span class="line">	forEachNode2(doc, findFunc)</span><br><span class="line">	return find</span><br><span class="line">&#125;</span><br><span class="line">func forEachNode2(n *html.Node, findFunc func(n *html.Node) bool) bool &#123;</span><br><span class="line">	flag := findFunc(n)</span><br><span class="line">	return flag</span><br><span class="line">	for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">		if forEachNode2(c, findFunc)&#123;</span><br><span class="line">			return  true</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return false</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 5.9：</strong> 编写函数expand，将s中的”foo”替换为f(“foo”)的返回值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">func expand(s string, f func(string) string) string&#123;</span><br><span class="line">   for i:=0;i+3&lt;=len(s);i++&#123;</span><br><span class="line">      find:=s[i:i+3]</span><br><span class="line">      if find==&quot;foo&quot;&#123;</span><br><span class="line">         replace:=f(find)</span><br><span class="line">         replaceLen := len(replace)</span><br><span class="line">         //i号元素是不要的 i+3号元素是需要的</span><br><span class="line">         s=s[0:i]+replace+s[i+3:]</span><br><span class="line">         i+=replaceLen-1</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-6匿名函数"><a href="#5-6匿名函数" class="headerlink" title="5.6匿名函数"></a>5.6匿名函数</h3><p><strong>练习5.10：</strong> 重写topoSort函数，用map代替切片并移除对key的排序代码。验证结果的正确性（结果不唯一）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">func exercise5_10(m map[string][]string)[]string&#123;</span><br><span class="line">   var order []string</span><br><span class="line">   seen := make(map[string]bool)</span><br><span class="line">   var visitAll func(key string)</span><br><span class="line">   copyM:=make(map[string][]string)</span><br><span class="line">   for k, v := range m &#123;</span><br><span class="line">      copyM[k]=v</span><br><span class="line">   &#125;</span><br><span class="line">   visitAll = func(key string) &#123;</span><br><span class="line">      if !seen[key]&#123;</span><br><span class="line">         seen[key]=true</span><br><span class="line">         m2 := m[key]</span><br><span class="line">         for _, v := range m2 &#123;</span><br><span class="line">            visitAll(v)</span><br><span class="line">         &#125;</span><br><span class="line">         delete(copyM,key)</span><br><span class="line">         order=append(order,key)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   for k, _ := range copyM &#123;</span><br><span class="line">      visitAll(k)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return order</span><br><span class="line">&#125;</span><br><span class="line">var prereqs = map[string][]string&#123;</span><br><span class="line">   &quot;algorithms&quot;: &#123;&quot;data structures&quot;&#125;,</span><br><span class="line">   &quot;calculus&quot;: &#123;&quot;linear algebra&quot;&#125;,</span><br><span class="line">   &quot;compilers&quot;: &#123;</span><br><span class="line">      &quot;data structures&quot;,</span><br><span class="line">      &quot;formal languages&quot;,</span><br><span class="line">      &quot;computer organization&quot;,</span><br><span class="line">   &#125;,</span><br><span class="line">   &quot;data structures&quot;:       &#123;&quot;discrete math&quot;&#125;,</span><br><span class="line">   &quot;databases&quot;:             &#123;&quot;data structures&quot;&#125;,</span><br><span class="line">   &quot;discrete math&quot;:         &#123;&quot;intro to programming&quot;&#125;,</span><br><span class="line">   &quot;formal languages&quot;:      &#123;&quot;discrete math&quot;&#125;,</span><br><span class="line">   &quot;networks&quot;:              &#123;&quot;operating systems&quot;&#125;,</span><br><span class="line">   &quot;operating systems&quot;:     &#123;&quot;data structures&quot;, &quot;computer organization&quot;&#125;,</span><br><span class="line">   &quot;programming languages&quot;: &#123;&quot;data structures&quot;, &quot;computer organization&quot;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func text_exercise5_10()&#123;</span><br><span class="line">   exercise510 := exercise5_10(prereqs)</span><br><span class="line">   m := make(map[string]bool)</span><br><span class="line">   for _, v := range exercise510 &#123;</span><br><span class="line">      m[v]=true</span><br><span class="line">      for _, v2 := range prereqs[v] &#123;</span><br><span class="line">         if !m[v2]&#123;</span><br><span class="line">            fmt.Println(&quot;算错了！！&quot;)</span><br><span class="line">            os.Exit(1)</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   fmt.Println(&quot;验证成功&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习5.11：</strong> 现在线性代数的老师把微积分设为了前置课程。完善topSort，使其能检测有向图中的环。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">var prereqs2 = map[string][]string&#123;</span><br><span class="line">   &quot;algorithms&quot;: &#123;&quot;data structures&quot;&#125;,</span><br><span class="line">   &quot;calculus&quot;: &#123;&quot;linear algebra&quot;&#125;,</span><br><span class="line">   &quot;compilers&quot;: &#123;</span><br><span class="line">      &quot;data structures&quot;,</span><br><span class="line">      &quot;formal languages&quot;,</span><br><span class="line">      &quot;computer organization&quot;,</span><br><span class="line">   &#125;,</span><br><span class="line">   &quot;data structures&quot;:       &#123;&quot;discrete math&quot;&#125;,</span><br><span class="line">   &quot;databases&quot;:             &#123;&quot;data structures&quot;&#125;,</span><br><span class="line">   &quot;discrete math&quot;:         &#123;&quot;intro to programming&quot;&#125;,</span><br><span class="line">   &quot;formal languages&quot;:      &#123;&quot;discrete math&quot;&#125;,</span><br><span class="line">   &quot;networks&quot;:              &#123;&quot;operating systems&quot;&#125;,</span><br><span class="line">   &quot;operating systems&quot;:     &#123;&quot;data structures&quot;, &quot;computer organization&quot;&#125;,</span><br><span class="line">   &quot;programming languages&quot;: &#123;&quot;data structures&quot;, &quot;computer organization&quot;&#125;,</span><br><span class="line">   &quot;linear algebra&quot;:&#123;&quot;a&quot;&#125;,</span><br><span class="line">   &quot;a&quot;:&#123;&quot;calculus&quot;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func exercise5_11(m map[string][]string)[]string&#123;</span><br><span class="line">   var order []string</span><br><span class="line">   seen := make(map[string]bool)</span><br><span class="line">   var visitAll func(key string)</span><br><span class="line">   copyM:=make(map[string]bool)</span><br><span class="line">   checkTable := make(map[string]string)</span><br><span class="line">   for k, _ := range m &#123;</span><br><span class="line">      copyM[k]=true</span><br><span class="line">   &#125;</span><br><span class="line">   visitAll = func(key string) &#123;</span><br><span class="line">         m2 := m[key]</span><br><span class="line">         for _, v := range m2 &#123;</span><br><span class="line">            if !seen[v] &#123;</span><br><span class="line">               if Rely,ok:=checkTable[v];ok&#123;</span><br><span class="line">                  str:=v</span><br><span class="line">                  for&#123;</span><br><span class="line">                     str+=&quot; -&gt; &quot;+Rely</span><br><span class="line">                     if Rely==v&#123;</span><br><span class="line">                        break</span><br><span class="line">                     &#125;</span><br><span class="line">                     Rely=checkTable[Rely]</span><br><span class="line">                  &#125;</span><br><span class="line">                  log.Fatalf(&quot;出现循环依赖问题 具体依赖情况如下\n%s&quot;,str)</span><br><span class="line">                  os.Exit(1)</span><br><span class="line">               &#125;</span><br><span class="line">               checkTable[v]=key</span><br><span class="line">               visitAll(v)</span><br><span class="line">               delete(checkTable,v)</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         seen[key]=true</span><br><span class="line">         delete(copyM,key)</span><br><span class="line">         order=append(order,key)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   for k, _ := range copyM &#123;</span><br><span class="line">      visitAll(k)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return order</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>//原谅没有学过拓扑排序的我。。。。这个代码又臭又长 惨不忍睹</p>
+<p><strong>练习5.12：</strong> gopl.io/ch5/outline2（5.5节）的startElement和endElement共用了全局变量depth，将它们修改为匿名函数，使其共享outline中的局部变量。</p>
+<p>答：有手就行？？？ 就做一个闭包嘛 so easy  不写了</p>
+<p><strong>练习5.13：</strong> 修改crawl，使其能保存发现的页面，必要时，可以创建目录来保存这些页面。只保存来自原始域名下的页面。假设初始页面在golang.org下，就不要保存vimeo.com下的页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">var i int64=1</span><br><span class="line"></span><br><span class="line">func crawl(u string) []string &#123;</span><br><span class="line">   fmt.Println(u)</span><br><span class="line">   list, err := links.Extract(u)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      log.Print(err)</span><br><span class="line">   &#125;</span><br><span class="line">   parse, err := url.Parse(u)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      log.Fatalf(&quot;URL打包失败&quot;)</span><br><span class="line">      return nil</span><br><span class="line">   &#125;</span><br><span class="line">   host := parse.Host</span><br><span class="line">   if !strings.HasPrefix(host,&quot;www.&quot;)&#123;</span><br><span class="line">      host=&quot;www.&quot;+host</span><br><span class="line">   &#125;</span><br><span class="line">   for _, v := range list &#123;</span><br><span class="line">      listUrl, err := url.Parse(v)</span><br><span class="line">      if err != nil &#123;</span><br><span class="line">         log.Fatalf(&quot;URL打包失败&quot;)</span><br><span class="line">         return nil</span><br><span class="line">      &#125;</span><br><span class="line">      listHost := listUrl.Host</span><br><span class="line">      if !strings.HasPrefix(listHost,&quot;www.&quot;)&#123;</span><br><span class="line">         listHost=&quot;www.&quot;+listHost</span><br><span class="line">      &#125;</span><br><span class="line">      if host==listHost&#123;</span><br><span class="line">         download(listUrl)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return list</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func download(listUrl *url.URL) &#123;</span><br><span class="line">   get, err := http.Get(listUrl.String())</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      log.Fatalf(&quot;发送请求至%s发生错误%v&quot;,listUrl.String(),err)</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      log.Fatalf(&quot;无法创建文件&quot;+listUrl.RawPath + &quot;拷贝.html&quot;)</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   readBody, err := ioutil.ReadAll(get.Body)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   err = ioutil.WriteFile(&quot;拷贝&quot;+strconv.FormatInt(i,10)+&quot;.html&quot;, readBody, 0666)</span><br><span class="line">   i++</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      log.Fatalf(&quot;文件复制错误&quot;)</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>//又丑又长 害..</p>
+<p><strong>练习5.14：</strong> 使用breadthFirst遍历其他数据结构。比如，topoSort例子中的课程依赖关系（有向图）,个人计算机的文件层次结构（树），你所在城市的公交或地铁线路（无向图）。 </p>
+<p>//略</p>
+<h3 id="5-7-可变参数"><a href="#5-7-可变参数" class="headerlink" title="5.7. 可变参数"></a>5.7. 可变参数</h3><p><strong>练习5.15：</strong> 编写类似sum的可变参数函数max和min。考虑不传参时，max和min该如何处理，再编写至少接收1个参数的版本。</p>
+<p>这个就不写了把 考虑不传参的版本 要么就报错 要么就之前输出 最小的INT值 和 最大的INT值（max和min初始值就为这个 发现切片长度为0 不进去循环 直接返回max min初始值） 考虑一定会传参（初始化假设为切片第一个元素 然后从第二个元素开始遍历</p>
+<p><strong>练习5.16：</strong>编写多参数版本的strings.Join。</p>
+<p>这个也不写了把 把标准库里两个参数调换顺序，然后第二个参数变成可变参数列表</p>
+<p><strong>练习5.17：</strong>编写多参数版本的ElementsByTagName，函数接收一个HTML结点树以及任意数量的标签名，返回与这些标签名匹配的所有元素。下面给出了2个例子：</p>
+<p>判断如果传过来的元素少就直接 遍历 切片 寻找对应TagName </p>
+<p>如果传过来的元素多就创建map 然后看看对应的TagName有没有在map里</p>
+<h3 id="5-8-Defer"><a href="#5-8-Defer" class="headerlink" title="5.8 Defer"></a>5.8 Defer</h3><p>只需要在调用普通函数或方法前加上关键字defer，就完成了defer所需要的语法。当执行到该条语句时，函数和参数表达式得到计算，但直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，不论包含defer语句的函数是通过return正常结束，还是由于panic导致的异常结束。你可以在一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反。</p>
+<p><strong>如果在Defer包含的语句里 有函数嵌套 会执行外层的 最后一步的计算才会留到defer的栈里</strong></p>
+<p>defer语句经常被用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释放锁。通过defer机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资源被释放。释放资源的defer应该直接跟在请求资源的语句后。</p>
+<p><strong>练习5.18：</strong>不修改fetch的行为，重写fetch函数，要求使用defer机制关闭文件。</p>
+<p>就加个语句就行了…</p>
+<h3 id="5-9-Panic异常"><a href="#5-9-Panic异常" class="headerlink" title="5.9 Panic异常"></a>5.9 Panic异常</h3><p>  一般而言，当panic异常发生时，程序会中断运行，并立即执行在该goroutine（可以先理解成线程，在第8章会详细介绍）中被延迟的函数（defer 机制）。随后，程序崩溃并输出日志信息。日志信息包括panic value和函数调用的堆栈跟踪信息。panic value通常是某种错误信息。对于每个goroutine，日志信息中都会有与之相对的，发生panic时的函数调用堆栈跟踪信息。通常，我们不需要再次运行程序去定位问题，日志信息已经提供了足够的诊断依据。因此，在我们填写问题报告时，一般会将panic异常和日志信息一并记录。</p>
+<p>  虽然Go的panic机制类似于其他语言的异常，但panic的适用场景有一些不同。由于panic会引起程序的崩溃，因此panic一般用于严重错误，如程序内部的逻辑不一致。勤奋的程序员认为任何崩溃都表明代码中存在漏洞，所以对于大部分漏洞，我们应该使用Go提供的错误机制，而不是panic，尽量避免程序的崩溃。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的I/O操作都应该被优雅的处理，最好的处理方式，就是使用Go的错误机制。</p>
+<h3 id="5-10-Recover捕获异常"><a href="#5-10-Recover捕获异常" class="headerlink" title="5.10. Recover捕获异常"></a>5.10. Recover捕获异常</h3><p>  如果在deferred函数中调用了内置函数recover，并且定义该defer语句的函数发生了panic异常，recover会使程序从panic中恢复，并返回panic value。导致panic异常的函数不会继续运行，但能正常返回。在未发生panic时调用recover，recover会返回nil。</p>
+<p>  一般用来以异常处理，根据异常类型做出不同的操作</p>
+<p><strong>练习5.19：</strong> 使用panic和recover编写一个不包含return语句但能返回一个非零值的函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//网上代码</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    a := returnN()</span><br><span class="line">    fmt.Println(a)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">returnN</span><span class="params">()</span> <span class="params">(result <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> p := <span class="built_in">recover</span>(); p != <span class="literal">nil</span> &#123;</span><br><span class="line">            result = p.(<span class="keyword">int</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="built_in">panic</span>(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/gopl/chapter5.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter5.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter5.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1631531972952"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
