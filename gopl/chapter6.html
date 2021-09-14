@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Go语言圣经学习笔记--第六章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Go语言圣经学习笔记——第六章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第六章 方法6.1. 方法声明  在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。（go语言封装性的一种体现），可以通过对象点">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Go语言圣经学习笔记--第六章">
+<meta property="og:url" content="http://csder666.github.io/gopl/chapter6.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="Go语言圣经学习笔记——第六章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第六章 方法6.1. 方法声明  在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。（go语言封装性的一种体现），可以通过对象点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-13T14:12:01.000Z">
+<meta property="article:modified_time" content="2021-09-14T07:18:44.730Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1631603989295">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1631603989295">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="Go语言圣经学习笔记--第六章" class="lazyload">
+              <h1>Go语言圣经学习笔记--第六章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月13日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 9 分钟</a>
+</div>
+
+      
+
+      <h1 id="Go语言圣经学习笔记——第六章"><a href="#Go语言圣经学习笔记——第六章" class="headerlink" title="Go语言圣经学习笔记——第六章"></a>Go语言圣经学习笔记——第六章</h1><p>本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——<a target="_blank" rel="noopener" href="https://docs.hacknode.org/gopl-zh">网页</a></p>
+<!--                  more           -->
+
+
+
+<h2 id="第六章-方法"><a href="#第六章-方法" class="headerlink" title="第六章 方法"></a>第六章 方法</h2><h3 id="6-1-方法声明"><a href="#6-1-方法声明" class="headerlink" title="6.1. 方法声明"></a>6.1. 方法声明</h3><p>  在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。（go语言封装性的一种体现），可以通过对象点的方式进行调用，方法里头可以使用当前对象（例如这里是p进行）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span> <span class="title">ScaleBy</span><span class="params">(factor <span class="keyword">float64</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-基于指针对象的方法"><a href="#6-2-基于指针对象的方法" class="headerlink" title="6.2. 基于指针对象的方法"></a>6.2. 基于指针对象的方法</h3><p>  默认是方法调用是值传递，例如上面的例子调用该方法是将调用的对象复制一遍传递个p变量</p>
+<p><strong>如果方法是值传递，但结构体里有引用型数据类型，对于引用数据类型是浅拷贝而不是深拷贝，就依然无法对调用对象的数据做出操作</strong></p>
+<p> 如果需要对对象某些属性做出改变则需要使用指针接收者（前者是值接收者） 若接收者变量本身比较大 也可考虑使用指针接受者 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Point)</span> <span class="title">ScaleBy</span><span class="params">(factor <span class="keyword">float64</span>)</span></span> </span><br></pre></td></tr></table></figure>
+
+<p><strong>Nil也是一个合法的接收器类型</strong> 在go中 对象的值为nil也可以进行方法传递 不会报错 但在方法体对对象进行访问可能会报错</p>
+<h3 id="6-3-通过嵌入结构体来扩展类型"><a href="#6-3-通过嵌入结构体来扩展类型" class="headerlink" title="6.3. 通过嵌入结构体来扩展类型"></a>6.3. 通过嵌入结构体来扩展类型</h3><p>在结构体中可以直接内嵌另一个结构体，不设定名字（只能内嵌一个），当对象点时可以直接访问内嵌结构体的变量和方法 若内嵌结构体和外层结构体有重名方法或重名变量 优先考虑外层结构体的方法和变量</p>
+<p><strong>可以把这种特性当成一种面向对象继承的体现，而且还可以多继承。但区别于传统的面向对象继承，继承的子类无法直接转换成父类(或者可以理解成在继承中无多态性的体现)</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ColoredPoint <span class="keyword">struct</span> &#123;</span><br><span class="line">    *Point</span><br><span class="line">    Color color.RGBA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>内嵌还可以内嵌指针 使用效果相同</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cache = <span class="keyword">struct</span> &#123;</span><br><span class="line">    sync.Mutex</span><br><span class="line">    mapping <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">&#125;&#123;</span><br><span class="line">    mapping: <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以匿名生成结构体</p>
+<p>(为什么感觉这一小节跟方法没啥关系)</p>
+<h3 id="6-4-方法值和方法表达式"><a href="#6-4-方法值和方法表达式" class="headerlink" title="6.4. 方法值和方法表达式"></a>6.4. 方法值和方法表达式</h3><p>（感觉这个用到的页表少）</p>
+<p>对应某个对象的方法可以取下来 赋值给一个变量 然后调用这个函数变量 默认就是对这个对象进行操作</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p := Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">q := Point&#123;<span class="number">4</span>, <span class="number">6</span>&#125;</span><br><span class="line"><span class="comment">//Distance是Ponit的一个方法 需要Point进行传参</span></span><br><span class="line">distanceFromP := p.Distance        <span class="comment">// method value</span></span><br><span class="line">fmt.Println(distanceFromP(q))      <span class="comment">// &quot;5&quot;</span></span><br><span class="line"><span class="keyword">var</span> origin Point                   <span class="comment">// &#123;0, 0&#125;</span></span><br><span class="line">fmt.Println(distanceFromP(origin)) <span class="comment">// &quot;2.23606797749979&quot;, sqrt(5)</span></span><br><span class="line"></span><br><span class="line">scaleP := p.ScaleBy <span class="comment">// method value</span></span><br><span class="line">scaleP(<span class="number">2</span>)           <span class="comment">// p becomes (2, 4)</span></span><br><span class="line">scaleP(<span class="number">3</span>)           <span class="comment">//      then (6, 12)</span></span><br><span class="line">scaleP(<span class="number">10</span>)          <span class="comment">//      then (60, 120)</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的 可以把某个对象的方法取下来 复制给一个变量 然后传递给另一个需要他的函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Rocket <span class="keyword">struct</span> &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Rocket)</span> <span class="title">Launch</span><span class="params">()</span></span> &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">r := <span class="built_in">new</span>(Rocket)</span><br><span class="line">time.AfterFunc(<span class="number">10</span> * time.Second, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; r.Launch() &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>直接用方法”值”传入AfterFunc的话可以更为简短：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.AfterFunc(<span class="number">10</span> * time.Second, r.Launch)</span><br></pre></td></tr></table></figure>
+
+<p>（深化一个观念 在go语言中 函数时一等公民！！！）</p>
+<p>当T是一个类型时，方法表达式可能会写作<code>T.f</code>或者<code>(*T).f</code>，会返回一个函数”值”，这种函数会将其第一个参数用作接收器，所以可以用通常(译注：不写选择器)的方式来对其进行调用</p>
+<p>（我个人觉得还挺好用的把 有些情况下可以当作一个静态方法来使用）</p>
+<h3 id="6-5-示例-Bit数组"><a href="#6-5-示例-Bit数组" class="headerlink" title="6.5. 示例: Bit数组"></a>6.5. 示例: Bit数组</h3><p><strong>练习6.1:</strong> 为bit数组实现下面这些方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">func (this *IntSet) Len() int &#123;</span><br><span class="line">   sum:=0</span><br><span class="line">   length := len(this.words)</span><br><span class="line">   for i := 0; i &lt; length; i++ &#123;</span><br><span class="line">      current := this.words[i]</span><br><span class="line">      for current!=0&#123;</span><br><span class="line">         current=current&amp;(current-1)</span><br><span class="line">         sum++</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return sum</span><br><span class="line">&#125;</span><br><span class="line">// remove x from the set</span><br><span class="line">func (this *IntSet) Remove(x int) &#123;</span><br><span class="line">   length:=len(this.words)</span><br><span class="line">   if x&gt;=length&#123;</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   copy(this.words[x:],this.words[x+1:])</span><br><span class="line">   this.words=this.words[:length-1]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// remove all elements from the set</span><br><span class="line">func (this *IntSet) Clear()&#123;</span><br><span class="line">   this.words=make([]uint64,0)</span><br><span class="line">&#125;</span><br><span class="line">func (this *IntSet) Copy() *IntSet &#123;</span><br><span class="line">   length:=len(this.words)</span><br><span class="line">   newWords := make([]uint64,length)</span><br><span class="line">   copy(newWords,this.words)</span><br><span class="line">   newIntset := IntSet&#123;words: newWords&#125;</span><br><span class="line">   return &amp;newIntset</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 6.2：</strong> 定义一个变参方法(*IntSet).AddAll(…int)，这个方法可以添加一组IntSet，比如s.AddAll(1,2,3)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func (this *IntSet)AddAll(ints...int)&#123;</span><br><span class="line">   for _, v := range ints &#123;</span><br><span class="line">      this.Add(v)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 6.3：</strong> (*IntSet).UnionWith会用<code>|</code>操作符计算两个集合的并集，我们再为IntSet实现另外的几个函数IntersectWith（交集：元素在A集合B集合均出现）,DifferenceWith（差集：元素出现在A集合，未出现在B集合），SymmetricDifference（并差集：元素出现在A但没有出现在B，或者出现在B没有出现在A）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//这里我把所有都改成了值接收者 因为按理来说 调用这个函数不应该把调用者的数据给修改了 </span><br><span class="line">//要想执行正确也要把书中代码的UnionWith的代码也改了</span><br><span class="line">//如果处理还可以当作一个静态方法来使用</span><br><span class="line">//交集</span><br><span class="line">func (s IntSet)IntersectWith(t *IntSet)IntSet&#123;</span><br><span class="line">   i:=0</span><br><span class="line">   lengthS := len(s.words)</span><br><span class="line">   lengthT := len(t.words)</span><br><span class="line">   for i&lt;lengthT &amp;&amp; i&lt;lengthS&#123;</span><br><span class="line">      s.words[i]&amp;=t.words[i]</span><br><span class="line">      i++</span><br><span class="line">   &#125;</span><br><span class="line">   for i&lt;lengthS&#123;</span><br><span class="line">      s.words[i]=0</span><br><span class="line">      i++</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">//让t的每个人数都先跟全1做异或 0变1 1变0 再跟s的对应位置做与运算</span><br><span class="line">func (s IntSet) DifferenceWith(t*IntSet) IntSet&#123;</span><br><span class="line">   for i, v := range t.words &#123;</span><br><span class="line">      temp:=v^(-1)</span><br><span class="line">      s.words[i]&amp;=temp</span><br><span class="line">   &#125;</span><br><span class="line">   return s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s IntSet)SymmetricDifference(t *IntSet)IntSet&#123;</span><br><span class="line">   ST := IntSet.DifferenceWith(s, t)</span><br><span class="line">   TS:=  IntSet.DifferenceWith(*t, &amp;s)</span><br><span class="line">   return IntSet.UnionWith(ST,TS)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>*<strong>练习6.4:</strong> 实现一个Elems方法，返回集合中的所有元素，用于做一些range之类的遍历操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//我还以为实现这个方法能够自定义forrang操作 看你只有利用函数式编程来实现了</span><br><span class="line">func (this *IntSet)Elems()[]int&#123;</span><br><span class="line">   var result=[]int&#123;&#125;</span><br><span class="line">   length := len(this.words)</span><br><span class="line">   for i := 0; i &lt;length ; i++ &#123;</span><br><span class="line">      if this.words[i]!=0&#123;</span><br><span class="line">         for j := 0; j &lt; 64; j++ &#123;</span><br><span class="line">            if this.words[i]&amp;(1&lt;&lt;j)==1&#123;</span><br><span class="line">               result=append(result,i*64+j)</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 6.5：</strong> 我们这章定义的IntSet里的每个字都是用的uint64类型，但是64位的数值可能在32位的平台上不高效。修改程序，使其使用uint类型，这种类型对于32位平台来说更合适。当然了，这里我们可以不用简单粗暴地除64，可以定义一个常量来决定是用32还是64，这里你可能会用到平台的自动判断的一个智能表达式：32 &lt;&lt; (^uint(0) &gt;&gt; 63)</p>
+<p>略</p>
+<h3 id="6-6-封装"><a href="#6-6-封装" class="headerlink" title="6.6 封装"></a>6.6 封装</h3><p>一个对象的变量或者方法如果对调用方是不可见的话，一般就被定义为“封装”。封装有时候也被叫做信息隐藏，同时也是面向对象编程最关键的一个方面。</p>
+<p>Go语言只有一种控制可见性的手段：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会</p>
+<p>首先，因为调用方不能直接修改对象的变量值，其只需要关注少量的语句并且只要弄懂少量变量的可能的值即可。</p>
+<p>第二，隐藏实现的细节，可以防止调用方依赖那些可能变化的具体实现，这样使设计包的程序员在不破坏对外的api情况下能得到更大的自由</p>
+<p>封装的第三个优点也是最重要的优点，是阻止了外部调用方对对象内部的值任意地进行修改。因为对象内部变量只可以被同一个包内的函数修改，所以包的作者可以让这些函数确保对象内部的一些值的不变性。</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/gopl/chapter6.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter6.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter6.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1631603989296"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
