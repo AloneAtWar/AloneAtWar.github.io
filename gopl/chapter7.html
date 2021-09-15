@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Go语言圣经学习笔记--第七章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Go语言圣经学习笔记——第七章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第七章 接口7.1 接口约定接口类型。接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会表现出它们自己的方法。也就是说当你有看到一个接口类型的值时，你不知道它">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Go语言圣经学习笔记--第七章">
+<meta property="og:url" content="http://csder666.github.io/gopl/chapter7.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="Go语言圣经学习笔记——第七章本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——网页     第七章 接口7.1 接口约定接口类型。接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会表现出它们自己的方法。也就是说当你有看到一个接口类型的值时，你不知道它">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://docs.hacknode.org/gopl-zh/images/ch7-01.png">
+<meta property="og:image" content="https://docs.hacknode.org/gopl-zh/images/ch7-02.png">
+<meta property="og:image" content="https://docs.hacknode.org/gopl-zh/images/ch7-05.png">
+<meta property="article:published_time" content="2021-09-12T12:25:01.000Z">
+<meta property="article:modified_time" content="2021-09-15T08:31:16.365Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.hacknode.org/gopl-zh/images/ch7-01.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1631694771073">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1631694771073">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/Golang.png" data-sizes="auto" alt="Go语言圣经学习笔记--第七章" class="lazyload">
+              <h1>Go语言圣经学习笔记--第七章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>6k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 29 分钟</a>
+</div>
+
+      
+
+      <h1 id="Go语言圣经学习笔记——第七章"><a href="#Go语言圣经学习笔记——第七章" class="headerlink" title="Go语言圣经学习笔记——第七章"></a>Go语言圣经学习笔记——第七章</h1><p>本文章是我在学习Go语言圣经时记录的笔记，大多是记录一些总结和感觉以后能用到或者容易忘记的点，以便以后复习使用，初学者建议还是先去看看原书——<a target="_blank" rel="noopener" href="https://docs.hacknode.org/gopl-zh">网页</a></p>
+<!--                  more           -->
+
+
+
+<h2 id="第七章-接口"><a href="#第七章-接口" class="headerlink" title="第七章 接口"></a>第七章 接口</h2><h3 id="7-1-接口约定"><a href="#7-1-接口约定" class="headerlink" title="7.1 接口约定"></a>7.1 接口约定</h3><p>接口类型。接口类型是一种抽象的类型。它不会暴露出它所代表的对象的内部值的结构和这个对象支持的基础操作的集合；它们只会表现出它们自己的方法。也就是说当你有看到一个接口类型的值时，你不知道它是什么，唯一知道的就是可以通过它的方法来做什么。</p>
+<p><strong>练习 7.1：</strong> 使用来自ByteCounter的思路，实现一个针对单词和行数的计数器。你会发现bufio.ScanWords非常的有用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">type ByteCounter struct &#123;</span><br><span class="line">   wordNum,lineNum int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func (this *ByteCounter)Write(p[]byte)(int, error)&#123;</span><br><span class="line">	index:=0</span><br><span class="line">	length:=len(p)</span><br><span class="line">	for &#123;</span><br><span class="line">		next, _, err := bufio.ScanWords(p[index:], true)</span><br><span class="line">		index+=next</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return 0, err</span><br><span class="line">		&#125;</span><br><span class="line">		this.wordNum++</span><br><span class="line">		if index==length&#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	index=0</span><br><span class="line">	for &#123;</span><br><span class="line">		next, _, err := bufio.ScanLines(p[index:], true)</span><br><span class="line">		index+=next</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return 0, err</span><br><span class="line">		&#125;</span><br><span class="line">		this.lineNum++</span><br><span class="line">		if index==length&#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return length,nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (this *ByteCounter) String()string&#123;</span><br><span class="line">   return fmt.Sprintf(&quot;已记录了%d个单词%d行数据&quot;,this.wordNum,this.lineNum)</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">   count := ByteCounter&#123;&#125;</span><br><span class="line">   fmt.Fprintf(&amp;count,&quot;I have a pen\n yes no ok\n&quot;)</span><br><span class="line">   fmt.Println(&amp;count)</span><br><span class="line">&#125;</span><br><span class="line">//这个值接收者 指针接受者绕来绕去的</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解释一下bufio.ScanWords这个函数 感觉文档没有将清楚  想研究的一定要看源码 源码很好懂 （但不好讲..)</p>
+<p><strong>练习 7.2：</strong> 写一个带有如下函数签名的函数CountingWriter，传入一个io.Writer接口类型，返回一个把原来的Writer封装在里面的新的Writer类型和一个表示新的写入字节数的int64类型指针。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">type countingWriter struct &#123;</span><br><span class="line">   io.Writer</span><br><span class="line">   int64</span><br><span class="line">&#125;</span><br><span class="line">func (this *countingWriter)Write(p[]byte)(int, error)&#123;</span><br><span class="line">   write, err := this.Writer.Write(p)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return 0, err</span><br><span class="line">   &#125;</span><br><span class="line">   this.int64+=int64(write)</span><br><span class="line">   return write,nil</span><br><span class="line">&#125;</span><br><span class="line">func CountingWriter(writer io.Writer)(io.Writer,*int64)&#123;</span><br><span class="line">    newWriter:= countingWriter&#123;</span><br><span class="line">      Writer: writer,</span><br><span class="line">      int64:    0,</span><br><span class="line">   &#125;</span><br><span class="line">   return &amp;newWriter,&amp;newWriter.int64</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（让我想起了装饰者模式）</p>
+<p><strong>练习 7.3：</strong> 为在gopl.io/ch4/treesort (§4.4)中的*tree类型实现一个String方法去展示tree类型的值序列。</p>
+<p>不写了把 so easy</p>
+<h3 id="7-2-接口类型"><a href="#7-2-接口类型" class="headerlink" title="7.2. 接口类型"></a>7.2. 接口类型</h3><p>  io.Writer类型是用得最广泛的接口之一，因为它提供了所有类型的写入bytes的抽象，包括文件类型，内存缓冲区，网络链接，HTTP客户端，压缩工具，哈希等等。io包中定义了很多其它有用的接口类型。Reader可以代表任意可以读取bytes的类型，Closer可以是任意可以关闭的值，例如一个文件或是网络链接。（到现在你可能注意到了很多Go语言中单方法接口的命名习惯）</p>
+<p>  再往下看，我们发现有些新的接口类型通过组合已有的接口来定义。下面是两个例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ReadWriter <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ReadWriteCloser <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">    Closer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 7.4：</strong> strings.NewReader函数通过读取一个string参数返回一个满足io.Reader接口类型的值（和其它值）。实现一个简单版本的NewReader，用它来构造一个接收字符串输入的HTML解析器（§5.2）</p>
+<figure class="highlight plaintext"><figcaption><span>HtmlReader struct &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">type HtmlReader struct &#123;</span><br><span class="line">   root *html.Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewHtmlReader() *HtmlReader &#123;</span><br><span class="line">   return &amp;HtmlReader&#123;root: nil&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (h HtmlReader) Read(p []byte) (n int, err error) &#123;</span><br><span class="line">   parse, err := html.Parse(bytes.NewReader(p))</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return 0, err</span><br><span class="line">   &#125;</span><br><span class="line">   if h.root==nil&#123;</span><br><span class="line">      h.root=parse</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">      temp:=h.root</span><br><span class="line">      for temp.NextSibling!=nil&#123;</span><br><span class="line">         temp=temp.NextSibling</span><br><span class="line">      &#125;</span><br><span class="line">      temp.NextSibling=parse</span><br><span class="line">   &#125;</span><br><span class="line">   return len(p),nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-实现接口的条件"><a href="#7-3-实现接口的条件" class="headerlink" title="7.3. 实现接口的条件"></a>7.3. 实现接口的条件</h3><p>一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。例如，<code>*os.File</code>类型实现了io.Reader，Writer，Closer，和ReadWriter接口。</p>
+<h3 id="7-4-flag-Value接口"><a href="#7-4-flag-Value接口" class="headerlink" title="7.4. flag Value接口"></a>7.4. flag Value接口</h3><p>flag包专门负责从命令行参数中找到某参数名对应的参数值 比方说flag.Int(name string,value int,usage string)*int 函数就会从命令行中找到-name 后面的参数 作为value 把其指针返回 若无-name参数 value就是其默认值 usage是负责报错的 当出现了不合法参数时就会出现</p>
+<p>  如何自定义自己的结构体 实现这从 命令行找数据 然后打包成一个对象呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Value <span class="keyword">interface</span> &#123;</span><br><span class="line">    String() <span class="keyword">string</span></span><br><span class="line">    Set(<span class="keyword">string</span>) error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要实现Value接口 Set设置封装规则</p>
+<p>然后通过flag.CommandLine.Var(*Value, name string, usage string)找到对应的参数 给第一个参数复制</p>
+<p><strong>练习 7.6：</strong> 对tempFlag加入支持开尔文温度。</p>
+<p>很简单就不说了</p>
+<p><strong>练习 7.7：</strong> 解释为什么帮助信息在它的默认值是20.0没有包含°C的情况下输出了°C。</p>
+<p>没有找到对应的参数 f.Celsius就被默认设置为20.0在 f := celsiusFlag{value}当String()输出时程序加入C</p>
+<h3 id="7-5-接口值"><a href="#7-5-接口值" class="headerlink" title="7.5. 接口值"></a>7.5. 接口值</h3><p>  概念上讲一个接口的值，接口值，由两个部分组成，一个具体的类型和那个类型的值。它们被称为接口的动态类型和动态值。对于像Go语言这种静态类型的语言，类型是编译期的概念；因此一个类型不是一个值。在我们的概念模型中，一些提供每个类型信息的值被称为类型描述符，比如类型的名称和方法。在一个接口值中，类型部分代表与之相关类型的描述符。</p>
+<p>  一个接口值基于它的动态类型被描述为空或非空，所以这是一个空的接口值。你可以通过使用w==nil或者w!=nil来判断接口值是否为空。调用一个空接口值上的任意方法都会产生panic</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://docs.hacknode.org/gopl-zh/images/ch7-01.png" alt="img" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://docs.hacknode.org/gopl-zh/images/ch7-02.png" alt="img" class="lazyload"></p>
+<p>  <strong>接口在函数中的传递依然是值传递，但是能否改变原有对象主要取决于 接口的Value是不是指针 若为指针则相当于指针复制 则可以对原有对象进行修改 绕不过来了 阿巴阿巴阿巴</strong></p>
+<p>如果两个接口值的动态类型相同，但是这个动态类型是不可比较的（比如切片），将它们进行比较就会失败并且panic:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x <span class="keyword">interface</span>&#123;&#125; = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">fmt.Println(x == x) <span class="comment">// panic: comparing uncomparable type []int</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>警告：一个包含nil指针的接口不是nil接口</strong></p>
+<p>因为指针也可以为nil 一个nil接口是说 他的类型时nil 值也是nil 但如果类型部位nil 值为nil 整体也不会nil</p>
+<p>思考下面的程序。当debug变量设置为true时，main函数会将f函数的输出收集到一个bytes.Buffer类型中。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debug = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> buf *bytes.Buffer</span><br><span class="line">    <span class="keyword">if</span> debug &#123;</span><br><span class="line">        buf = <span class="built_in">new</span>(bytes.Buffer) <span class="comment">// enable collection of output</span></span><br><span class="line">    &#125;</span><br><span class="line">    f(buf) <span class="comment">// <span class="doctag">NOTE:</span> subtly incorrect!</span></span><br><span class="line">    <span class="keyword">if</span> debug &#123;</span><br><span class="line">        <span class="comment">// ...use buf...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// If out is non-nil, output will be written to it.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(out io.Writer)</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...do something...</span></span><br><span class="line">    <span class="keyword">if</span> out != <span class="literal">nil</span> &#123;</span><br><span class="line">        out.Write([]<span class="keyword">byte</span>(<span class="string">&quot;done!\n&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能会预计当把变量debug设置为false时可以禁止对输出的收集，但是实际上在out.Write方法调用时程序发生了panic：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> out != <span class="literal">nil</span> &#123;</span><br><span class="line">    out.Write([]<span class="keyword">byte</span>(<span class="string">&quot;done!\n&quot;</span>)) <span class="comment">// panic: nil pointer dereference</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当main函数调用函数f时，它给f函数的out参数赋了一个<em>bytes.Buffer的空指针，所以out的动态值是nil。然而，它的动态类型是</em>bytes.Buffer，意思就是out变量是一个包含空指针值的非空接口（如图7.5），所以防御性检查out!=nil的结果依然是true。</p>
+<p>思考下面的程序。当debug变量设置为true时，main函数会将f函数的输出收集到一个bytes.Buffer类型中。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debug = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> buf *bytes.Buffer</span><br><span class="line">    <span class="keyword">if</span> debug &#123;</span><br><span class="line">        buf = <span class="built_in">new</span>(bytes.Buffer) <span class="comment">// enable collection of output</span></span><br><span class="line">    &#125;</span><br><span class="line">    f(buf) <span class="comment">// <span class="doctag">NOTE:</span> subtly incorrect!</span></span><br><span class="line">    <span class="keyword">if</span> debug &#123;</span><br><span class="line">        <span class="comment">// ...use buf...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// If out is non-nil, output will be written to it.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(out io.Writer)</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...do something...</span></span><br><span class="line">    <span class="keyword">if</span> out != <span class="literal">nil</span> &#123;</span><br><span class="line">        out.Write([]<span class="keyword">byte</span>(<span class="string">&quot;done!\n&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能会预计当把变量debug设置为false时可以禁止对输出的收集，但是实际上在out.Write方法调用时程序发生了panic：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> out != <span class="literal">nil</span> &#123;</span><br><span class="line">    out.Write([]<span class="keyword">byte</span>(<span class="string">&quot;done!\n&quot;</span>)) <span class="comment">// panic: nil pointer dereference</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当main函数调用函数f时，它给f函数的out参数赋了一个<em>bytes.Buffer的空指针，所以out的动态值是nil。然而，它的动态类型是</em>bytes.Buffer，意思就是out变量是一个包含空指针值的非空接口（如图7.5），所以防御性检查out!=nil的结果依然是true。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://docs.hacknode.org/gopl-zh/images/ch7-05.png" alt="img" class="lazyload"></p>
+<p>动态分配机制依然决定(<em>bytes.Buffer).Write的方法会被调用，但是这次的接收者的值是nil。对于一些如</em>os.File的类型，nil是一个有效的接收者(§6.2.1)，但是*bytes.Buffer类型不在这些种类中。这个方法会被调用，但是当它尝试去获取缓冲区时会发生panic。</p>
+<h3 id="7-6-sort-Interface接口"><a href="#7-6-sort-Interface接口" class="headerlink" title="7.6 sort.Interface接口"></a>7.6 sort.Interface接口</h3><p>一个内置的排序算法需要知道三个东西：序列的长度，表示两个元素比较的结果，一种交换两个元素的方式；这就是sort.Interface的三个方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">    Len() <span class="keyword">int</span></span><br><span class="line">    Less(i, j <span class="keyword">int</span>) <span class="keyword">bool</span> <span class="comment">// i, j are indices of sequence elements</span></span><br><span class="line">    Swap(i, j <span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  sort.Reverse( sort.Interface)可以将原先的排序方法反序 本质上是在Interface上又套了一层结构体 在新的结构体里调用内部结构体的less方法（但是参数交换 就是说原先Less判断为true 参数交换就会为false）</p>
+<p>  同理我们也可以利用这个思路 创造一个新的结构体 包含原先的结构体 和内置一个 Less的函数(再次深化函数是一等公民) 然后默认结构体实现三个方法 在Less方法里头 调用成员变量（函数） 所以这样定义好 就可以现写现用了</p>
+<p><strong>练习 7.8：</strong> 很多图形界面提供了一个有状态的多重排序表格插件：主要的排序键是最近一次点击过列头的列，第二个排序键是第二最近点击过列头的列，等等。定义一个sort.Interface的实现用在这样的表格中。比较这个实现方式和重复使用sort.Stable来排序的方式。</p>
+<p>不写了把 内嵌一个排序方式数组(类型是排序函数) 在内嵌一个优先级切片 优先级切片里面装着对应排序方式的索引 写一个将优先级调高的方法</p>
+<p><strong>练习 7.9：</strong> 使用html/template包 (§4.6) 替代printTracks将tracks展示成一个HTML表格。将这个解决方案用在前一个练习中，让每次点击一个列的头部产生一个HTTP请求来排序这个表格。</p>
+<p> <del>代码量感觉上来了 有思路但不想写</del></p>
+<p>干就完事！！！！！！！！！！！！！！！！！！！！！！！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">type Track struct &#123;</span><br><span class="line">   Title  string</span><br><span class="line">   Artist string</span><br><span class="line">   Album  string</span><br><span class="line">   Year   int</span><br><span class="line">   Length time.Duration</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var tracks = []*Track&#123;</span><br><span class="line">   &#123;&quot;Go&quot;, &quot;Delilah&quot;, &quot;From the Roots Up&quot;, 2012, length(&quot;3m38s&quot;)&#125;,</span><br><span class="line">   &#123;&quot;Go&quot;, &quot;Moby&quot;, &quot;Moby&quot;, 1992, length(&quot;3m37s&quot;)&#125;,</span><br><span class="line">   &#123;&quot;Go Ahead&quot;, &quot;Alicia Keys&quot;, &quot;As I Am&quot;, 2007, length(&quot;4m36s&quot;)&#125;,</span><br><span class="line">   &#123;&quot;Ready 2 Go&quot;, &quot;Martin Solveig&quot;, &quot;Smash&quot;, 2011, length(&quot;4m24s&quot;)&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const templ=`</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;数据展示&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">   &lt;h1 align=&quot;auto&quot;&gt;Data Display&lt;/h1&gt;</span><br><span class="line">    &lt;table border=&quot;3px&quot; cellspacing=&quot;4px&quot;&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;&lt;a href=&quot;/?sort=Title&quot;&gt;Title&lt;/a&gt;&lt;/th&gt;</span><br><span class="line">            &lt;th&gt;&lt;a href=&quot;/?sort=Artist&quot;&gt;Artist&lt;/a&gt;&lt;/th&gt;</span><br><span class="line">            &lt;th&gt;&lt;a href=&quot;/?sort=Album&quot;&gt;Album&lt;/a&gt;&lt;/th&gt;</span><br><span class="line">            &lt;th&gt;&lt;a href=&quot;/?sort=Year&quot;&gt;Year&lt;/a&gt;&lt;/th&gt;</span><br><span class="line">            &lt;th&gt;&lt;a href=&quot;/?sort=Length&quot;&gt;Length&lt;/a&gt;&lt;/th&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &#123;&#123;range .Data &#125;&#125;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;.Title&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;.Artist&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;.Album&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;.Year&#125;&#125;&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;.Length&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type sortWay struct &#123;</span><br><span class="line">   sort func(i,j int) bool</span><br><span class="line">   name string</span><br><span class="line">&#125;</span><br><span class="line">type sortTrack struct &#123;</span><br><span class="line">   Data []*Track</span><br><span class="line">   StringToInt map[string]int</span><br><span class="line">   IntToWay map[int]sortWay</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (track1 sortTrack) Len() int &#123;</span><br><span class="line">   return len(track1.Data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (track1 sortTrack) Less(i, j int) bool &#123;</span><br><span class="line">   length:=len(track1.IntToWay)</span><br><span class="line">   for index := 0; index &lt;length ; index++ &#123;</span><br><span class="line">      way:= track1.IntToWay[0].sort</span><br><span class="line">      if way(i,j)&#123;</span><br><span class="line">         return true</span><br><span class="line">      &#125;else if !way(j,i)&#123;</span><br><span class="line">         continue</span><br><span class="line">      &#125;else&#123;return  false&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   return true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (track1 sortTrack) Swap(i, j int) &#123;</span><br><span class="line">   track1.Data[i],track1.Data[j]=track1.Data[j],track1.Data[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func newSortTrack(data []*Track) *sortTrack &#123;</span><br><span class="line">   s := &amp;sortTrack&#123;Data: data&#125;</span><br><span class="line">   s.StringToInt=make(map[string]int,5)</span><br><span class="line">   s.StringToInt[&quot;Title&quot;]=0</span><br><span class="line">   s.StringToInt[&quot;Artist&quot;]=1</span><br><span class="line">   s.StringToInt[&quot;Album&quot;]=2</span><br><span class="line">   s.StringToInt[&quot;Year&quot;]=3</span><br><span class="line">   s.StringToInt[&quot;Length&quot;]=4</span><br><span class="line">   s.IntToWay=make(map[int]sortWay,5)</span><br><span class="line">   s.IntToWay[0]=sortWay&#123;s.byTitle,&quot;Title&quot;&#125;</span><br><span class="line">   s.IntToWay[1]=sortWay&#123;s.byArtist,&quot;Artist&quot;&#125;</span><br><span class="line">   s.IntToWay[2]=sortWay&#123;s.byAlbum,&quot;Album&quot;&#125;</span><br><span class="line">   s.IntToWay[3]=sortWay&#123;s.byYear,&quot;Year&quot;&#125;</span><br><span class="line">   s.IntToWay[4]=sortWay&#123;s.byLength,&quot;Length&quot;&#125;</span><br><span class="line">   return s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (this *sortTrack) addSortWay(sortName string,sort func(i,j int) bool)&#123;</span><br><span class="line">   length := len(this.StringToInt)</span><br><span class="line">   way := sortWay&#123; sort,sortName&#125;</span><br><span class="line">   this.StringToInt[sortName]=length</span><br><span class="line">   this.IntToWay[length]=way</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (track1* sortTrack)byTitle(i,j int)bool&#123;</span><br><span class="line">   return track1.Data[i].Title&lt;track1.Data[j].Title</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (track1* sortTrack)byArtist(i,j int)bool&#123;</span><br><span class="line">   return track1.Data[i].Artist&lt;track1.Data[j].Artist</span><br><span class="line">&#125;</span><br><span class="line">func (track1* sortTrack)byAlbum(i,j int)bool&#123;</span><br><span class="line">   return track1.Data[i].Album&lt;track1.Data[j].Album</span><br><span class="line">&#125;</span><br><span class="line">func (track1* sortTrack)byYear(i,j int)bool&#123;</span><br><span class="line">   return track1.Data[i].Year&lt;track1.Data[j].Year</span><br><span class="line">&#125;</span><br><span class="line">func (track1* sortTrack)byLength(i,j int)bool&#123;</span><br><span class="line">   return track1.Data[i].Length&lt;track1.Data[j].Length</span><br><span class="line">&#125;</span><br><span class="line">func length(s string) time.Duration &#123;</span><br><span class="line">   d, err := time.ParseDuration(s)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      panic(s)</span><br><span class="line">   &#125;</span><br><span class="line">   return d</span><br><span class="line">&#125;</span><br><span class="line">func (track1* sortTrack) up(sortString string) &#123;</span><br><span class="line">   sortIndex:= track1.StringToInt[sortString]</span><br><span class="line">   upWay:=track1.IntToWay[sortIndex]</span><br><span class="line">   for i := sortIndex; i &gt; 0; i-- &#123;</span><br><span class="line">      track1.IntToWay[i]=track1.IntToWay[i-1]</span><br><span class="line">      track1.StringToInt[track1.IntToWay[i].name]++</span><br><span class="line">   &#125;</span><br><span class="line">   track1.IntToWay[0]=upWay</span><br><span class="line">   track1.StringToInt[sortString]=0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">   sortT := newSortTrack(tracks)</span><br><span class="line">   parse, err := template.New(&quot;html&quot;).Parse(templ)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   http.HandleFunc(&quot;/&quot;, func(writer http.ResponseWriter, request *http.Request) &#123;</span><br><span class="line">      sortString := request.FormValue(&quot;sort&quot;)</span><br><span class="line">      if sortString!=&quot;&quot;&#123;</span><br><span class="line">         _,ok:= sortT.StringToInt[sortString]</span><br><span class="line">         if !ok&#123;</span><br><span class="line">            http.Error(writer,&quot;排序方法输入错误！&quot;,500)</span><br><span class="line">            return</span><br><span class="line">         &#125;</span><br><span class="line">         sortT.up(sortString)</span><br><span class="line">         sort.Sort(sortT)</span><br><span class="line">      &#125;</span><br><span class="line">      parse.Execute(writer,sortT)</span><br><span class="line">   &#125;)</span><br><span class="line">   http.ListenAndServe(&quot;:8080&quot;,nil)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>感觉在造轮子</p>
+<p><strong>练习 7.10：</strong> sort.Interface类型也可以适用在其它地方。编写一个IsPalindrome(s sort.Interface) bool函数表明序列s是否是回文序列，换句话说反向排序不会改变这个序列。假设如果!s.Less(i, j) &amp;&amp; !s.Less(j, i)则索引i和j上的元素相等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func isPalindrome(s sort.Interface)bool&#123;</span><br><span class="line">   l,r :=0, s.Len()-1</span><br><span class="line">   for l&lt;r&#123;</span><br><span class="line">      if s.Less(l,r)||s.Less(r,l)&#123;</span><br><span class="line">         return false</span><br><span class="line">      &#125; </span><br><span class="line">      l++</span><br><span class="line">      r--</span><br><span class="line">   &#125;</span><br><span class="line">   return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-7-http-Handler接口"><a href="#7-7-http-Handler接口" class="headerlink" title="7.7. http.Handler接口"></a>7.7. http.Handler接口</h3><p>在第一章中，我们粗略的了解了怎么用net/http包去实现网络客户端(§1.5)和服务器(§1.7)。在这个小节中，我们会对那些基于http.Handler接口的服务器API做更进一步的学习：</p>
+<p><em>net/http</em></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> http</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Handler <span class="keyword">interface</span> &#123;</span><br><span class="line">    ServeHTTP(w ResponseWriter, r *Request)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ListenAndServe</span><span class="params">(address <span class="keyword">string</span>, h Handler)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 7.11：</strong> 增加额外的handler让客户端可以创建，读取，更新和删除数据库记录。例如，一个形如 <code>/update?item=socks&amp;price=6</code> 的请求会更新库存清单里一个货品的价格并且当这个货品不存在或价格无效时返回一个错误值。（注意：这个修改会引入变量同时更新的问题）</p>
+<p>我还没学go连接数据库呢</p>
+<p><strong>练习 7.12：</strong> 修改/list的handler让它把输出打印成一个HTML的表格而不是文本。html/template包(§4.6)可能会对你有帮助。</p>
+<p>不是很难</p>
+<h3 id="7-8-error接口"><a href="#7-8-error接口" class="headerlink" title="7.8. error接口"></a>7.8. error接口</h3><p>从本书的开始，我们就已经创建和使用过神秘的预定义error类型，而且没有解释它究竟是什么。实际上它就是interface类型，这个类型有一个返回错误信息的单一方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个error最简单的方法就是调用errors.New函数，它会根据传入的错误信息返回一个新的error。整个errors包仅只有4行：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> errors</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(text <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123; <span class="keyword">return</span> &amp;errorString&#123;text&#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> errorString <span class="keyword">struct</span> &#123; text <span class="keyword">string</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *errorString)</span> <span class="title">Error</span><span class="params">()</span> <span class="title">string</span></span> &#123; <span class="keyword">return</span> e.text &#125;</span><br></pre></td></tr></table></figure>
+
+<p>承载errorString的类型是一个结构体而非一个字符串，这是为了保护它表示的错误避免粗心（或有意）的更新。并且因为是指针类型<code>*errorString</code>满足error接口而非errorString类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(errors.New(<span class="string">&quot;EOF&quot;</span>) == errors.New(<span class="string">&quot;EOF&quot;</span>)) <span class="comment">// &quot;false&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>调用errors.New函数是非常稀少的，因为有一个方便的封装函数fmt.Errorf，它还会处理字符串格式化。我们曾多次在第5章中用到它。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> fmt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;errors&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Errorf</span><span class="params">(format <span class="keyword">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(Sprintf(format, args...))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-9-示例-表达式求值"><a href="#7-9-示例-表达式求值" class="headerlink" title="7.9. 示例: 表达式求值"></a>7.9. 示例: 表达式求值</h3><p>一下子难度就上来了 这章一定要看源码 真滴有意思</p>
+<p><strong>练习 7.13：</strong> 为Expr增加一个String方法来打印美观的语法树。当再一次解析的时候，检查它的结果是否生成相同的语法树。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">func (u unary) String() string &#123;</span><br><span class="line">   if u.op==&#x27;+&#x27;&#123;</span><br><span class="line">      return &quot;+&quot;+u.x.String()</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">      return &quot;-&quot;+u.x.String()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">func (l literal) String() string &#123;</span><br><span class="line">   return strconv.FormatFloat(float64(l),&#x27;E&#x27;,-1,64)</span><br><span class="line">&#125;</span><br><span class="line">func (v Var) String() string &#123;</span><br><span class="line">   return string(v)</span><br><span class="line">&#125;</span><br><span class="line">func (b binary) String() string &#123;</span><br><span class="line">   return b.x.String()+&quot; &quot;+string(b.op)+&quot; &quot;+b.y.String()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c call) String() string &#123;</span><br><span class="line">   str:=c.fn+&quot;(&quot;</span><br><span class="line">   for i, v := range c.args &#123;</span><br><span class="line">      if i!=0&#123;</span><br><span class="line">         str+=&quot;,&quot;</span><br><span class="line">      &#125;</span><br><span class="line">      str+=v.String()</span><br><span class="line">   &#125;</span><br><span class="line">   str+=&quot;)&quot;</span><br><span class="line">   return str</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//别忘记加上String() string</span><br><span class="line">type Expr interface &#123;</span><br><span class="line">	// Eval returns the value of this Expr in the environment env.</span><br><span class="line">	Eval(env Env) float64</span><br><span class="line">	// Check reports errors in this Expr and adds its Vars to the set.</span><br><span class="line">	Check(vars map[Var]bool) error</span><br><span class="line">	fmt.Stringer</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>练习 7.14：</strong> 定义一个新的满足Expr接口的具体类型并且提供一个新的操作例如对它运算单元中的最小值的计算。因为Parse函数不会创建这个新类型的实例，为了使用它你可能需要直接构造一个语法树（或者继承parser接口）。</p>
+<p><strong>练习 7.15：</strong> 编写一个从标准输入中读取一个单一表达式的程序，用户及时地提供对于任意变量的值，然后在结果环境变量中计算表达式的值。优雅的处理所有遇到的错误。</p>
+<p>我想的是三种方法 一种方法是直接预先把变量放放进去 第一个key 读一个 value的 然后直接计算值 当有未知变量(从map里读不到)就要报错 第二种方法的是 当读取Var时候发现map里没有对应的值时候 问用户要 第三种方法 利用之前写过的check程序 所有的var都会放在map里头 然后问用户要完之后 再计算</p>
+<p><strong>练习 7.16：</strong> 编写一个基于web的计算器程序。</p>
+<p>写完上面那个程序 这个程序就可以写了啊 <del>但不想写了</del></p>
+<p>写吧！！！！！！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">func ParseAndCheck(E string,form url.Values)(float64,error)&#123;</span><br><span class="line">   parse, err := eval.Parse(E)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return 0.0,    fmt.Errorf(&quot;表达式解析错误\n具体原因：%s&quot;,err)</span><br><span class="line">   &#125;</span><br><span class="line">   table := make(map[eval.Var]bool)</span><br><span class="line">   err = parse.Check(table)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      return 0.0,fmt.Errorf(&quot;表达式解析错误\n具体原因：%s&quot;,err)</span><br><span class="line">   &#125;</span><br><span class="line">   m:= make(map[eval.Var]float64)</span><br><span class="line">   for key, _ := range table &#123;</span><br><span class="line">      get := form.Get(string(key))</span><br><span class="line">      if get==&quot;&quot;&#123;</span><br><span class="line">         return 0.0,    fmt.Errorf(&quot;%s参数未设置&quot;,get)</span><br><span class="line">      &#125;</span><br><span class="line">      float, err := strconv.ParseFloat(get, 64)</span><br><span class="line">      if err != nil &#123;</span><br><span class="line">         return     0.0,fmt.Errorf(&quot;%s参数输入错误&quot;,get)</span><br><span class="line">      &#125;</span><br><span class="line">      m[key]=float</span><br><span class="line">   &#125;</span><br><span class="line">   return parse.Eval(m),nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func handle(w http.ResponseWriter,request * http.Request)&#123;</span><br><span class="line">   request.ParseForm()</span><br><span class="line">   form := request.Form</span><br><span class="line">   E := form.Get(&quot;Expr&quot;)</span><br><span class="line">   if E==&quot;&quot;&#123;</span><br><span class="line">      http.Error(w,&quot;未输出表达式，请重新输入&quot;,500)</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   result,err := ParseAndCheck(E, form)</span><br><span class="line">   if err != nil &#123;</span><br><span class="line">      http.Error(w,err.Error(),500)</span><br><span class="line">      return</span><br><span class="line">   &#125;</span><br><span class="line">   w.Write([]byte(strconv.FormatFloat(result,&#x27;E&#x27;,-1,64)))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">   http.HandleFunc(&quot;/&quot;,handle)</span><br><span class="line">   http.ListenAndServe(&quot;:8080&quot;,nil)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-10-类型断言"><a href="#7-10-类型断言" class="headerlink" title="7.10. 类型断言"></a>7.10. 类型断言</h3><p>类型断言是一个使用在接口值上的操作。语法上它看起来像x.(T)被称为断言类型，这里x表示一个接口的类型和T表示一个类型。一个类型断言检查它操作对象的动态类型是否和断言的类型匹配。</p>
+<p>断言的左边一定是一个接口类型 但右边不一定就是真实类型 若右侧为接口类型 就是断言 左边接口也实现了右侧的接口 如果右侧是具体类型 就是断言 左侧接口里的具体类类型就是该具体类型， 如果断言错误则会报错</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer</span><br><span class="line">w = os.Stdout</span><br><span class="line">rw := w.(io.ReadWriter) <span class="comment">// success: *os.File has both Read and Write</span></span><br><span class="line">w = <span class="built_in">new</span>(ByteCounter)</span><br><span class="line">rw = w.(io.ReadWriter) <span class="comment">// panic: *ByteCounter has no Read method</span></span><br></pre></td></tr></table></figure>
+
+<p>也可加入另一个变量来存放断言结果 ，无论成功与否都不会报错</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer = os.Stdout</span><br><span class="line">f, ok := w.(*os.File)      <span class="comment">// success:  ok, f == os.Stdout</span></span><br><span class="line">b, ok := w.(*bytes.Buffer) <span class="comment">// failure: !ok, b == nil</span></span><br></pre></td></tr></table></figure>
+
+<p>if语句的扩展格式让这个变的很简洁：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> f, ok := w.(*os.File); ok &#123;</span><br><span class="line">    <span class="comment">// ...use f...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-11-基于类型断言区别错误类型"><a href="#7-11-基于类型断言区别错误类型" class="headerlink" title="7.11. 基于类型断言区别错误类型"></a>7.11. 基于类型断言区别错误类型</h3><p>一般与defer连用 在defer里 reconver 根据返回错误的类型 进行不同的操作 </p>
+<h3 id="7-12-通过类型断言询问行为"><a href="#7-12-通过类型断言询问行为" class="headerlink" title="7.12. 通过类型断言询问行为"></a>7.12. 通过类型断言询问行为</h3><p>可以通过类型断言来询问某对象是否支持某行为 例如 这个io.Writer接口告诉我们关于w持有的具体类型的唯一东西：就是可以向它写入字节切片。如果我们回顾net/http包中的内幕，我们知道在这个程序中的w变量持有的动态类型也有一个允许字符串高效写入的WriteString方法；这个方法会避免去分配一个临时的拷贝。（这可能像在黑夜中射击一样，但是许多满足io.Writer接口的重要类型同时也有WriteString方法，包括<code>*bytes.Buffer</code>，<code>*os.File</code>和<code>*bufio.Writer</code>。） 所以在使用io.Write的Write偏偏要传入string时 可以考虑io.Write是否实现了</p>
+<p>WriteString</p>
+<h3 id="7-13-类型分支"><a href="#7-13-类型分支" class="headerlink" title="7.13. 类型分支"></a>7.13. 类型分支</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> x.(<span class="keyword">type</span>) &#123;</span><br><span class="line"><span class="keyword">case</span> <span class="literal">nil</span>:       <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">int</span>, <span class="keyword">uint</span>: <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">bool</span>:      <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">string</span>:    <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">default</span>:        <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断类型</p>
+<h3 id="7-14-示例-基于标记的XML解码"><a href="#7-14-示例-基于标记的XML解码" class="headerlink" title="7.14. 示例: 基于标记的XML解码"></a>7.14. 示例: 基于标记的XML解码</h3><h3 id="7-15-一些建议"><a href="#7-15-一些建议" class="headerlink" title="7.15. 一些建议"></a>7.15. 一些建议</h3><p>  当设计一个新的包时，新手Go程序员总是先创建一套接口，然后再定义一些满足它们的具体类型。这种方式的结果就是有很多的接口，它们中的每一个仅只有一个实现。不要再这么做了。这种接口是不必要的抽象；它们也有一个运行时损耗。你可以使用导出机制(§6.6)来限制一个类型的方法或一个结构体的字段是否在包外可见。接口只有当有两个或两个以上的具体类型必须以相同的方式进行处理时才需要。</p>
+<p>  当一个接口只被一个单一的具体类型实现时有一个例外，就是由于它的依赖，这个具体类型不能和这个接口存在在一个相同的包中。这种情况下，一个接口是解耦这两个包的一个好方式。</p>
+<p>  因为在Go语言中只有当两个或更多的类型实现一个接口时才使用接口，它们必定会从任意特定的实现细节中抽象出来。结果就是有更少和更简单方法的更小的接口（经常和io.Writer或 fmt.Stringer一样只有一个）。当新的类型出现时，小的接口更容易满足。对于接口设计的一个好的标准就是 ask only for what you need（只考虑你需要的东西）</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/gopl/chapter7.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter7.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;gopl&#x2F;chapter7.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1631694771077"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
