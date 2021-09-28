@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>设计模式学习笔记——第三章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="设计模式学习笔记——第三章本文章是设计模式学习的笔记，参考资料： 慕课网 Java设计模式精讲 Debug方式+内存分析">
+<meta property="og:type" content="website">
+<meta property="og:title" content="设计模式学习笔记——第三章">
+<meta property="og:url" content="http://csder666.github.io/designPatterns/chapter3.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="设计模式学习笔记——第三章本文章是设计模式学习的笔记，参考资料： 慕课网 Java设计模式精讲 Debug方式+内存分析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/factoryMethod.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/abstractFactory.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/create1.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/creater2.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/SingletonStaticInternal.png">
+<meta property="article:published_time" content="2021-09-23T09:25:20.000Z">
+<meta property="article:modified_time" content="2021-09-28T06:57:47.083Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://csder666.github.io/designPatterns/factoryMethod.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1632814261755">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1632814261755">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/designPatterns.jpg" data-sizes="auto" alt="设计模式学习笔记——第三章" class="lazyload">
+              <h1>设计模式学习笔记——第三章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月23日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 10 分钟</a>
+</div>
+
+      
+
+      <h1 id="设计模式学习笔记——第三章"><a href="#设计模式学习笔记——第三章" class="headerlink" title="设计模式学习笔记——第三章"></a>设计模式学习笔记——第三章</h1><p>本文章是设计模式学习的笔记，参考资料：</p>
+<p>慕课网 <a target="_blank" rel="noopener" href="https://coding.imooc.com/class/270.html">Java设计模式精讲 Debug方式+内存分析</a></p>
+<span id="more"></span>
+
+<h3 id="第三章-创建型设计模式"><a href="#第三章-创建型设计模式" class="headerlink" title="第三章 创建型设计模式"></a>第三章 创建型设计模式</h3><h4 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h4><h4 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h4><p>定义：定义一个创建对象接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行</p>
+<p>适用场景：创建对象需要大量重复的代码。客户端(应用层)不依赖于铲平类实例如何被创建、实现等细节。一个类通过其子类来指定创建哪个对象</p>
+<p>优点：用户只需要关心所需产品对应的工厂，无需关心创建细节。加入新产品符合开闭原则，提高可扩展性</p>
+<p>缺点：类的个数容易过多，增加负责度，增加了系统的抽象性和理解难度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@startuml aaa</span><br><span class="line">abstract 课程工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">&#125;</span><br><span class="line">class JAVA工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">&#125;</span><br><span class="line">class GO工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line">class JAVA课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class GO课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">课程&lt;|-- JAVA课程</span><br><span class="line">课程 &lt;|-- GO课程</span><br><span class="line">课程工厂 &lt;|-- JAVA工厂</span><br><span class="line">课程工厂 &lt;|-- GO工厂</span><br><span class="line">JAVA课程 &lt;.. JAVA工厂 : 创建 </span><br><span class="line">GO课程 &lt;.. GO工厂 : 创建</span><br><span class="line">课程 &lt;.. 课程工厂:创建</span><br><span class="line"></span><br><span class="line">class 测试&#123;</span><br><span class="line">    main()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">测试..&gt; JAVA工厂 :使用</span><br><span class="line">测试..&gt; GO工厂 :使用</span><br><span class="line">测试..&gt; 课程 :学习</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="factoryMethod.png" alt="image-20210923210927762" class="lazyload"></p>
+<h4 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h4><p>定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无须指定他们具体的类</p>
+<p>使用场景：客户端(应用层)不依赖于产品类实例如何被创建、实现等细节。强调一系列相关的产品对象(属于同一产品族)一起使用创建对象需要大量重复代码。提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于具体实现。</p>
+<p>优点：具体产品在应用层代码隔离，无需关心创建细节。将一个系列的产品族统一到一起创建。</p>
+<p>缺点：规定了所有可能被创建的产品集合，产品族中扩展新的产品困难，需要修改抽象工厂的接口。增加了系统的抽象性和理解难度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">@startuml aaa</span><br><span class="line">abstract 课程工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">    生成笔记() 笔记</span><br><span class="line">&#125;</span><br><span class="line">class JAVA工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">    生成笔记() 笔记</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class GO工厂&#123;</span><br><span class="line">    生产课程() 课程</span><br><span class="line">    生成笔记() 笔记</span><br><span class="line">&#125;</span><br><span class="line">abstract 笔记&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line">class JAVA笔记&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line">class GO笔记&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line">abstract 课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line">class JAVA课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class GO课程&#123;</span><br><span class="line">    学习()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">课程&lt;|-- JAVA课程</span><br><span class="line">课程 &lt;|-- GO课程</span><br><span class="line">课程工厂 &lt;|-- JAVA工厂</span><br><span class="line">课程工厂 &lt;|-- GO工厂</span><br><span class="line"></span><br><span class="line">课程 &lt;.. 课程工厂:创建</span><br><span class="line">课程工厂 ..&gt; 笔记:创建</span><br><span class="line"></span><br><span class="line">JAVA课程 &lt;.. JAVA工厂 : 创建 </span><br><span class="line">JAVA笔记 &lt;.. JAVA工厂 : 创建 </span><br><span class="line">GO课程 &lt;.. GO工厂 : 创建</span><br><span class="line">GO笔记 &lt;.. GO工厂 : 创建</span><br><span class="line"></span><br><span class="line">JAVA笔记 --|&gt; 笔记</span><br><span class="line">GO笔记 --|&gt; 笔记</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class 测试&#123;</span><br><span class="line">    main()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">测试..&gt; JAVA工厂 :使用</span><br><span class="line">测试..&gt; GO工厂 :使用</span><br><span class="line">测试..&gt; 课程 :学习</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="abstractFactory.png" alt="image-20210923211545506" class="lazyload"></p>
+<h4 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h4><p>定义：将一个复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示。用户只需要指定需要建造的类型就可以得到它们，建造过程及细节不需要知道。</p>
+<p>使用场景：如果一个对象有非常复杂的内部结构(很多属性),想把复杂对象创建和使用分离</p>
+<p>优点：封装性好，创建和使用分离。扩展性好、建造类之间独立、一定程度上解耦。</p>
+<p>缺点：产生多余的Builder对象。产品内部发生变化，建造者都要修改，成本较大。</p>
+<p>实现一</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">@startuml 建造者设计模式</span><br><span class="line"></span><br><span class="line">class 课程&#123;</span><br><span class="line">    String 课程名称</span><br><span class="line">    String 课程介绍</span><br><span class="line">    String 课程PPT</span><br><span class="line">    String 课程收获</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 课程建造者&#123;</span><br><span class="line">    设置课程名称()</span><br><span class="line">    设置课程介绍()</span><br><span class="line">    设置课程PPT()</span><br><span class="line">    设置课程收获()</span><br><span class="line">    获得课程()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 课程建造者实现&#123;</span><br><span class="line">    设置课程名称()</span><br><span class="line">    设置课程介绍()</span><br><span class="line">    设置课程PPT()</span><br><span class="line">    设置课程收获()</span><br><span class="line">    获得课程()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class 课程教练&#123;</span><br><span class="line">    课程教练(课程建造者)</span><br><span class="line">    校验课程()</span><br><span class="line">    获得课程()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">课程建造者 ..&gt; 课程: 创建</span><br><span class="line">课程教练 &quot;1&quot; *--&gt;&quot;1&quot; 课程建造者</span><br><span class="line">课程建造者 &lt;|--课程建造者实现</span><br><span class="line"></span><br><span class="line">class 测试&#123;</span><br><span class="line">    main()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">测试 --&gt; 课程建造者:使用</span><br><span class="line">测试 --&gt; 课程教练:创建</span><br><span class="line">测试 --&gt; 课程建造者实现:创建</span><br><span class="line"></span><br><span class="line">@enduml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="create1.png" alt="image-20210923222334395" class="lazyload"></p>
+<p>实现2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">@startuml 建造者设计模式</span><br><span class="line"></span><br><span class="line">class 课程&#123;</span><br><span class="line">    课程（课程建造者）</span><br><span class="line">    String 课程名称</span><br><span class="line">    String 课程介绍</span><br><span class="line">    String 课程PPT</span><br><span class="line">    String 课程收获</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 课程建造者&#123;</span><br><span class="line">    课程建造者 设置课程名称() </span><br><span class="line">    课程建造者 设置课程介绍() </span><br><span class="line">    课程建造者 设置课程PPT()  </span><br><span class="line">    课程建造者 设置课程收获() </span><br><span class="line">    课程  获得课程() </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 课程建造者实现&#123;</span><br><span class="line">    课程建造者 设置课程名称() </span><br><span class="line">    课程建造者 设置课程介绍() </span><br><span class="line">    课程建造者 设置课程PPT()  </span><br><span class="line">    课程建造者 设置课程收获() </span><br><span class="line">    课程  获得课程() </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">课程建造者 ..&gt; 课程</span><br><span class="line"></span><br><span class="line">课程建造者 &lt;|--课程建造者实现</span><br><span class="line"></span><br><span class="line">class 测试&#123;</span><br><span class="line">    main()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">测试 --&gt; 课程建造者:使用</span><br><span class="line">测试 --&gt; 课程建造者实现:创建</span><br><span class="line">测试 --&gt; 课程 : 创建</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="creater2.png" alt="image-20210923223711687" class="lazyload"></p>
+<p>可能图示有点体现的不太清楚 就是测试类里 创建课程建造者类的实现 赋值给课程建造者引用 使用课程建造者引用 链式调用各个方法 然后把课程建造者 当作参数 传递给 课程 构造器 </p>
+<p>源码解析 : JAVA里的 StringBuilder类</p>
+<p>开源工具类 com.google.common.collect.ImmutableSet </p>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>定义：保证一个类仅有一个实例，并提供一个全局访问点</p>
+<p>适用场景：想确保任何情况下都绝对只有一个实例</p>
+<p>优点：在内存里只有一个实例，减少了内存开销。可以避免对资源的多重占用。设置全局访问点，严格控制访问</p>
+<p>缺点：没有接口，扩展困难</p>
+<p>重点：私有构造器，线程安全，延迟加载，序列化和反序列化安全，反射攻击</p>
+<p>实用技能：反编译，内存原理，多线程Debug</p>
+<p>相关设计模式：单例模式和工厂模式；单例模式和享元模式</p>
+<p>形式：懒汉式，饿汉式</p>
+<p>懒汉式：当类加载的时候不进行单例实例的创建，当需要的时候才进行创建，可能会有线程安全问题</p>
+<p>饿汉式：当类加载的时候直接进行单例实例的创建，不会有线程安全问题，但有可能会造成内存的浪费。</p>
+<p>对于JAVA：可能单例模式可能产生问题。1.序列化破坏单例模式（需要增加一个 static 单例对象 readResolve()的方法 具体可以参考反序列化还原对象的源码）2.反射攻击破坏单例模式（可以试图在私有的构造器中做手脚 若发现私有构造器被调用多次则进行报错 但对于懒汉式无法真正解决反射攻击 对于饿汉式可以解决）</p>
+<p>对于懒汉式JAVA线程不安全的解决方法</p>
+<ol>
+<li><p>获得实例化getInstance方法里整个上锁 保证获取单例对象过程中不会有人修改单例对象 </p>
+<p>缺点：速度过慢</p>
+</li>
+<li><p>双重检查 每次都要判断单例对象是否已经生成 若发现未生成 才加锁 锁里头双重验证但单例对象是否生成 若未生成再加锁</p>
+</li>
+<li><p>讲单例放入静态内部类中作为成员变量 当加载外部类的时候不会加载静态内部类 当真正获取实例对象的时候才会加载静态内部类</p>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="SingletonStaticInternal.png" alt="image-20210924185107889" class="lazyload"></p>
+<p>对于JAVA可以使用Enum枚举类来实现单例，这可以有效地避开序列化破坏以及反射攻击，但其本质上是使用饿汉式来实现的，具体可以进行反编译class文件来进行查看</p>
+<p>在JAVA里头可以使用ThreadLocal 可以基于在每个线程之间实现单例模式</p>
+<h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象,不需要知道任何创建的细节，不调用构造函数</p>
+<p>适用场景：类初始化消耗较多资源，new产生的一个对象需要非常繁琐的过程（数据准备、访问权限等），构造函数比较复杂。循环体创建大量对象</p>
+<p>优点：原型模式性能比直接new一个对象性能更高，简化创建过程</p>
+<p>缺点：必须配备克隆方法，对克隆复杂对象或对克隆出的对象进行复杂改造时，容易引入风险，深拷贝、浅拷贝要运用得当</p>
+<p>原型扩展：深克隆、浅克隆</p>
+<p>在JAVA要实现克隆方法都需要实现Cloneable接口</p>
+<p>深克隆和浅克隆的问题 ：当某个引用数据类型的成员变量中也是一个引用数据类型时 默认的clone方法 或让克隆的对象和被克隆对象的引用数据类型成员变量指向同一个地址 若想实现深克隆则需要对 引用型数据类型变量重新进行处理。</p>
+<p>原型模式也有可能破坏单例模式，两种思路进行解决，一、单例类不实现Cloneable接口。二、clone方法返回单例的对象</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/designPatterns/chapter3.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;designPatterns&#x2F;chapter3.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;designPatterns&#x2F;chapter3.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1632814261756"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>

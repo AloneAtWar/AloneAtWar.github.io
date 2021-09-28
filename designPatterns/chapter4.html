@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>设计模式学习笔记——第四章 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="设计模式学习笔记——第四章本文章是设计模式学习的笔记，参考资料： 慕课网 Java设计模式精讲 Debug方式+内存分析">
+<meta property="og:type" content="website">
+<meta property="og:title" content="设计模式学习笔记——第四章">
+<meta property="og:url" content="http://csder666.github.io/designPatterns/chapter4.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="设计模式学习笔记——第四章本文章是设计模式学习的笔记，参考资料： 慕课网 Java设计模式精讲 Debug方式+内存分析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/appearance.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/decorator.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/classAdapter.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/objectAdapter.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/flyweight.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/composite.png">
+<meta property="og:image" content="http://csder666.github.io/designPatterns/bridge.png">
+<meta property="article:published_time" content="2021-09-24T12:15:10.000Z">
+<meta property="article:modified_time" content="2021-09-28T02:39:21.444Z">
+<meta property="article:author" content="Csder666">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://csder666.github.io/designPatterns/appearance.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1632814261761">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1632814261761">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>1</div>
+        <div><span>分类</span>2</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/designPatterns.jpg" data-sizes="auto" alt="设计模式学习笔记——第四章" class="lazyload">
+              <h1>设计模式学习笔记——第四章</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年09月24日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.6k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 10 分钟</a>
+</div>
+
+      
+
+      <h1 id="设计模式学习笔记——第四章"><a href="#设计模式学习笔记——第四章" class="headerlink" title="设计模式学习笔记——第四章"></a>设计模式学习笔记——第四章</h1><p>本文章是设计模式学习的笔记，参考资料：</p>
+<p>慕课网 <a target="_blank" rel="noopener" href="https://coding.imooc.com/class/270.html">Java设计模式精讲 Debug方式+内存分析</a></p>
+<span id="more"></span>
+
+<h3 id="第四章-结构型设计模式"><a href="#第四章-结构型设计模式" class="headerlink" title="第四章 结构型设计模式"></a>第四章 结构型设计模式</h3><h4 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h4><p>定义:又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口。外观模式定义了一个高层接口</p>
+<p>适用场景：子系统越来越复杂，增加外观模式提供简单调用接口。构建多层系统结构，利用外观对象作为每层的入口，简化层间调用。</p>
+<p>优点：简化了调用过程，无需了解深入子系统，防止带来风险。减少系统依赖、松散耦合。更好的划分访问层次。符合迪米特法则，即最少知道原则。</p>
+<p>缺点：增加子系统、扩展子系统行为容易引入风险。不符合开闭原则。</p>
+<p>相关设计模式：</p>
+<ul>
+<li>外观模式和中介者模式</li>
+<li>外观模式和单例模式</li>
+<li>外观模式和抽象工厂模式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@startuml 外观设计模式</span><br><span class="line"></span><br><span class="line">class 测试</span><br><span class="line"></span><br><span class="line">abstract 礼物发布服务&#123;</span><br><span class="line">    发布礼物()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 礼物发布服务实现&#123;</span><br><span class="line">    发布礼物()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">测试 ..&gt; 礼物发布服务:使用</span><br><span class="line"></span><br><span class="line">测试 ..&gt; 礼物发布服务实现:创建</span><br><span class="line"></span><br><span class="line">礼物发布服务&lt;|-- 礼物发布服务实现</span><br><span class="line"></span><br><span class="line">class 礼物制作服务&#123;</span><br><span class="line">    礼物制作()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 礼物打包服务&#123;</span><br><span class="line">    礼物打包()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 礼物检验服务&#123;</span><br><span class="line">    礼物检验()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">礼物发布服务 &quot;1&quot; *--&gt; &quot;1&quot; 礼物制作服务</span><br><span class="line">礼物发布服务 &quot;1&quot; *--&gt; &quot;1&quot; 礼物打包服务</span><br><span class="line">礼物发布服务 &quot;1&quot; *--&gt; &quot;1&quot; 礼物检验服务</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="appearance.png" alt="image-20210924212449411" class="lazyload"></p>
+<p>源码示例: Spring的JDBCutils  mybatis的Configuration</p>
+<h4 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h4><p>定义：在不改变原有对象的基础之上，将功能附加到对象上。提供了比继承更又弹性的替代方案(扩展原有对象功能)</p>
+<p>适用场景:扩展一个类的功能或给一个类添加附加职责。动态的给一个对象添加功能，这些功能可以再动态地撤销。<br>优点：继承的有力补充，比继承灵活，不改变原有对象的情况下给一个对象扩展功能。通过适用不同装饰类以及这些装饰类的排列组合，可以实现不同效果。符合开闭原则。</p>
+<p>缺点：会出现更多的代码，更多的类，增加程序复杂性。动态装饰，多层装饰时会更复杂。</p>
+<p>装饰者相关设计模式：</p>
+<ul>
+<li>装饰者模式和代理模式 （装饰者模式更加注重的是在一个类动态地添加方法，代理模式更加注重的是控制对对象的访问 当使用代理模式的时候 是被代理类被代理类包装 而装饰者也是把原有装饰者传给新的装饰者再次进行包装）</li>
+<li>装饰者模式和适配器模式(都可以被叫做包装模式 装饰者和被装饰者可以实现相同的接口 或者装饰者是被装饰者的子类 )</li>
+<li>装饰者模式和建造者模式(自己想的 装饰者模式进行包装 建造者模式进行生成 完美！ )</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@startuml 装饰者设计模式</span><br><span class="line"></span><br><span class="line">abstract 煎饼抽象类&#123;</span><br><span class="line">    String 描述()</span><br><span class="line">    double 价格()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 煎饼包装类 extends 煎饼抽象类&#123;</span><br><span class="line">    煎饼抽象类 base</span><br><span class="line">    煎饼包装类(煎饼抽象类)</span><br><span class="line">    String 描述()</span><br><span class="line">    double 价格()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 煎饼实现类 extends 煎饼抽象类&#123;</span><br><span class="line">    String 描述()</span><br><span class="line">    double 价格()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 鸡蛋 extends 煎饼包装类&#123;</span><br><span class="line">    鸡蛋(煎饼抽象类)</span><br><span class="line">    String 描述()</span><br><span class="line">    double 价格()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 香肠 extends 煎饼包装类&#123;</span><br><span class="line">    香肠(煎饼抽象类)</span><br><span class="line">    String 描述()</span><br><span class="line">    double 价格()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">煎饼包装类 &quot;1&quot;  *--&gt; &quot;1&quot; 煎饼抽象类 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@enduml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="decorator.png" alt="image-20210924220429436" class="lazyload"></p>
+<h4 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h4><p>定义：将一个类的接口转换成客户期望的另一个接口。原本接口不兼容的类能够一起工作</p>
+<p>使用场景：已经存在的类，它的方法和需求不匹配时(方法结果相同或相似)。不是软件设计阶段考虑的设计模式，时随着软件维护，由于不同产品、不同厂家造成功能类似而接口不相同情况下的解决方案。</p>
+<p>优点：能够提高类的透明性和复用，现有的类复用但不需要改变。目标类和适配器类解耦，提高程序扩展性。符合开闭原则。</p>
+<p>缺点：适配器编写过程需要全面考虑，可能会增加系统的复杂性。增加系统代码可读的难度。</p>
+<p>扩展：对象适配器。类适配器。</p>
+<p>相关设计模式：</p>
+<ul>
+<li><p>适配器模式和装饰者模式(前面有提到)</p>
+</li>
+<li><p>适配器模式和外观模式</p>
+</li>
+</ul>
+<p>类适配器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml 类适配模式</span><br><span class="line"></span><br><span class="line">class 被适配器A&#123;</span><br><span class="line">    A方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 被适配器B&#123;</span><br><span class="line">    B方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 适配器 extends 被适配器A,被适配器B&#123;</span><br><span class="line">    A方法()</span><br><span class="line">    B方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="classAdapter.png" alt="image-20210924223515717" class="lazyload"></p>
+<p>对象适配器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@startuml 类适配模式</span><br><span class="line"></span><br><span class="line">class 被适配器A&#123;</span><br><span class="line">    A方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 被适配器B&#123;</span><br><span class="line">    B方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 适配器 extends 被适配器B&#123;</span><br><span class="line">    被适配器A A</span><br><span class="line">    B方法()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">适配器 &quot;1&quot;  *-&gt;&quot;1&quot; 被适配器A </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="objectAdapter.png" alt="image-20210924223732624" class="lazyload"></p>
+<h3 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h3><p>定义：提供了减少 持大量细粒度的对象。</p>
+<p>适用场景：常常应用于系统底层的开发，以便解决系统的性能问题。系统中有大量相似对象、需要缓冲池的场景。</p>
+<p>优点：减少对象的创建，降低内存种对象的数量，降低系统的内存，提高效率。减少内存之外的其他资源占用。</p>
+<p>缺点：关注内/外部状态、关注线程安全问题。 使系统、程序的逻辑复杂化。</p>
+<p>扩展：内部状态，外部状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@startuml 享元模式</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class 形状工厂&#123;</span><br><span class="line">    Map 形状缓存</span><br><span class="line">    形状 获得形状()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 形状&#123;</span><br><span class="line">    绘制()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 圆 extends 形状&#123;</span><br><span class="line">    int x,y,半径</span><br><span class="line">    绘制()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">形状工厂 ..&gt; 圆:创建</span><br><span class="line">形状工厂 ..&gt; 形状:使用</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="flyweight.png" alt="image-20210925153510238" class="lazyload"></p>
+<h4 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h4><p>定义：将对象组合成树形结构以表示“部分-整体”的层次结构。组合模式使客户端对单个对象和组合都西昂保持一致的方式处理。</p>
+<p>使用场景：希望客户端可以忽略组合对象与单个对象的差异时。处理一个树形结构时。</p>
+<p>优点：清楚地定义分层次的复杂对象，表示对象的全部或部分层次。让客户端忽略了层次的差异，方便对整个层次结构进行控制。简化客户端代码。符合开闭原则。</p>
+<p>缺点：限制类型会较为复杂。使设计变得更加抽象。</p>
+<p>相关设计模式：</p>
+<ul>
+<li>组合模式和访问者模式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@startuml 组合模式</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">abstract 抽象文件&#123;</span><br><span class="line">    增加(目录)</span><br><span class="line">    删除(目录)</span><br><span class="line">    int 大小()</span><br><span class="line">    打印()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 文件目录 extends 抽象文件&#123;</span><br><span class="line">    抽象文件[] 文件集合</span><br><span class="line">    增加(目录)</span><br><span class="line">    删除(目录)</span><br><span class="line">    int 大小()</span><br><span class="line">    打印()</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">class 文件 extends 抽象文件&#123;</span><br><span class="line">    int 大小()</span><br><span class="line">    打印()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">文件目录 &quot;1&quot; *--&gt; &quot;0..*&quot; 抽象文件</span><br><span class="line"></span><br><span class="line">@enduml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="composite.png" alt="image-20210925155609418" class="lazyload"></p>
+<h4 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h4><p>定义：将抽象部分与它的具体实现部分分离，使它们都可以独立地变化。通过组合的方式建立两个类之间的联系，而不是继承。</p>
+<p>使用场景：抽象和具体实现之间增加更多的灵活性。一个类存在两个(或多个)独立变化的维度，且这两个(或多个)维度都需要独立进行扩展。不希望使用继承，或因为多层继承导致系统类的个数剧增。</p>
+<p>优点：分离抽象部分以及具体实现部分。提高了系统的可扩展度。符合开闭原则。符合合成复用原则。</p>
+<p>缺点：增加了系统的理解与设计难度。需要正确地识别出系统种两个独立变化的维度。</p>
+<p>相关设计模式：</p>
+<ul>
+<li>桥接模式和组合模式</li>
+<li>桥接模式和适配器模式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">@startuml 桥接模式</span><br><span class="line"></span><br><span class="line">class 平安银行 extends 银行&#123;</span><br><span class="line">    账户 内部账户</span><br><span class="line">    银行(账号)</span><br><span class="line">    账号 打开账号()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class 工商银行 extends 银行&#123;</span><br><span class="line">    账户 内部账户</span><br><span class="line">    银行(账号)</span><br><span class="line">    账号 打开账号()</span><br><span class="line">&#125;</span><br><span class="line">abstract 银行&#123;</span><br><span class="line">    账户 内部账户</span><br><span class="line">    银行(账号)</span><br><span class="line">    账号 打开账号()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract 账户&#123;</span><br><span class="line">    账户 打开账户()</span><br><span class="line">    展示账户()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">银行 &quot;1&quot; *---&gt; &quot;1&quot; 账户</span><br><span class="line"></span><br><span class="line">class 活期账户 extends 账户&#123;</span><br><span class="line">    账户 打开账户()</span><br><span class="line">    展示账户()</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">class 死期账户 extends 账户&#123;</span><br><span class="line">    账户 打开账户()</span><br><span class="line">    展示账户()</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@enduml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="bridge.png" alt="image-20210926015342380" class="lazyload"></p>
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>定义：为其他对象提供一种代理，以控制对这个对象的访问。代理对象在客户端和目标对象之间起到中介的作用。</p>
+<p>使用场景：保护目标对象。增强目标对象</p>
+<p>优点：代理模式能将代理对象与真实被调用的目标对象分离。在一定程度上降低了系统的耦合度，扩展性好。</p>
+<p>缺点：代理模式会造成系统设计种类的数目增加。在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。增加系统的复杂度。</p>
+<p>扩展：静态代理，动态代理，CGLib代理</p>
+<p>Spring代理选择-扩展：</p>
+<ul>
+<li>当Bean有实现接口时，Spring就会用JDK的动态代理。</li>
+<li>当Bean没有实现接口时，Spring使用CGlib</li>
+<li>可以强制使用Cglib<ul>
+<li>在使用spring配置中加入&lt;aop:aspectj-autoproxy proxy-target-class=”true”/&gt;</li>
+</ul>
+</li>
+</ul>
+<p>代理速度对比-扩展</p>
+<ul>
+<li>CGlib</li>
+<li>JDK动态代理</li>
+<li>速度对比 JDK稍微快一些</li>
+</ul>
+<p>在JDK动态代理中， 代理类需要实现InvocationHandler接口 设计好代理类的构造方法，把被代理类当作参数出入 代理类中加入一个bind()方法 然后通过 Proxy.newProxyInstance() 获取代理对象。</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Csder666<br>
+        <strong>本文链接：</strong><a href="http://csder666.github.io/designPatterns/chapter4.html" title="http:&#x2F;&#x2F;csder666.github.io&#x2F;designPatterns&#x2F;chapter4.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;csder666.github.io&#x2F;designPatterns&#x2F;chapter4.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1632814261762"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
