@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>汉诺塔问题总结 - Csder666&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="汉诺塔问题在学习 Anany Levitin所著的《算法设计与分析基础》（《Introduction to The Design and Analysis of Algorithms》) 一书时做练习2-4的5,6的时候遇到一些困难，遂开始研究汉诺塔问题。本文章将会使用Go语言进行实现。 参考资料: https:&#x2F;&#x2F;suiwo.xyz&#x2F;2020&#x2F;01&#x2F;04&#x2F;%E6%B1%89%E8%AF%BA%E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汉诺塔问题总结">
+<meta property="og:url" content="http://csder666.github.io/2021/10/17/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Csder666&#39;s blog">
+<meta property="og:description" content="汉诺塔问题在学习 Anany Levitin所著的《算法设计与分析基础》（《Introduction to The Design and Analysis of Algorithms》) 一书时做练习2-4的5,6的时候遇到一些困难，遂开始研究汉诺塔问题。本文章将会使用Go语言进行实现。 参考资料: https:&#x2F;&#x2F;suiwo.xyz&#x2F;2020&#x2F;01&#x2F;04&#x2F;%E6%B1%89%E8%AF%BA%E">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://csder666.github.io/%E7%AC%94%E8%AE%B0/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/2.4-5.png">
+<meta property="og:image" content="http://csder666.github.io/%E7%AC%94%E8%AE%B0/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/2.4-6.png">
+<meta property="article:published_time" content="2021-10-17T06:13:34.000Z">
+<meta property="article:modified_time" content="2021-10-17T11:12:20.315Z">
+<meta property="article:author" content="Csder666">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://csder666.github.io/%E7%AC%94%E8%AE%B0/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/2.4-5.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1634469149219">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1634469149219">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Csder666" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Csder666">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="Csder666" alt="Csder666">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Csder666
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/HanNuoTa.png" data-sizes="auto" alt="汉诺塔问题总结" class="lazyload">
+              <h1>汉诺塔问题总结</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年10月17日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.7k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 18 分钟</a>
+</div>
+
+      
+
+      <h1 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h1><p>在学习 Anany Levitin所著的《算法设计与分析基础》（《Introduction to The Design and Analysis of Algorithms》) 一书时做练习2-4的5,6的时候遇到一些困难，遂开始研究汉诺塔问题。本文章将会使用Go语言进行实现。</p>
+<p>参考资料:</p>
+<p><a target="_blank" rel="noopener" href="https://suiwo.xyz/2020/01/04/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/">https://suiwo.xyz/2020/01/04/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18J411p7KE">https://www.bilibili.com/video/BV18J411p7KE</a></p>
+<span id="more"></span>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="../../../../%E7%AC%94%E8%AE%B0/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/2.4-5.png" alt="image-20211017142256633" class="lazyload"></p>
+<p>  a: 总时间应该等于 总移动次数*移动一次的时间。所有关键就是求n个圆盘(解出通项嘛)移动到另一个柱子的移动次数。</p>
+<p>答：假如说有n个盘子要挪An步，那么有n+1个盘子可以先通过An步把上面的n个盘子挪到第三个柱子上，再挪最大的盘子，最后把n个盘子挪到大的上面，共2An+1步，所以A(n+1)=2An+1</p>
+<p>​    这样计算下来An=2^n-1（2的n次方减1）</p>
+<p>64个圆盘则需要 2的64次方-1 分钟 才能移动完</p>
+<p>b: </p>
+<p>答：要移动第i大的盘子的充分条件是，第i大的盘子位于某个柱子的顶端且其移动有地方放置。</p>
+<p>潜在条件：第i大的盘子还没动，比i大的盘子也不可能有移动过。</p>
+<p>​    所以可以推导出来，当第i大的盘子可以移动的时候，三个柱子的情况分别为（不分顺序）</p>
+<p>柱子1：从第i大的盘子到第n大的盘子</p>
+<p>柱子2：空柱子</p>
+<p>柱子3：从第1大的盘子到第i-1大的盘子</p>
+<p>​    所以 可以推导出 需要移动第i大的盘子需要移动的步数 与直接将i-1个圆盘通过一个中间柱移动至另一个柱子的次数相同</p>
+<p>所以答案为 2的(i-1)次方 -1</p>
+<p>c：</p>
+<p>既然需要设计非递归算法，那先实现递归算法看看</p>
+<h4 id="汉诺塔问题基础版递归实现"><a href="#汉诺塔问题基础版递归实现" class="headerlink" title="汉诺塔问题基础版递归实现"></a>汉诺塔问题基础版递归实现</h4><p>实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BasisByRecursive</span><span class="params">(n <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">   basisByRecursive(n,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">basisByRecursive</span><span class="params">(n <span class="keyword">int</span>, l , m ,r <span class="keyword">rune</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> n==<span class="number">1</span>&#123;</span><br><span class="line">      fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,l,r)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   basisByRecursive(n<span class="number">-1</span>,l,r,m)</span><br><span class="line">   basisByRecursive(<span class="number">1</span>,l,m,r)</span><br><span class="line">   basisByRecursive(n<span class="number">-1</span>,m,l,r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExampleBasisByRecursive</span><span class="params">()</span></span> &#123;</span><br><span class="line">   BasisByRecursive(<span class="number">3</span>)</span><br><span class="line">   <span class="comment">//OutPut:</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="汉诺塔问题基础版非递归实现Ⅰ"><a href="#汉诺塔问题基础版非递归实现Ⅰ" class="headerlink" title="汉诺塔问题基础版非递归实现Ⅰ"></a>汉诺塔问题基础版非递归实现Ⅰ</h4><p>最开始我是使用JAVA语言实现的，不知道怎么就凑出了正确，对实现理解不是很够。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HanNuoInfo</span></span>&#123;</span><br><span class="line">     <span class="keyword">char</span> a,b,c;</span><br><span class="line">     <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">HanNuoInfo</span><span class="params">(<span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c, <span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.a = a;</span><br><span class="line">     <span class="keyword">this</span>.b = b;</span><br><span class="line">     <span class="keyword">this</span>.c = c;</span><br><span class="line">     <span class="keyword">this</span>.num = num;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">     System.out.println(<span class="string">&quot;请输入盘子的数量&quot;</span>);</span><br><span class="line">     <span class="keyword">int</span> num = sc.nextInt();</span><br><span class="line">     Stack&lt;HanNuoInfo&gt; result = hanNuTa(num);</span><br><span class="line">     <span class="keyword">while</span>(!result.empty())&#123;</span><br><span class="line">         HanNuoInfo pop = result.pop();</span><br><span class="line">         System.out.println(pop.a+<span class="string">&quot;-&gt;&quot;</span>+ pop.c);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Stack&lt;HanNuoInfo&gt; <span class="title">hanNuTa</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">     <span class="comment">//FuncInfos 存放递归函数 result 存放输出信息</span></span><br><span class="line">     Stack&lt;HanNuoInfo&gt; FuncInfos=<span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">     Stack&lt;HanNuoInfo&gt; result=<span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="comment">//将初始函数信息入栈 即 通过’b‘ 将num个盘子从&#x27;a&#x27;运到&#x27;c&#x27;</span></span><br><span class="line">     FuncInfos.add(<span class="keyword">new</span> HanNuoInfo(<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,num));</span><br><span class="line"></span><br><span class="line">     <span class="comment">//没有需要执行的函数 则全部退出</span></span><br><span class="line">     <span class="keyword">while</span>(!FuncInfos.isEmpty())&#123;</span><br><span class="line">         <span class="comment">//执行栈顶函数</span></span><br><span class="line">         HanNuoInfo pop = FuncInfos.pop();</span><br><span class="line">         <span class="comment">//若只需要一步操作 则直接放入输出结果中</span></span><br><span class="line">         <span class="keyword">if</span> (pop.num==<span class="number">1</span>)&#123;</span><br><span class="line">             result.add(pop);</span><br><span class="line">             <span class="keyword">continue</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//若不能一步操作 则分而治之</span></span><br><span class="line">         FuncInfos.add(<span class="keyword">new</span> HanNuoInfo(pop.a, pop.c, pop.b, pop.num-<span class="number">1</span>));</span><br><span class="line">         FuncInfos.add(<span class="keyword">new</span> HanNuoInfo(pop.a,pop.b, pop.c, <span class="number">1</span>));</span><br><span class="line">         FuncInfos.add(<span class="keyword">new</span> HanNuoInfo(pop.b, pop.a, pop.c, pop.num-<span class="number">1</span>));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>之后看了资料才更加理解了 以下是go语言实现。</p>
+<p>实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> HanNuoTaInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">   a,b,c <span class="keyword">rune</span></span><br><span class="line">   num <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BasisByIter</span><span class="params">(n <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">   <span class="comment">//用来保存递归栈函数信息</span></span><br><span class="line">   <span class="comment">//go语言没有原生的栈 只能使用list包的链表 控制每次读写位置为相同 实现栈</span></span><br><span class="line">   FuncInfos:=list.New()</span><br><span class="line">   FuncInfos.PushBack(HanNuoTaInfo&#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,n&#125;)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> FuncInfos.Len()!=<span class="number">0</span>&#123;</span><br><span class="line">      pop:=FuncInfos.Remove(FuncInfos.Back()).(HanNuoTaInfo)</span><br><span class="line">      <span class="keyword">if</span> pop.num==<span class="number">1</span>&#123;</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,pop.a,pop.c)</span><br><span class="line">         <span class="keyword">continue</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 注意这个输出顺序 后进先出 所以 这个顺序要反着来  HanNuoTaInfo&#123;&#x27;a&#x27;,&#x27;c&#x27;,&#x27;b&#x27;,n-1）是下一个出栈的元素</span></span><br><span class="line">      <span class="comment">//关键点很重要!!!!!!!</span></span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.b,pop.a,pop.c,pop.num<span class="number">-1</span>&#125;)</span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.a,pop.b,pop.c,<span class="number">1</span>&#125;)</span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.a,pop.c,pop.b,pop.num<span class="number">-1</span>&#125;)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BasisByIter2</span><span class="params">(n <span class="keyword">int</span>)</span> *<span class="title">list</span>.<span class="title">List</span></span> &#123;</span><br><span class="line">   <span class="comment">//FuncInfos用来保存递归栈函数信息 result用来保存输出信息(实现倒序输出)</span></span><br><span class="line">   FuncInfos:=list.New()</span><br><span class="line">   result:=list.New()</span><br><span class="line">   FuncInfos.PushBack(HanNuoTaInfo&#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,n&#125;)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> FuncInfos.Len()!=<span class="number">0</span>&#123;</span><br><span class="line">      pop:=FuncInfos.Remove(FuncInfos.Back()).(HanNuoTaInfo)</span><br><span class="line">      <span class="keyword">if</span> pop.num==<span class="number">1</span>&#123;</span><br><span class="line">         result.PushBack(pop)</span><br><span class="line">         <span class="keyword">continue</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//倒序的倒序就是正序</span></span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.a,pop.c,pop.b,pop.num<span class="number">-1</span>&#125;)</span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.a,pop.b,pop.c,<span class="number">1</span>&#125;)</span><br><span class="line">      FuncInfos.PushBack(HanNuoTaInfo&#123;pop.b,pop.a,pop.c,pop.num<span class="number">-1</span>&#125;)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExampleBasisByIter</span><span class="params">()</span></span> &#123;</span><br><span class="line">   BasisByIter(<span class="number">3</span>)</span><br><span class="line">   <span class="comment">//OutPut:</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExampleBasisByIter2</span><span class="params">()</span></span> &#123;</span><br><span class="line">   result := BasisByIter2(<span class="number">3</span>)</span><br><span class="line">   <span class="keyword">for</span> result.Len()!=<span class="number">0</span>&#123;</span><br><span class="line">      pop := result.Remove(result.Back()).(HanNuoTaInfo)</span><br><span class="line">      fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,pop.a,pop.c)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//OutPut:</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="汉诺塔基础版非递归实现Ⅱ"><a href="#汉诺塔基础版非递归实现Ⅱ" class="headerlink" title="汉诺塔基础版非递归实现Ⅱ"></a>汉诺塔基础版非递归实现Ⅱ</h4><p>经过输出结果，发现规律每次都执行这样一个过程：</p>
+<ol>
+<li><p>将前三个柱子顶其中最小圆盘放置下一个柱子(a-&gt;b,b-&gt;c,c-&gt;b)</p>
+</li>
+<li><p>移动之后的剩余两个柱子，将其中小的圆盘放置另一个柱子的上面</p>
+</li>
+</ol>
+<p>经过实现结果发现 如果圆盘个数为奇数 圆盘将会全部转移到b上 所以其实开始就把 b 和 c 调换个顺序就ok</p>
+<p>定义柱子类：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> pillars <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">rune</span></span><br><span class="line">	stack *list.List</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//因为这个类只会在该包上用 外界无需考虑实现细节 所以n没有大写</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newPillarsA</span><span class="params">(name <span class="keyword">rune</span>,num <span class="keyword">int</span>)</span> *<span class="title">pillars</span></span> &#123;</span><br><span class="line">	stack := list.New()</span><br><span class="line">	stack.PushBack(math.MaxInt64)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; num; i++ &#123;</span><br><span class="line">		stack.PushBack(num-i)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> &amp;pillars&#123;name,stack&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newPillarsBC</span><span class="params">(name <span class="keyword">rune</span>)</span> *<span class="title">pillars</span></span> &#123;</span><br><span class="line">	stack := list.New()</span><br><span class="line">	stack.PushFront(math.MaxInt64)</span><br><span class="line">	<span class="keyword">return</span> &amp;pillars&#123;name,stack&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *pillars)</span> <span class="title">top</span><span class="params">()</span> <span class="title">bool</span></span>&#123;</span><br><span class="line">	<span class="comment">//第一次移动只会移动最小圆盘 所以只需要判断是否为最小圆盘就ok</span></span><br><span class="line">	<span class="keyword">return</span> 	this.stack.Back().Value.(<span class="keyword">int</span>)==<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次移动</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(from *pillars)</span><span class="title">move</span><span class="params">(to *pillars)</span></span>&#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,from.name,to.name)</span><br><span class="line">	fromStack := from.stack</span><br><span class="line">	toStack := to.stack</span><br><span class="line">	item := fromStack.Remove(fromStack.Back())</span><br><span class="line">	toStack.PushBack(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BasisByIter3</span><span class="params">(n <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">   a := newPillarsA(<span class="string">&#x27;a&#x27;</span>, n)</span><br><span class="line">   b := newPillarsBC(<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">   c := newPillarsBC(<span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">   check:= c</span><br><span class="line">   <span class="comment">//如果是奇数则调换 b c</span></span><br><span class="line">   <span class="keyword">if</span> n%<span class="number">2</span>==<span class="number">1</span>&#123;</span><br><span class="line">      b,c=c,b</span><br><span class="line">      check=b</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">      aTop := a.top()</span><br><span class="line">      bTop := b.top()</span><br><span class="line">      <span class="keyword">if</span> aTop&#123;</span><br><span class="line">         a.move(b)</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span> bTop&#123;</span><br><span class="line">         b.move(c)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         c.move(a)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//有可能第一次移动就结束了</span></span><br><span class="line">      <span class="keyword">if</span> check.stack.Len()==n+<span class="number">1</span>&#123;</span><br><span class="line">         <span class="keyword">break</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> aTop&#123;</span><br><span class="line">         move(a,c)</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span> bTop&#123;</span><br><span class="line">         move(a,b)</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         move(b,c)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> check.stack.Len()==n+<span class="number">1</span>&#123;</span><br><span class="line">         <span class="keyword">break</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次移动</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">move</span><span class="params">(check1 *pillars, check2 *pillars)</span></span> &#123;</span><br><span class="line">   value1 := check1.stack.Back().Value.(<span class="keyword">int</span>)</span><br><span class="line">   value2 := check2.stack.Back().Value.(<span class="keyword">int</span>)</span><br><span class="line">   <span class="keyword">if</span> value1&lt;value2&#123;</span><br><span class="line">      check1.move(check2)</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      check2.move(check1)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func ExampleBasisByIter3() &#123;</span><br><span class="line">   BasisByIter3(3)</span><br><span class="line">   //OutPut:</span><br><span class="line">   //a -&gt; c</span><br><span class="line">   //a -&gt; b</span><br><span class="line">   //c -&gt; b</span><br><span class="line">   //a -&gt; c</span><br><span class="line">   //b -&gt; a</span><br><span class="line">   //b -&gt; c</span><br><span class="line">   //a -&gt; c</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="汉诺塔进阶-受限汉诺塔"><a href="#汉诺塔进阶-受限汉诺塔" class="headerlink" title="汉诺塔进阶 受限汉诺塔"></a>汉诺塔进阶 受限汉诺塔</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="../../../../%E7%AC%94%E8%AE%B0/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/2.4-6.png" alt="image-20211017172238198" class="lazyload"></p>
+<h4 id="受限汉诺塔递归实现"><a href="#受限汉诺塔递归实现" class="headerlink" title="受限汉诺塔递归实现"></a>受限汉诺塔递归实现</h4><p>首先我们尝试使用递归方式实现，然后进行常见情况分析</p>
+<ol>
+<li><p>假设剩余N层塔都在左，希望全都移到中</p>
+<p>，则有下面三个步骤</p>
+<ol>
+<li>将1~N-1层从左移到右，该过程为递归</li>
+<li>将N层从左移到中</li>
+<li>将1~N-1层从右移到中，该过程为递归</li>
+</ol>
+</li>
+<li><p>假设剩余N层塔都是从中移到右，或者从中移到左，或者从有右到中，其实原理与情况1相同，所以不做赘述</p>
+</li>
+<li><p>假设剩余N层塔都在左，希望都移到右</p>
+<p>，则有下面五个步骤</p>
+<ol>
+<li>将1~N-1层从左移到右，该过程为递归</li>
+<li>将N层从左移到中</li>
+<li>将1~N-1层从右移到左，此过程为递归</li>
+<li>将N层从中移到右</li>
+<li>将1~N-1层从左移到右，此过程为递归</li>
+</ol>
+</li>
+</ol>
+<p>（↑此处为copy博客）</p>
+<p>实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LimitedByRecursive</span><span class="params">(n <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">   limitedByRecursive(n,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">limitedByRecursive</span><span class="params">(n <span class="keyword">int</span>,a,b,c,from,to <span class="keyword">rune</span>)</span></span>&#123;</span><br><span class="line">   <span class="keyword">if</span> n==<span class="number">1</span>&#123;</span><br><span class="line">      <span class="comment">//能够一步完成</span></span><br><span class="line">      <span class="keyword">if</span> from==<span class="string">&#x27;b&#x27;</span> || to==<span class="string">&#x27;b&#x27;</span>&#123;</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,from,to)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,from,b)</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,b,to)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="comment">//不能一步完成</span></span><br><span class="line">      <span class="keyword">if</span> from==b || to==b&#123;</span><br><span class="line">         <span class="comment">//经过中间柱子</span></span><br><span class="line">         <span class="keyword">var</span> another <span class="keyword">rune</span></span><br><span class="line">         <span class="keyword">if</span> from==a || to==a&#123;</span><br><span class="line">            another=c</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            another=a</span><br><span class="line">         &#125;</span><br><span class="line">         limitedByRecursive(n<span class="number">-1</span>,a,b,c,from,another)</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,from,to)</span><br><span class="line">         limitedByRecursive(n<span class="number">-1</span>,a,b,c,another,to)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="comment">//不经过中间柱子</span></span><br><span class="line">         <span class="comment">//从左边到右边或者右边到左边 最麻烦</span></span><br><span class="line">         limitedByRecursive(n<span class="number">-1</span>,a,b,c,from,to)</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,from,b)</span><br><span class="line">         limitedByRecursive(n<span class="number">-1</span>,a,b,c,to,from)</span><br><span class="line">         fmt.Printf(<span class="string">&quot;%c -&gt; %c\n&quot;</span>,b,to)</span><br><span class="line">         limitedByRecursive(n<span class="number">-1</span>,a,b,c,from,to)</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExampleLimitedByRecursive</span><span class="params">()</span></span> &#123;</span><br><span class="line">   LimitedByRecursive(<span class="number">3</span>)</span><br><span class="line">   <span class="comment">//OutPut:</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="受限汉诺塔-非递归实现"><a href="#受限汉诺塔-非递归实现" class="headerlink" title="受限汉诺塔 非递归实现"></a>受限汉诺塔 非递归实现</h4><blockquote>
+<p>我们把左、中、右三个地点抽象成栈，依次记为LS、MS和RS。最初所有的塔都在LS上。那么如上4个动作就可以看作是：某一个栈（from）把栈顶元素弹出，然后压入到另一个栈里（to），作为这一个栈（to）的栈顶。</p>
+</blockquote>
+<blockquote>
+<p>例如，如果是7层塔，在最初时所有的塔都在LS上，LS从栈顶到栈底就依次是1～7，如果现在发生了“左”到“中”的动作，这个动作对应的操作是LS栈将栈顶元素1弹出，然后1压入到MS栈中，成为MS的栈顶。其他操作同理。</p>
+</blockquote>
+<p>一个动作能发生的先决条件是<em>不违反小压大的原则</em>。<br>from栈弹出的元素num如果想压入到to栈中，那么num的值必须小于当前to栈的栈顶。还有一个原则不是很明显，但也是非常重要的，叫<em>相邻不可逆原则</em>，解释如下：</p>
+<ol>
+<li>我们把4个动作依次定义为：<code>L-＞M</code>、<code>M-＞L</code>、<code>M-＞R</code>和<code>R-＞M</code>。</li>
+<li>很明显，<code>L-＞M</code>和<code>M-＞L</code>过程互为逆过程，<code>M-＞R</code>和<code>R-＞M</code>互为逆过程。</li>
+<li>在修改后的汉诺塔游戏中，如果想走出最少步数，那么任何两个相邻的动作都不是互为逆过程的。举个例子：如果上一步的动作是 <code>L-＞M</code>，那么这一步绝不可能是 <code>M-＞L</code>，直观地解释为：你在上一步把一个栈顶数从“左”移动到“中”，这一步为什么又要移回去呢？这必然不是取得最小步数的走法。同理，<code>M-＞R</code>动作和<code>R-＞M</code>动作也不可能相邻发生。</li>
+</ol>
+<p>有了小压大和相邻不可逆原则后，可以推导出两个十分有用的结论–非递归的方法核心结论：</p>
+<ol>
+<li>游戏的第一个动作一定是<code>L-＞M</code>，这是显而易见的。</li>
+<li>在走出最少步数过程中的任何时刻，4个动作中只有一个动作不违反小压大和相邻不可逆原则，另外三个动作一定都会违反。</li>
+</ol>
+<p>对于结论2，现在进行简单的证明。<br>因为游戏的第一个动作已经确定是<code>L-＞M</code>，则以后的每一步都会有前一步的动作。</p>
+<h5 id="假设前一步的动作是L-＞M："><a href="#假设前一步的动作是L-＞M：" class="headerlink" title="假设前一步的动作是L-＞M："></a>假设前一步的动作是<code>L-＞M</code>：</h5><ol>
+<li>根据小压大原则，<code>L-＞M</code>的动作不会重复发生。</li>
+<li>根据相邻不可逆原则，<code>M-＞L</code>的动作也不该发生。</li>
+<li>根据小压大原则，<code>M-＞R</code>和<code>R-＞M</code>只会有一个达标。</li>
+</ol>
+<h5 id="假设前一步的动作是M-＞L："><a href="#假设前一步的动作是M-＞L：" class="headerlink" title="假设前一步的动作是M-＞L："></a>假设前一步的动作是<code>M-＞L</code>：</h5><ol>
+<li>根据小压大原则，<code>M-＞L</code>的动作不会重复发生。</li>
+<li>根据相邻不可逆原则，<code>L-＞M</code>的动作也不该发生。</li>
+<li>根据小压大原则，<code>M-＞R</code>和<code>R-＞M</code>只会有一个达标。</li>
+</ol>
+<h5 id="假设前一步的动作是M-＞R："><a href="#假设前一步的动作是M-＞R：" class="headerlink" title="假设前一步的动作是M-＞R："></a>假设前一步的动作是<code>M-＞R</code>：</h5><ol>
+<li>根据小压大原则，<code>M-＞R</code>的动作不会重复发生。</li>
+<li>根据相邻不可逆原则，<code>R-＞M</code>的动作也不该发生。</li>
+<li>根据小压大原则，<code>L-＞M</code>和<code>M-＞L</code>只会有一个达标。</li>
+</ol>
+<h5 id="假设前一步的动作是R-＞M："><a href="#假设前一步的动作是R-＞M：" class="headerlink" title="假设前一步的动作是R-＞M："></a>假设前一步的动作是<code>R-＞M</code>：</h5><ol>
+<li>根据小压大原则，<code>R-＞M</code>的动作不会重复发生。</li>
+<li>根据相邻不可逆原则，<code>M-＞R</code>的动作也不该发生。</li>
+<li>根据小压大原则，<code>L-＞M</code>和<code>M-＞L</code>只会有一个达标。</li>
+</ol>
+<p>综上所述，每一步只会有一个动作达标。那么只要每走一步都根据这两个原则考查所有的动作就可以，哪个动作达标就走哪个动作，反正每次都只有一个动作满足要求，按顺序走下来即可</p>
+<p>(↑以上copy博客)</p>
+<p>柱子类(直接用之前的就ok)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">type pillars struct &#123;</span><br><span class="line">   name rune</span><br><span class="line">   stack *list.List</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//因为这个类只会在该包上用 外界无需考虑实现细节 所以n没有大写</span><br><span class="line">func newPillarsA(name rune,num int) *pillars &#123;</span><br><span class="line">   stack := list.New()</span><br><span class="line">   stack.PushBack(math.MaxInt64)</span><br><span class="line">   for i := 0; i &lt; num; i++ &#123;</span><br><span class="line">      stack.PushBack(num-i)</span><br><span class="line">   &#125;</span><br><span class="line">   return &amp;pillars&#123;name,stack&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func newPillarsBC(name rune) *pillars &#123;</span><br><span class="line">   stack := list.New()</span><br><span class="line">   stack.PushFront(math.MaxInt64)</span><br><span class="line">   return &amp;pillars&#123;name,stack&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (from *pillars)move(to *pillars)&#123;</span><br><span class="line">	fmt.Printf(&quot;%c -&gt; %c\n&quot;,from.name,to.name)</span><br><span class="line">	fromStack := from.stack</span><br><span class="line">	toStack := to.stack</span><br><span class="line">	item := fromStack.Remove(fromStack.Back())</span><br><span class="line">	toStack.PushBack(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存放四种状态</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	LToM=<span class="literal">iota</span>+<span class="number">1</span></span><br><span class="line">	MToL</span><br><span class="line">	MToR</span><br><span class="line">	RToM</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LimitedByIter</span><span class="params">(n <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	a := newPillarsA(<span class="string">&#x27;a&#x27;</span>, n)</span><br><span class="line">	b := newPillarsBC(<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">	c := newPillarsBC(<span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">	temp:=<span class="built_in">new</span>(<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> c.stack.Len()!=n+<span class="number">1</span>&#123;</span><br><span class="line">		fStacktoStack(temp,MToL,LToM,a,b)</span><br><span class="line">		fStacktoStack(temp,LToM,MToL,b,a)</span><br><span class="line">		fStacktoStack(temp,RToM,MToR,b,c)</span><br><span class="line">		fStacktoStack(temp,MToR,RToM,c,b)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fStacktoStack</span><span class="params">(temp *<span class="keyword">int</span>, mutex <span class="keyword">int</span>, execute <span class="keyword">int</span>, from *pillars, to *pillars)</span></span> &#123;</span><br><span class="line">	<span class="comment">//判断上一次执行的是否与 想要尝试执行的互斥</span></span><br><span class="line">	<span class="keyword">if</span> *temp==mutex&#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fromValue:=from.stack.Back().Value.(<span class="keyword">int</span>)</span><br><span class="line">	toValue:=to.stack.Back().Value.(<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">if</span> fromValue&lt;toValue&#123;</span><br><span class="line">		from.move(to)</span><br><span class="line">		*temp=execute</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ExampleLimitedByIter</span><span class="params">()</span></span> &#123;</span><br><span class="line">   LimitedByIter(<span class="number">3</span>)</span><br><span class="line">   <span class="comment">//Output:</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//c -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; a</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">   <span class="comment">//a -&gt; b</span></span><br><span class="line">   <span class="comment">//b -&gt; c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Go/" rel="tag">Go</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1634469149220"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
