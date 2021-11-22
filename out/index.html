@@ -17,8 +17,8 @@
             if(month>=10){
                 nowDate=year+"-"+month+"-"+day;
             }
-
-        
+            let topData=month+""+day
+            $("#topDate").append(topData);
             $(".id").append(request("id"));
             $(".name").append("("+decodeURI(request("name"))+(")"));
             $("#time").append("打卡时间："+nowDate+" 10:21")
@@ -95,7 +95,7 @@
     
     <div align="center"><table id="wjTA" cellpadding="1" cellspacing="0" border="1" width="400" align="center" class="tabThinM" style="font-size:10.5pt;font-family: 楷体_GB2312;margin-top: 0px;"><tbody>
     <tr valign="top" align="left">
-    <td align="Center" colspan="4" style="font-size:18px"><b>1121疫情防控——师生健康状态采集</b></td>
+    <td align="Center" colspan="4" style="font-size:18px"><b><span id="topDate"></span></span>疫情防控——师生健康状态采集</b></td>
     </tr>
     <tr valign="top" align="left">
     <td align="Left" colspan="4" style="font-size:14px">
@@ -192,7 +192,7 @@
     <input type="hidden" name="th_2" value="21912"><input type="hidden" name="wtOR_2" value=""><b>2</b><br></font></td>
     <td align="left" valign="middle" colspan="2">
     <b>申请进出学校(无需求则不填)</b>
-    <div class="dvO">目的地：<input type="text" name="sF21912_1" value="成都市武侯区第三人民医院" onblur="this.className=&#39;it1&#39;;" onfocus="this.className=&#39;it2&#39;;" class="it1" style="width:236">
+    <div class="dvO">目的地：<input type="text" name="sF21912_1" value="学校周边" onblur="this.className=&#39;it1&#39;;" onfocus="this.className=&#39;it2&#39;;" class="it1" style="width:236">
     <br>
     事由：<input type="text" name="sF21912_2" value="生病就医" onblur="this.className=&#39;it1&#39;;" onfocus="this.className=&#39;it2&#39;;" class="it1" style="width:250">
     <br>
