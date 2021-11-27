@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Spring复习笔记 - AloneAtWar&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Spring复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Spring复习笔记">
+<meta property="og:url" content="http://aloneatwar.github.io/SpringReview.html">
+<meta property="og:site_name" content="AloneAtWar&#39;s blog">
+<meta property="og:description" content="Spring复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-27T08:48:01.000Z">
+<meta property="article:modified_time" content="2021-11-27T08:47:54.797Z">
+<meta property="article:author" content="AloneAtWar">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1638003382282">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1638003382282">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="AloneAtWar" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="AloneAtWar">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar" alt="AloneAtWar">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 AloneAtWar
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/Spring.png" data-sizes="auto" alt="Spring复习笔记" class="lazyload">
+              <h1>Spring复习笔记</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年11月27日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 10 分钟</a>
+</div>
+
+      
+
+      <h1 id="Spring复习笔记"><a href="#Spring复习笔记" class="headerlink" title="Spring复习笔记"></a>Spring复习笔记</h1><p>从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）</p>
+<span id="more"></span>
+
+
+
+<p>参考资料：<a target="_blank" rel="noopener" href="https://class.imooc.com/sale/java2021">https://class.imooc.com/sale/java2021</a>  （感觉不是很推荐初学)</p>
+<p>Spring两个核心功能 <b>IOC &amp;&amp; AOP </b></p>
+<h2 id="IOC容器"><a href="#IOC容器" class="headerlink" title="IOC容器"></a>IOC容器</h2><p>两种配置 注解配置方式——  注解配置方式、配置文件模式</p>
+<p>负责配置IOC容器的顶类为 ApplicationContext 类 其主要子类为  AbstractXmlApplicationContext (主要负责是配置文件模式) 和AnnotationConfigApplicationContext(负责注解配置)</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="加载IOC容器"><a href="#加载IOC容器" class="headerlink" title="加载IOC容器"></a>加载IOC容器</h4><h5 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件:"></a>配置文件:</h5><p>从类路径下 主要使用AbstractXmlApplicationContext的子类ClassPathXmlApplicationContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从文件系统出发 主要使用 AbstractXmlApplicationContext的子类FileSystemXmlApplicationContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="注解方式："><a href="#注解方式：" class="headerlink" title="注解方式："></a>注解方式：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Configuration.class);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="配置信息："><a href="#配置信息：" class="headerlink" title="配置信息："></a>配置信息：</h4><h5 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h5><p>在配置文件中 applicationContext.xml</p>
+<p>使用模板：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在IDEA已经可以支持自动生成</p>
+<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><p>@Configuration</p>
+<p>Configuration的类使用 该注解进行标识</p>
+<h4 id="放入容器"><a href="#放入容器" class="headerlink" title="放入容器"></a>放入容器</h4><h5 id="配置文件：-1"><a href="#配置文件：-1" class="headerlink" title="配置文件："></a>配置文件：</h5><p><bean>标签 主要属性 </p>
+<ul>
+<li><p>id    bean的唯一标识 无法设置多个 默认为类的全名 若有多个类的话在全名后面加入 #1 #2  等等</p>
+</li>
+<li><p>name bean的唯一表示 可以设置多个 使用，分割</p>
+</li>
+<li><p>init-method bean的初始化方法 </p>
+</li>
+<li><p>factory-bean 使用实例工厂方法模式进行bean的创建，若标注则不需要使用class属性 里面放入生成该bean的唯一标识(也需要在容器当中)</p>
+</li>
+<li><p>factory-method 如果class属性存在 则为静态工厂模式 调用class里的类中的静态方法 方法名称为factory-method 的value 如果class属性不存在 则默认为实例工厂模式 调用factory-bean的factory-bean方法来创造实例</p>
+</li>
+<li><p>primary  是否优先加载 只能为true 或 false 当自动装配时 按照类寻找装配对象时 优先被调用 </p>
+</li>
+<li><p>destroy-method 销毁时调用的方法</p>
+</li>
+<li><p>init-method 对该bean依赖注入完之后会被调用的方法</p>
+</li>
+<li><p>scope bean的作用域 可选项 prototype singleton 分别代表是 多例 与 单例  在web环境中会有更多的属性</p>
+</li>
+</ul>
+<h5 id="注解"><a href="#注解" class="headerlink" title="注解:"></a>注解:</h5><h6 id="配置类上"><a href="#配置类上" class="headerlink" title="配置类上:"></a>配置类上:</h6><p>@Bean 在Configuration的类中标注方法使用 参数 （其实感觉可作用范围更大了 ）</p>
+<ul>
+<li>value 参数 无其他参数时默认设置的是value参数，可用来表示bean的name</li>
+<li>name参数 有其他参数时候使用，用来表示bean的name，如果没有设定（value参数也没设定），默认为被注解的方法名称(所以若不设定name或value方法名不需要以getXXX开头 )</li>
+<li>autowireCandidate参数 当前bean是否可以作为默认注入的候选人，默认为true</li>
+<li>initMethod参数 bean的创建之后执行的方法</li>
+<li>destroyMethod参数 bean的销毁前执行的方法</li>
+</ul>
+<p>方法中的参数 spring会根据按照</p>
+<h6 id="被扫描类上："><a href="#被扫描类上：" class="headerlink" title="被扫描类上："></a>被扫描类上：</h6><p>@ComponentScan() 在Configuration的类中标注 可以选择包的范围</p>
+<ul>
+<li><p>value参数设定扫描的包 默认是设置这个参数</p>
+</li>
+<li><p>basePackages参数设定扫描</p>
+</li>
+<li><p>basePackageClasses参数 用来替代basePackages 在所选包的里面创建一个标识类 然后进行引用</p>
+</li>
+<li><p>nameGenerator 参数设定扫描的类的命名规则 专门写一个类 根据扫描到的不同java类里面有方法来设定类的命名规则</p>
+</li>
+<li><p>scopeResolver 参数设定扫描的类的作用范围  专门写一个类 根据扫描到的不同java类里面有方法来设定类的命名规则</p>
+</li>
+<li><p>各类过滤器</p>
+</li>
+<li><p>懒加载</p>
+</li>
+<li><p>….</p>
+</li>
+</ul>
+<p>四个注解</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Component</td>
+<td>注解除却以下三种的情况</td>
+</tr>
+<tr>
+<td>@Repository</td>
+<td>一般给Dao层注解</td>
+</tr>
+<tr>
+<td>@Controller</td>
+<td>一般给Servlet层注解</td>
+</tr>
+<tr>
+<td>@Service</td>
+<td>一般给Service层注解</td>
+</tr>
+</tbody></table>
+<p>三者都可以根据value来给bean设置id</p>
+<p>@PostConstruct 类似于init-method</p>
+<p>@PreDestroy  在销毁之前</p>
+<p>@Scope 设置对象的scope</p>
+<p>@Primary() 按照类型注入的时候 优先</p>
+<p>混合模式：</p>
+<p>配置文件中 放入&lt;context:component-scan &gt; 标签(注意导入命名空间)</p>
+<ul>
+<li> base-package 扫描的包</li>
+<li>…</li>
+</ul>
+<h4 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h4><p>配置文件：</p>
+<p>bean 标签里头 定义 <property> 子标签 通过空参构造器创建对象之后通过get set方法进行注入属性</p>
+<ul>
+<li>name 属性 设置属性的名称 (必写)</li>
+<li>value 属性 若该属性是一个可以直接设置 就设置</li>
+<li>ref  属性 引用其他bean 内容为其他bean的标识</li>
+</ul>
+<p>也可在 <property> 里头 嵌套<bean> 标识该bean注入进该属性 当需要注意的是 内部bean 未放入容器当中 无法被autowire 所引用（在idea里头都会报多余的错误）</p>
+<p>bean 标签里头 定义 <constructor-arg> 子标签 通过调用有参构造来创造对象</p>
+<ul>
+<li><p>name 构造器的确定参数名称</p>
+</li>
+<li><p>index 构造器的确定参数位置</p>
+</li>
+<li><p>ref 引用其他bean 内容为其他bean的标识</p>
+</li>
+<li><p>value 如果能明确赋值</p>
+</li>
+</ul>
+<p>注解方式：</p>
+<p>在Configuration类中用@Bean方法注解的：</p>
+<p>   可以在方法参数中放入对应Bean的参数，会自动注入(优先是名字，之后是类型)，到底怎么用全部封装在方法内部，无论是使用空参构造，然后再依靠getset方法注入，还是使用有参构造，需要把什么参数传过去，应该说可扩展性是最高的。</p>
+<p>在被扫描类中：</p>
+<table>
+<thead>
+<tr>
+<th>注入方式</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按照类型注入</td>
+<td>@Autowire(Spring独家，支持required属性(若为true找到之后就不注入))</td>
+<td>@Inject (更通用，基于JSR-330规范，但不支持required属性)</td>
+</tr>
+<tr>
+<td>按照名称注入</td>
+<td>@Named(需要与@Inject配合使用,JSR-330规范)</td>
+<td>@Resource(符合JSR-250规范，优先按照名称，再按照类型)</td>
+</tr>
+</tbody></table>
+<p>@Value()  若该属性可以直接设置 直接注解给被扫描类的</p>
+<p>配置在属性上代表通过反射注入 配置在set方法上代表getset注入</p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>aop底层的依赖支持 要使用AOP需要导入这个包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjweaver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h4><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Aspect</td>
+<td>切面，具体的可插拔组件功能类，通常一个切面只实现一个通用功能</td>
+</tr>
+<tr>
+<td>Target Class/Method</td>
+<td>目标类、目标方法，指真正要执行与业务相关的方法</td>
+</tr>
+<tr>
+<td>PointCut</td>
+<td>切入点，使用execution表达式说明切面要作用在系统的哪些类上</td>
+</tr>
+<tr>
+<td>JoinPoint</td>
+<td>连接点，切面运行过程中是包含了目标类、方法元数据的对象</td>
+</tr>
+<tr>
+<td>Advice</td>
+<td>通知，说明具体的切面的执行实际，Spring包含了五种不同的类型通知</td>
+</tr>
+</tbody></table>
+<h5 id="切入点表达式"><a href="#切入点表达式" class="headerlink" title="切入点表达式"></a>切入点表达式</h5><p>​                    public void com.imooc.service.UserService.createUser(形参1，形参2)</p>
+<p>​                        ↑           ↑                 ↑           ↑              ↑                  ↑                        ↑</p>
+<p>execution  (public     *         com.imooc     ..           *                   *           (..) )</p>
+<p>基本按照 权限修饰符号 返回值 类名 方法 参数   来进行表示 权限修饰符 可以省略</p>
+<p>配置文件：</p>
+<p>创建好切面类 给需要执行的切面方法 加上一个 JoinPoint 参数(返回值应该为void 权限为Public)，可以获得关于切点的信息，如果是环绕通知则使用ProceedingJoinPoint参数(返回值为函数返回值)</p>
+<h5 id="五种通知类型"><a href="#五种通知类型" class="headerlink" title="五种通知类型"></a>五种通知类型</h5><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Before Advice</td>
+<td>前置通知，目标方法运行前执行</td>
+</tr>
+<tr>
+<td>After Returning Advice</td>
+<td>返回后通知，目标方法返回数据后执行，可获得返回结果</td>
+</tr>
+<tr>
+<td>After Throwing Advice</td>
+<td>异常通知，目标方法抛出异常后执行，可获取抛出异常</td>
+</tr>
+<tr>
+<td>After Advice</td>
+<td>后置通知，目标运行后执行(相当于是final关键字 一定会被执行 )</td>
+</tr>
+<tr>
+<td>Around Advice</td>
+<td>最强大通知，自定义统一执行实际，可决定通知是否运行</td>
+</tr>
+</tbody></table>
+<p>另为一种 特殊的“通知” ——  引介增强 </p>
+<h5 id="配置文件：-2"><a href="#配置文件：-2" class="headerlink" title="配置文件："></a>配置文件：</h5><p>在配置文件中加入&lt;aop:config &gt;标签（需要导入aop命名空间）</p>
+<p>&lt;aop:config &gt;标签中嵌套 &lt;aop:pointcut &gt; 标签 定义切入点 决定了在什么地点</p>
+<p>&lt;aop:pointcut &gt;(一定要在&lt;aop:aspect &gt; 之前)</p>
+<ul>
+<li>id 切点的唯一标识</li>
+<li>expression 切入点表达式</li>
+</ul>
+<p>&lt;aop:config &gt;标签中嵌套 &lt;aop:aspect &gt; 定义切入面 </p>
+<ul>
+<li>id 切面的唯一表示</li>
+<li>ref 引用bean的id （只有这部做了才真正算是注册了切面）</li>
+</ul>
+<p>&lt;aop:aspect &gt;内部嵌套 该切面应用于切点的规则</p>
+<p>其中再可嵌套 设置不同的通知 不同的标签决定了在什么时间 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="attr">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="attr">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="attr">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="attr">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="attr">aop:declare-parents</span> <span class="attr">types-matching</span>=<span class="string">&quot;&quot;</span> <span class="attr">implement-interface</span>=<span class="string">&quot;&quot;</span> </span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="混合模式："><a href="#混合模式：" class="headerlink" title="混合模式："></a>混合模式：</h5><p> 配置文件中加入 &lt;aop:aspectj-autoproxy &gt; 标签 配置自动注解</p>
+<p>在被扫描的类中加入 </p>
+<p>@Aspect标签</p>
+<p>在方法上标注   加入execusion表达式</p>
+<p>@Around() </p>
+<p>@Before()</p>
+<p>@After()<br>@AfterReturning</p>
+<p>@AfterThrowing</p>
+<h5 id="注解模式："><a href="#注解模式：" class="headerlink" title="注解模式："></a>注解模式：</h5><p>Configuration类中加入@EnableAspectJAutoProxy注解</p>
+<p>AOP实现原理</p>
+<ul>
+<li>目标类拥有接口，通过JDK动态代理实现<ul>
+<li>代理类需要实现 InvocationHandler 接口  实现public Object invoke(Object proxy, Method method, Object[] args) throws Throwable 方法 参数 proxy是代理类(外面那一层),method是执行方法，args执行的参数 原理大体为</li>
+</ul>
+</li>
+<li>目标类没有接口，通过CGlib组件实现功能扩展<ul>
+<li>原理为继承</li>
+</ul>
+</li>
+</ul>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>AloneAtWar<br>
+        <strong>本文链接：</strong><a href="http://aloneatwar.github.io/SpringReview.html" title="http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;SpringReview.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;SpringReview.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1638003382286"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>

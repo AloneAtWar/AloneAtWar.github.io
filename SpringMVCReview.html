@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>SpringMVC复习笔记 - AloneAtWar&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="SpringMVC复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SpringMVC复习笔记">
+<meta property="og:url" content="http://aloneatwar.github.io/SpringMVCReview.html">
+<meta property="og:site_name" content="AloneAtWar&#39;s blog">
+<meta property="og:description" content="SpringMVC复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-27T08:48:01.000Z">
+<meta property="article:modified_time" content="2021-11-27T08:54:16.679Z">
+<meta property="article:author" content="AloneAtWar">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1638003382279">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1638003382279">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="AloneAtWar" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="AloneAtWar">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar" alt="AloneAtWar">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 AloneAtWar
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/Spring.png" data-sizes="auto" alt="SpringMVC复习笔记" class="lazyload">
+              <h1>SpringMVC复习笔记</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年11月27日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.3k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
+</div>
+
+      
+
+      <h1 id="SpringMVC复习笔记"><a href="#SpringMVC复习笔记" class="headerlink" title="SpringMVC复习笔记"></a>SpringMVC复习笔记</h1><p>从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）</p>
+<span id="more"></span>
+
+
+
+<p>参考资料：<a target="_blank" rel="noopener" href="https://class.imooc.com/sale/java2021">https://class.imooc.com/sale/java2021</a>  （感觉不是很推荐初学)</p>
+<p>MVC是一种架构模式</p>
+<ul>
+<li>M -   Model模型</li>
+<li>C -    Controller控制器</li>
+<li>V -     View视图</li>
+</ul>
+<p>​          视图   —–请求-&gt;   控制器 ——获取-&gt; 模型</p>
+<p>maven依赖地址</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>DispatchServlet 是SpringMVC的核心 需要在web.xml文件里注册，用于拦截http请求，并根据请求的URL调用与之对应的Controller方法，来完成http请求的处理（设置load-on-startup为0，init-param 里蛇者 param-name为contextConfigLoation参数为 application.xml</p>
+<p>在application.xml文件中配置好 扫描的规则 根据被扫描的类的注解 mvc就可以知道对应的组件类型</p>
+<p>mvc的专用命名空间:mvc<br>&lt;mvc:annotation-drivern/ &gt;  启用springMVC的注解开发模式</p>
+<p>&lt;mvc:default-servlet-handler/ &gt; 将静态资源排除在外，可提高执行效率</p>
+<p>在@Controller被标准的类中 的其方法可以用</p>
+<ul>
+<li><p>@RequestMapping() 通用绑定 (@也可标记给类 参数也可设置特定的请求)</p>
+</li>
+<li><p>@GetMapping()</p>
+</li>
+<li><p>@PostMapping()</p>
+</li>
+</ul>
+<p>获取请求数据</p>
+<ul>
+<li>Controller方法参数接受数据 <ul>
+<li>直接在方法中加入与请求参数相同名称的参数</li>
+<li>也可用@RequestParam 参数进行指对应接收的对象（也可用来设置默认值）</li>
+<li>@DateTimeFormat 参数可以设置 date 的属性（用javabean接收也可在javabean的属性上打该注解） 自动转换器和这个注解智能选一个</li>
+<li>也可自定义转换规则(把string转换成什么东西) 实现Converter接口 需要在容器中创建FormattingConversionServiceFactoryBean注册给converters参数列表中 然后再注册给mvc:annotation-driven标签的 conversion-service属性当中</li>
+</ul>
+</li>
+<li>JAVABean接收</li>
+</ul>
+<h5 id="Web应用的中文乱码由来"><a href="#Web应用的中文乱码由来" class="headerlink" title="Web应用的中文乱码由来"></a>Web应用的中文乱码由来</h5><ul>
+<li>Tomcat默认使用字符集ISO-8859-1,属于西欧字符集</li>
+<li>解决乱码的核心思路是将ISO-8859-1转换为UTF-8</li>
+<li>Controller中请求与相应都需要设置UTF-8字符集</li>
+</ul>
+<p>中文乱码的配置</p>
+<ul>
+<li>Get请求乱码 - server.xml 增加URIEncoding属性</li>
+<li>Post请求乱码 - web.xml配置CharacterEncodingFilter属性</li>
+<li>Response相应乱码 - Spring配置StringHttpMessageConverter <ul>
+<li>在mvc:annotation-driven 标签中嵌套设置 mvc:message-converters 标签 然后内部设置StringHttpMessageConverter的bean 然后再supportedMediaTypes参数中加入 text/html;charset=utf-8</li>
+</ul>
+</li>
+</ul>
+<h5 id="相应中产生结果"><a href="#相应中产生结果" class="headerlink" title="相应中产生结果"></a>相应中产生结果</h5><ul>
+<li>@ResponseBody - 产生相应文本</li>
+<li>ModelAndView - 利用模板引擎渲染输出</li>
+</ul>
+<p>@ResponseBody</p>
+<ul>
+<li>@ResponseBody 直接产生响应体的数据，过程不涉及任何视图</li>
+<li>@ResponseBody 可产生标准字符串/JSON/XML等格式数据</li>
+<li>@ResponseBody 被StringHttpMessageConverter所影响</li>
+</ul>
+<p>ModelAndView</p>
+<ul>
+<li><p>ModelAndView对象是指“模型(数据)”与视图(界面)”对象</p>
+</li>
+<li><p>通过ModelAndView可将包含数据对象与模板引擎进行绑定</p>
+</li>
+<li><p>SpringMVC中默认View是JSP，也可也配置其他模板引擎</p>
+</li>
+<li><p>默认ModelAndView使用请求转发(forward)至页面</p>
+</li>
+<li><p>重定向使用new ModelAndView(“redirect:/index.jsp”)</p>
+</li>
+</ul>
+<p>在web.xml 文件中加入org.springframework.web.filter.FormContextFilter组件用于过滤非简单请求(PUT请求和GET请求)</p>
+<p>JSON序列化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.9.9&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.9.9&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.9.9&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>@JsonFormat()</p>
+<p>浏览器的同源策略</p>
+<ul>
+<li>同源策略阻止从一个域加载的脚本去获取另一个域上的资源</li>
+<li>只要协议、域名、端口有任何一个不同，都被当作是不同的域</li>
+<li>浏览器Console看到Access-Control-Allow-Origin就代表跨域了</li>
+</ul>
+<p>默认允许跨域的标签</p>
+<ul>
+<li><p><img> - 显示远程图片</p>
+</li>
+<li><script > - 加载远程JS</li>
+<li><link> - 加载远程CSS</li>
+</ul>
+<p>CORS跨域资源访问</p>
+<ul>
+<li>CORS是一种机制,使用额外的HTTP头通知浏览器可以访问其他域</li>
+<li>URL响应头包含 Access-Control-*指明请求允许跨域</li>
+</ul>
+<p>Spring MVC解决跨域访问</p>
+<ul>
+<li>@CrossOrigin－ Controller跨域注解</li>
+<li>&lt;mvc:cors &gt; - Spring MVC全局跨域配置</li>
+</ul>
+<p>SpringMVC拦截器</p>
+<p>需要依赖该个组件，作用域为provided是因为Tomcat也有这个组件可能会导致版本冲突。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>想要实现拦截器功能的类都需要实现HandlerInterceptor接口，去书写具体的拦截规则。</p>
+<p>之后需要再 配置文件中注册<br>&lt;mvc:interceptors &gt;</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>AloneAtWar<br>
+        <strong>本文链接：</strong><a href="http://aloneatwar.github.io/SpringMVCReview.html" title="http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;SpringMVCReview.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;SpringMVCReview.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1638003382281"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>

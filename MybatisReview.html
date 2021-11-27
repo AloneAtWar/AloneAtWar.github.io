@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>Mybatis复习笔记 - AloneAtWar&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Mybatis复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mybatis复习笔记">
+<meta property="og:url" content="http://aloneatwar.github.io/MybatisReview.html">
+<meta property="og:site_name" content="AloneAtWar&#39;s blog">
+<meta property="og:description" content="Mybatis复习笔记从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/1354552/1606366100317-5e0199fa-6709-4d32-bce3-bb262e2e5e6a.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_20,text_YXRndWlndS5jb20g5bCa56GF6LC3,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/1354552/1606704096118-53001250-a04a-4210-80ee-6de6a370be2e.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_20,text_YXRndWlndS5jb20g5bCa56GF6LC3,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10">
+<meta property="article:published_time" content="2021-11-27T08:48:01.000Z">
+<meta property="article:modified_time" content="2021-11-27T08:47:53.941Z">
+<meta property="article:author" content="AloneAtWar">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/1354552/1606366100317-5e0199fa-6709-4d32-bce3-bb262e2e5e6a.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_20,text_YXRndWlndS5jb20g5bCa56GF6LC3,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1638003382274">
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1638003382274">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="AloneAtWar" class="mdui-btn mdui-btn-icon"><img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="AloneAtWar">
+            <img src="https://octodex.github.com/images/grim-repo.jpg" alt="AloneAtWar" alt="AloneAtWar">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://qm.qq.com/cgi-bin/qm/qr?k=BFjhW8Si7TOvBo3SeWjp7DOU1BUEPNGN&noverify=0" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/484767834" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Csder666/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Go/">Go</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/杂项/">杂项</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">Go语言基础</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 AloneAtWar
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: NaN%;"> 
+              <img data-src="/Spring.png" data-sizes="auto" alt="Mybatis复习笔记" class="lazyload">
+              <h1>Mybatis复习笔记</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年11月27日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 17 分钟</a>
+</div>
+
+      
+
+      <h1 id="Mybatis复习笔记"><a href="#Mybatis复习笔记" class="headerlink" title="Mybatis复习笔记"></a>Mybatis复习笔记</h1><p>从2021年4月份开始学习spring框架，之后SSM，之后的springSecurity框架，再到之后的mybatis plus框架，但三个月没有敲JAVA后端，感觉好生疏，在加上感觉原先学习的也不是那么的扎实，所以专门抽出一段时间，复习一遍，不同是这次真滴还是需要记笔记（吃了以前的亏 555）</p>
+<span id="more"></span>
+
+
+
+<p>参考资料：<a target="_blank" rel="noopener" href="https://class.imooc.com/sale/java2021">https://class.imooc.com/sale/java2021</a>  （感觉不是很推荐初学)</p>
+<h1 id="Mybatis-复习笔记"><a href="#Mybatis-复习笔记" class="headerlink" title="Mybatis 复习笔记"></a>Mybatis 复习笔记</h1><h4 id="原生Mybatis"><a href="#原生Mybatis" class="headerlink" title="原生Mybatis"></a>原生Mybatis</h4><p>与spring相同mybatis也是使用配置文件进行配置，mybatis-config.xml的模板</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">configuration</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--  使用JDBC的getGeneratedKeys获取数据库自增主键值       --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;useGeneratedKeys&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--  使用列别名替代列名       --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;useColumnLabel&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 开启驼峰命名转化 Table&#123;create_time&#125; -&gt; Entity&#123;createTime&#125;        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;mapUnderscoreToCamelCase&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line">	    <span class="comment">&lt;!--  环境（连接的数据信息)   --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;dev&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 可以设置多个环境 defalut为默认        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;dev&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用JDBC的方式管理事务            --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 使用数据库连接池作为数据源   如想使用第三方数据库连接池 可自定义类 继承</span></span><br><span class="line"><span class="comment">                UnpooledDataSourceFactory类 然后在无参构造方法中设置好连接池对象       --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/temp?serverTimezone=UTC<span class="symbol">&amp;amp;</span>characterEncoding=utf8<span class="symbol">&amp;amp;</span>useUnicode=true<span class="symbol">&amp;amp;</span>useSSL=false&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;chensida2318&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Mybatis 使用 SqlSession (语义化为 一次 sql对话 ) 通过SqlSessionFactory获取 SqlSession 。原生Mybatis可以使用SqlSessionFactoryBuilder类获取SqlSessionFactory对象(一般在此处就可以读取配置文件来设置mybatis规则)</p>
+<p>与Spring整合会有专门的SqlSessionFactoryBean类 (SqlSessionFactory最好可以设置为单例 每个项目只有一个)</p>
+<p>在configuration标签内部 嵌套使用mappers标签设置映射</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">        &lt;!--直接把该个class注册进来 将sql语句写在注解上</span><br><span class="line">         @Insert @Delete @Update @Select</span><br><span class="line">         然后通过sqlSession.getMapper() 方法获取对应实现        --&gt;</span><br><span class="line">    &lt;mapper class=&quot;&quot;/&gt;</span><br><span class="line">        &lt;!-- 去读取对应目录位置的 mybatis-mapper.xml 文件 具体的sql规则写在配置文件当中        --&gt;</span><br><span class="line">    &lt;mapper resource=&quot;&quot;/&gt;</span><br><span class="line">        &lt;!-- 扫描对应的包 读取对应的注解   然后通过sqlSession.getMapper() 方法获取对应实现           --&gt;</span><br><span class="line">    &lt;package name=&quot;&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在mybatis-mapper.xml文件中的模板</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;mapper namespace=&quot;&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>namespace 为命名空间，在原生mybatis中，此处应该可有任意值，然后通过sqlSession.方法(“命名空间.方法ID”) 调用sql功能,在与spring整合中，一般使用mapper的全类名 </p>
+<p>常用功能已经写入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  id为标识方法 在同个命名空间中 不可相同    --&gt;</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">      开启二级缓存</span></span><br><span class="line"><span class="comment">       eviction 缓存清除策略</span></span><br><span class="line"><span class="comment">       1. LRU 最近最久未使用</span></span><br><span class="line"><span class="comment">       2.FIFO 先进先出</span></span><br><span class="line"><span class="comment">       3.SOFT 软引用：移除基于垃圾是搜集器状态和软引用规则的对象</span></span><br><span class="line"><span class="comment">       4.WEAK 弱引用：更积极的溢出基于垃圾收集状态和弱引用规则的对象</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       flushInterval 每隔开多久实践自动清空缓存，单位灏明</span></span><br><span class="line"><span class="comment">       size 缓存存储上限</span></span><br><span class="line"><span class="comment">       readOnly 是否只读</span></span><br><span class="line"><span class="comment">       如果开启二级缓存 记得关掉一些 浪费的sql操作的二级缓存</span></span><br><span class="line"><span class="comment">      --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">&quot;LRU&quot;</span> <span class="attr">flushInterval</span>=<span class="string">&quot;&quot;</span> <span class="attr">size</span>=<span class="string">&quot;&quot;</span> <span class="attr">readOnly</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  专门设置映射规则的   --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;zz&quot;</span> <span class="attr">type</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 专门标识主键        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span> <span class="attr">column</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 非主键        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span> <span class="attr">column</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在遇到多对一时可以使用 然后也可以通过另外一个select语句进行查找 column就是传去那个select语句的参数 select 可以引用其他命名空间的方法       --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span> <span class="attr">column</span>=<span class="string">&quot;&quot;</span> <span class="attr">select</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在遇到一对多的情况 可以通过另外一个select语句进行查找  column就是传去那个select语句的参数 select 可以引用其他命名空间的方法     --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span> <span class="attr">column</span>=<span class="string">&quot;&quot;</span> <span class="attr">select</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--      resultMap 设置映射规则         --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;a&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;zz&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- useGeneratedKeys=&quot;&quot; 获取自增主键值（只能针对有自增功能的数据库）  keyProperty=&quot;&quot; keyColumn=&quot;&quot; 自增主键的列名和对应javabean的名字   --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;a&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;a&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;a&quot;</span> <span class="attr">keyColumn</span>=<span class="string">&quot;a&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--  selectKey 针对于数据库没有自增功能的情况 可另外使用一个select语句进行查找 order为 在主查询之前还是之后  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyColumn</span>=<span class="string">&quot;&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;&quot;</span> <span class="attr">order</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--   抽离出重复sql部分 然后在上面的增删改查标签中可使用&lt;include refid=&quot;&quot;&gt;&lt;/include&gt;  标签进行引用  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>在sql语句传参（多个参数的情况下）可能出现错误</p>
+<p>方法1：顺序传参法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public User selectUser(String name, int deptId);</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;selectUser&quot; resultMap=&quot;UserResultMap&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">    where user_name = #&#123;0&#125; and dept_id = #&#123;1&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>#&#123;&#125;</code>里面的数字代表你传入参数的顺序。</p>
+<p>这种方法不建议使用，sql层表达不直观，且一旦顺序调整容易出错。</p>
+<p>方法2：@Param注解传参法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public User selectUser(@Param(&quot;userName&quot;) String name, int @Param(&quot;deptId&quot;) deptId);</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;selectUser&quot; resultMap=&quot;UserResultMap&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">    where user_name = #&#123;userName&#125; and dept_id = #&#123;deptId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><code>#&#123;&#125;</code>里面的名称对应的是注解 <code>@Param</code>括号里面修饰的名称。</li>
+</ol>
+<p>这种方法在参数不多的情况还是比较直观的，推荐使用。</p>
+<p>方法3：Map传参法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public User selectUser(Map&lt;String, Object&gt; params);</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;selectUser&quot; parameterType=&quot;java.util.Map&quot; resultMap=&quot;UserResultMap&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">    where user_name = #&#123;userName&#125; and dept_id = #&#123;deptId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>#&#123;&#125;</code>里面的名称对应的是 <code>Map</code>里面的key名称。</p>
+<p>这种方法适合传递多个参数，且参数易变能灵活传递的情况。</p>
+<p>方法4：Java Bean传参法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public User selectUser(User params);</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;selectUser&quot; parameterType=&quot;com.test.User&quot; resultMap=&quot;UserResultMap&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">    where user_name = #&#123;userName&#125; and dept_id = #&#123;deptId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>#&#123;&#125;</code>里面的名称对应的是 <code>User</code>类里面的成员属性。</p>
+<p>这种方法很直观，但需要建一个实体类，扩展不容易，需要加属性，看情况使用。</p>
+<p>注解开发</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>对应XML</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Insert</td>
+<td><insert></td>
+<td>新增SQL</td>
+</tr>
+<tr>
+<td>@Update</td>
+<td><update></td>
+<td>更新SQL</td>
+</tr>
+<tr>
+<td>@Delete</td>
+<td><delete></td>
+<td>删除SQL</td>
+</tr>
+<tr>
+<td>@Select</td>
+<td><select></td>
+<td>查询SQL</td>
+</tr>
+<tr>
+<td>@Param</td>
+<td>–</td>
+<td>参数映射</td>
+</tr>
+<tr>
+<td>@Results</td>
+<td><resultMap></td>
+<td>结果映射</td>
+</tr>
+<tr>
+<td>@Result</td>
+<td><id>   <result></td>
+<td>字段映射</td>
+</tr>
+</tbody></table>
+<h4 id="与Spring进行整合"><a href="#与Spring进行整合" class="headerlink" title="与Spring进行整合"></a>与Spring进行整合</h4><p>导入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0.3&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在容器中 加入 DataSource的bean (比方说这里就可以直接使用第三方的数据库连接池 也可可以使用mybatis的默认数据库连接池org.apache.ibatis.datasource.pooled.PooledDataSource)</p>
+<p>在容器中 加入 sessionFactory的bean   (com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean)然后讲dataSource 和 mapperLocations和configLocation的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- MyBatis与Spring的整合配置 --&gt;</span><br><span class="line">&lt;!--2.配置数据源--&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/imooc_reader?useSSL=false&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;allowPublicKeyRetrieval=true&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;initialSize&quot; value=&quot;5&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;maxActive&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!-- 3. SqlSessionFactoryBean用于根据配置信息创建SqlSessionFactory,不再需要我们自己编码创建 --&gt;</span><br><span class="line">&lt;!-- 原生Mybaits与Spring整合</span><br><span class="line">&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;</span><br><span class="line">--&gt;</span><br><span class="line">&lt;bean id=&quot;sessionFactory&quot; class=&quot;com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</span><br><span class="line">    &lt;!-- 映射mapper.xml文件的存放位置       --&gt;</span><br><span class="line">    &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath:mappers/*.xml&quot;/&gt;</span><br><span class="line">    &lt;!-- 5.MyBatis配置文件地址 --&gt;</span><br><span class="line">    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis-config.xml&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!--4.配置Mapper扫描器 如果使用配置文件注册mapper 则mapper.xml 文件里的命名空间得是 对应mapper类的全类名 然后有了对应sql规则 也有了对应的class类 就可自动注册入spring框架里头 如果使用注解开发 mapper类 需要用注解写入sql规则 --&gt;</span><br><span class="line">&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;basePackage&quot; value=&quot;com.imooc.reader.mapper&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!--声明式事务配置 需要使用事务的  @Transactional 进行标注--&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Springboot整合 MyBatis操作</p>
+<h4 id="3、整合MyBatis操作"><a href="#3、整合MyBatis操作" class="headerlink" title="3、整合MyBatis操作"></a>3、整合MyBatis操作</h4><p>导入数据库：</p>
+<p>1、导入JDBC场景</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.nlark.com/yuque/0/2020/png/1354552/1606366100317-5e0199fa-6709-4d32-bce3-bb262e2e5e6a.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_20,text_YXRndWlndS5jb20g5bCa56GF6LC3,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img" class="lazyload"></h3><p>数据库驱动？</p>
+<p>为什么导入JDBC场景，官方不导入驱动？官方不知道我们接下要操作什么数据库。</p>
+<p>数据库版本和驱动版本对应</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">默认版本：<span class="tag">&lt;<span class="name">mysql.version</span>&gt;</span>8.0.22<span class="tag">&lt;/<span class="name">mysql.version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;version&gt;5.1.49&lt;/version&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">想要修改版本</span><br><span class="line">1、直接依赖引入具体版本（maven的就近依赖原则）</span><br><span class="line">2、重新声明版本（maven的属性的就近优先原则）</span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mysql.version</span>&gt;</span>5.1.49<span class="tag">&lt;/<span class="name">mysql.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="2、分析自动配置"><a href="#2、分析自动配置" class="headerlink" title="2、分析自动配置"></a>2、分析自动配置</h5><h6 id="1、自动配置的类"><a href="#1、自动配置的类" class="headerlink" title="1、自动配置的类"></a>1、自动配置的类</h6><ul>
+<li><p>DataSourceAutoConfiguration ： 数据源的自动配置</p>
+</li>
+<li><ul>
+<li>修改数据源相关的配置：<strong>spring.datasource</strong></li>
+<li><strong>数据库连接池的配置，是自己容器中没有DataSource才自动配置的</strong></li>
+</ul>
+</li>
+<li><ul>
+<li>底层配置好的连接池是：<strong>HikariDataSource</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="meta">@Conditional(PooledDataSourceCondition.class)</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(&#123; DataSource.class, XADataSource.class &#125;)</span></span><br><span class="line"><span class="meta">@Import(&#123; DataSourceConfiguration.Hikari.class, DataSourceConfiguration.Tomcat.class,</span></span><br><span class="line"><span class="meta">		DataSourceConfiguration.Dbcp2.class, DataSourceConfiguration.OracleUcp.class,</span></span><br><span class="line"><span class="meta">		DataSourceConfiguration.Generic.class, DataSourceJmxConfiguration.class &#125;)</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PooledDataSourceConfiguration</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>DataSourceTransactionManagerAutoConfiguration： 事务管理器的自动配置</p>
+</li>
+<li><p>JdbcTemplateAutoConfiguration： <strong>JdbcTemplate的自动配置，可以来对数据库进行crud</strong></p>
+</li>
+<li><ul>
+<li>可以修改这个配置项@ConfigurationProperties(prefix = <strong>“spring.jdbc”</strong>) 来修改JdbcTemplate</li>
+<li>@Bean@Primary    JdbcTemplate；容器中有这个组件</li>
+</ul>
+</li>
+<li><p>JndiDataSourceAutoConfiguration： jndi的自动配置</p>
+</li>
+<li><p>XADataSourceAutoConfiguration： 分布式事务相关的</p>
+</li>
+</ul>
+<h6 id="3、修改配置项"><a href="#3、修改配置项" class="headerlink" title="3、修改配置项"></a>3、修改配置项</h6><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/db_account</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/mybatis">https://github.com/mybatis</a></p>
+<p>starter</p>
+<p>SpringBoot官方的Starter：spring-boot-starter-*</p>
+<p>第三方的： *-spring-boot-starter</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.nlark.com/yuque/0/2020/png/1354552/1606704096118-53001250-a04a-4210-80ee-6de6a370be2e.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_20,text_YXRndWlndS5jb20g5bCa56GF6LC3,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img" class="lazyload"></p>
+<h5 id="1、配置模式"><a href="#1、配置模式" class="headerlink" title="1、配置模式"></a>1、配置模式</h5><ul>
+<li><p>全局配置文件</p>
+</li>
+<li><p>SqlSessionFactory: 自动配置好了</p>
+</li>
+<li><p>SqlSession：自动配置了 <strong>SqlSessionTemplate 组合了SqlSession</strong></p>
+</li>
+<li><p>@Import(<strong>AutoConfiguredMapperScannerRegistrar</strong>.<strong>class</strong>）；</p>
+</li>
+<li><p>Mapper： 只要我们写的操作MyBatis的接口标准了 <strong>@Mapper 就会被自动扫描进来</strong></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableConfigurationProperties(MybatisProperties.class)</span> ： MyBatis配置项绑定类。</span><br><span class="line"><span class="meta">@AutoConfigureAfter(&#123; DataSourceAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisAutoConfiguration</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;mybatis&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisProperties</span></span></span><br></pre></td></tr></table></figure>
+
+<p>可以修改配置文件中 mybatis 开始的所有；</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置mybatis规则</span></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">config-location:</span> <span class="string">classpath:mybatis/mybatis-config.xml</span>  <span class="comment">#全局配置文件位置</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath:mybatis/mapper/*.xml</span>  <span class="comment">#sql映射文件位置</span></span><br><span class="line">  </span><br><span class="line"><span class="string">Mapper接口---&gt;绑定Xml</span></span><br><span class="line"><span class="string">&lt;?xml</span> <span class="string">version=&quot;1.0&quot;</span> <span class="string">encoding=&quot;UTF-8&quot;</span> <span class="string">?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE</span> <span class="string">mapper</span></span><br><span class="line">        <span class="string">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span><br><span class="line">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span><span class="string">&gt;</span></span><br><span class="line"><span class="string">&lt;mapper</span> <span class="string">namespace=&quot;com.atguigu.admin.mapper.AccountMapper&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!--</span>    <span class="string">public</span> <span class="string">Account</span> <span class="string">getAcct(Long</span> <span class="string">id);</span> <span class="string">--&gt;</span></span><br><span class="line">    <span class="string">&lt;select</span> <span class="string">id=&quot;getAcct&quot;</span> <span class="string">resultType=&quot;com.atguigu.admin.bean.Account&quot;&gt;</span></span><br><span class="line">        <span class="string">select</span> <span class="string">*</span> <span class="string">from</span>  <span class="string">account_tbl</span> <span class="string">where</span>  <span class="string">id=#&#123;id&#125;</span></span><br><span class="line">    <span class="string">&lt;/select&gt;</span></span><br><span class="line"><span class="string">&lt;/mapper&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>配置 <strong>private</strong> Configuration <strong>configuration</strong>; mybatis.<strong>configuration下面的所有，就是相当于改mybatis全局配置文件中的值</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置mybatis规则</span></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line"><span class="comment">#  config-location: classpath:mybatis/mybatis-config.xml</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath:mybatis/mapper/*.xml</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line"> <span class="string">可以不写全局；配置文件，所有全局配置文件的配置都放在configuration配置项中即可</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li><p>导入mybatis官方starter</p>
+</li>
+<li><p>编写mapper接口。标准@Mapper注解</p>
+</li>
+<li><p>编写sql映射文件并绑定mapper接口</p>
+</li>
+<li><p>在application.yaml中指定Mapper配置文件的位置，以及指定全局配置文件的信息 （建议；<strong>配置在mybatis.configuration</strong>）</p>
+</li>
+</ul>
+<h5 id="2、注解模式"><a href="#2、注解模式" class="headerlink" title="2、注解模式"></a>2、注解模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CityMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from city where id=#&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> City <span class="title">getById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(City city)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>3、混合模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CityMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from city where id=#&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> City <span class="title">getById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(City city)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>最佳实战：</strong></p>
+<ul>
+<li><p>引入mybatis-starter</p>
+</li>
+<li><p><strong>配置application.yaml中，指定mapper-location位置即可</strong></p>
+</li>
+<li><p>编写Mapper接口并标注@Mapper注解</p>
+</li>
+<li><p>简单方法直接注解方式</p>
+</li>
+<li><p>复杂方法编写mapper.xml进行绑定映射</p>
+</li>
+<li><p><em>@MapperScan(“com.atguigu.admin.mapper”) 简化，其他的接口就可以不用标注@Mapper注解</em></p>
+</li>
+</ul>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>AloneAtWar<br>
+        <strong>本文链接：</strong><a href="http://aloneatwar.github.io/MybatisReview.html" title="http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;MybatisReview.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;aloneatwar.github.io&#x2F;MybatisReview.html</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDIyNS8zMDY5Nw==">
+    <script id="livere-comment-js">
+    (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+</div>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1638003382277"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+	<script type="text/javascript">
+		var id='ZvrH2GP97dkjsTdgf7W6';
+		(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install', id ,'2.0.0');
+	</script>
+
+    
+
+
+
+
+
+</body>
+
+</html>
